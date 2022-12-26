@@ -1,11 +1,11 @@
 import FormRegistroDeGastos from "../../pure/form/FormRegistroDeGastos"
 import styles from "./Registros.module.css"
-import {collection, onSnapshot, doc, setDoc, query, orderBy, deleteDoc} from 'firebase/firestore';
+import {collection, onSnapshot, doc, setDoc, query, orderBy} from 'firebase/firestore';
 import {useState, useEffect} from 'react';
 import moment from "moment";
 import db from "../../../backend/DBFiresbase"
 import getDataCollection from '../../../helpers/getDataCollection';
-import Swal from "sweetalert2";
+
 
 export default function RegistroDeGastos() {
 
@@ -95,7 +95,7 @@ export default function RegistroDeGastos() {
                 </div>
             </div>
 
-
+            {/* Se muestran los gastos registrados */}
             <div className="table-responsive text-center mt-5" style={{overflowX: "scroll"}}>
                 <table id="tablaGastos" className="table table-sm table-bordered text-center" style={{minWidth: "120%", width: "contain" }}> 
                     <thead>
