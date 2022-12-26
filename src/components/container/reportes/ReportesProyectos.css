@@ -1,0 +1,43 @@
+.wrapperVistaProyectos{
+    min-height: 60vh;
+    background-color: rgb(243, 219, 154);
+}
+.wrapperVistaProyectos p{
+    margin: 0;
+}
+.wrapperVistaProyectos .cardProyectos{
+    padding: .6rem 0;
+    border-radius: 5px;
+    background-color: rgb(179, 179, 179);
+}
+.wrapperVistaProyectos .cardProyectos .titulos{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+.wrapperVistaProyectos .cardProyectos .importes{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.importes .wrapperTable{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+}
+.importes .table th{
+    padding: .3rem;
+    font-size: .9rem;
+
+}
+.importes .table td{
+    padding: .3rem;
+    font-size: .8rem;
+}
+.wrapperVistaProyectos .cardProyectos .resultados{
+    display: flex;
+    justify-content: space-evenly;
+}
+.resultados > div p:first-child {
+    font-size: 1rem;
+    font-weight: 600;
+}

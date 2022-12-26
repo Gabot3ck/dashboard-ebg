@@ -1,0 +1,30 @@
+:root{
+    --colorMenu: #234872d2;
+    --colorMenuHover: #476b94d2;
+    --colorMenuCollapsedHover:  #628bbbd2;
+    --colorTexto: #ffffffcc;
+}
+
+.accordion-button,
+.accordion-button:not(.collapsed){
+    color: var(--colorTexto);
+    background-color: var(--colorMenu);
+}
+
+.accordion-button:hover{
+    background-color: var(--colorMenuHover);
+}
+
+.accordion-button:not(.collapsed):hover{
+    background-color: var(--colorMenuCollapsedHover);
+}
+
+.accordion-button:focus{
+    box-shadow: none;
+    border-color: none;
+}
+
+.accordion-item{
+    color: var(--colorTexto);
+}
+

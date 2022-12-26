@@ -1,0 +1,35 @@
+.WrapperContenedor{
+    margin: 0 auto;
+    padding: .5em;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(183, 243, 220, 0.74);
+    overflow-x: scroll;
+}
+
+.WrapperTable{
+    margin: 3rem auto;
+    padding: .5em;
+    min-width: 120%;
+    width: auto;
+    background-color: rgb(228, 235, 141);
+}
+
+.Table{
+    width: 100%;
+    /* table-layout: fixed; */
+    
+}
+
+.Table th{
+    margin: .5rem .7rem;
+    text-align: center;
+    font-size: .9rem;
+}
+.Table td{
+    text-align: center;
+    font-size: .8rem;
+}

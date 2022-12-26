@@ -1,0 +1,8 @@
+.WrapperMain{
+    margin: 0 auto;
+    padding: .5em 2.5em;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    background-color: pink;
+}

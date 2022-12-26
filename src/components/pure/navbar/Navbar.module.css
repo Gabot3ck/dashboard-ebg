@@ -1,0 +1,12 @@
+.Navbar{
+    width: 100%;
+    height: 100%;
+    padding: .5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.3rem;
+    background: linear-gradient(to top, #2C5364, #203A43, #0F2027);
+
+}

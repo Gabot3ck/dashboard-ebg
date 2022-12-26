@@ -1,0 +1,13 @@
+.WrapperHeader{
+    margin: 0 auto;
+    padding: .5em 2.5em;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    color: #ffffffcc;
+    background-color: #4c8dd8d2;
+}

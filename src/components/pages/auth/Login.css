@@ -1,0 +1,39 @@
+.wrapperLogin{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #DDDEDC;
+}
+.wrapperLogin .form-label{
+    font-style: "Montserrat";
+    font-weight: 600;
+    color: #494949;
+}
+.login{
+    margin: 0 auto;
+    min-width: 360px;
+    width: 50vw;
+    max-width: 400px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+.logo_login{
+    width: 45%;
+    max-width: 320px;
+    height: 35%;
+}
+.form_login{
+    padding: .8rem;
+    width: 80%;
+    max-width: 380px;
+    height: 50%;
+    border-radius: 15px;
+    background-color:  #65C400;
+    ;
+}
