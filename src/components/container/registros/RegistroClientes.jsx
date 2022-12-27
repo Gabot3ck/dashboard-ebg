@@ -3,7 +3,7 @@ import db from '../../../backend/DBFiresbase';
 import FormRegistroClientes from '../../pure/form/FormRegistroClientes';
 import styles from './Registros.module.css';
 import {useState, useEffect} from 'react';
-import moment from 'moment';
+
 
 export default function RegistroClientes() {
 
