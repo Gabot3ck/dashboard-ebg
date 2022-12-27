@@ -9,13 +9,11 @@ export default function ProyectosVentasGastos() {
     const [nombreProyectos, setNombreProyectos] = useState([]);
 
     const [ventasEnelCasinoEstadio, setVentasEnelCasinoEstadio] = useState(0);
-    const [ventasAltosPolo, setVentasAltosPolo] = useState(0);
-    const [ventas10Julio, setVentas10Julio] = useState(0);
+    const [ventasEnelProvidencia, setVentasEnelProvidencia] = useState(0);
     
 
     const [gastosEnelCasinoEstadio, setGastosEnelCasinoEstadio] = useState(0);
-    const [gastosAltosPolo, setGastosAltosPolo] = useState(0);
-    const [gastos10Julio, setGastos10Julio] = useState(0);
+    const [gastosEnelProvidencia, setGastosEnelProvidencia] = useState(0);
     
 
 
@@ -75,11 +73,11 @@ export default function ProyectosVentasGastos() {
     const series = [
         {
             name: 'Ventas',
-            data: [ventasEnelCasinoEstadio, ventasAltosPolo, ventas10Julio],
+            data: [ventasEnelCasinoEstadio, ventasEnelProvidencia],
         }, 
         {
             name: 'Gastos',
-            data: [gastosEnelCasinoEstadio, gastosAltosPolo, gastos10Julio],
+            data: [gastosEnelCasinoEstadio, gastosEnelProvidencia],
         }, 
     ];
 
@@ -87,13 +85,11 @@ export default function ProyectosVentasGastos() {
         getListaColeccion("proyectos",setNombreProyectos);
 
         getSumaQuerySimple("ventas", "proyecto", "ENEL Casino Estadio", setVentasEnelCasinoEstadio);
-        getSumaQuerySimple("ventas", "proyecto", "Altos del Polo", setVentasAltosPolo);
-        getSumaQuerySimple("ventas", "proyecto", "10 de Julio", setVentas10Julio);
+        getSumaQuerySimple("ventas", "proyecto", "Altos del Polo", setVentasEnelProvidencia);
         
 
         getSumaQuerySimple("gastos", "proyecto", "ENEL Casino Estadio", setGastosEnelCasinoEstadio);
-        getSumaQuerySimple("gastos", "proyecto", "Altos del Polo", setGastosAltosPolo);
-        getSumaQuerySimple("gastos", "proyecto", "10 de Julio", setGastos10Julio);
+        getSumaQuerySimple("gastos", "proyecto", "Altos del Polo", setGastosEnelProvidencia);
         
 
     }, []);
