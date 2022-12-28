@@ -3,7 +3,10 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+.foco{
+  border: 1px solid red;
+  box-shadow: 0 4px 32px 0 red;
+}
 
 
 @media (prefers-reduced-motion: no-preference) {

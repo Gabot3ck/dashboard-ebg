@@ -28,7 +28,7 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-              <Route path="/" element={
+              <Route path="/home" element={
                 <ProtectedRoute>
                   <Home/>
                 </ProtectedRoute>

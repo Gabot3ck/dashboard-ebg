@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import Logo from "./logo-ebg.png";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { showMessageError } from "../../../helpers/ShowMessage";
 import "./Login.css";
 
 
@@ -17,64 +18,74 @@ export const Login =  () => {
 
     const {login} = useAuth();
     const navigate = useNavigate();
-    const [error, setError] = useState();
+
+    const [focusEmail, setFocusEmail] = useState(false);
+    const [focusPass, setFocusPass] = useState(false);
+
+
+    
 
     const handleChange = ({target: {name, value}}) => 
         setUser({...user, [name]: value});
     
 
-    const showMessage = (mensaje) => {
-    
-        toast.error(`${mensaje}`, {
-            position: "top-center",
-            autoClose: false,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            });
-    }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        setError("")
 
         try {
 
             await login(user.usuario, user.password);
-            navigate("/");
+            navigate("/home");
 
         } catch (error){
             
             if(error.code === "auth/wrong-password") {
 
-                showMessage("La contraseña es incorrecta");
-                // validateInput(inputPass);
+                showMessageError("La contraseña es incorrecta");
+                setFocusPass(true);
     
             } else if (error.code === "auth/user-not-found") {
     
-                showMessage("Usuario no registrado o incorrecto");
-                // validateInput(inputEmail);
+                showMessageError("Usuario no registrado o incorrecto");
+                setFocusEmail(true);
     
             } else if (error.code === "auth/invalid-email") {
     
-                    showMessage("Ingrese su email");
-                    // validateInput(inputEmail);
+                    showMessageError("Ingrese su email");
+                    setFocusEmail(true);
     
             }  else if (error.code === "auth/internal-error") {
-                showMessage("Ingrese su contraseña");
-                // validateInput(inputPass);
+                showMessageError("Ingrese su contraseña");
+                setFocusPass(true);
+
             } else if (error.code === "auth/to-many-requests"){
-                showMessage("Demasiados intentos fallidos, intente de nuevo en 3 min");
+                showMessageError("Demasiados intentos fallidos, intente de nuevo en 3 min");
             } else {
-                showMessage(error.message);
+                showMessageError(error.message);
             }
         }
 
     }
+
+    useEffect( () => {
+        let timerEmail = "";
+        let timerPass = "";
+
+
+        if(focusEmail){
+            timerEmail = setTimeout(() => setFocusEmail(false), 3200);
+        }
+
+        if(focusPass){
+            timerPass = setTimeout(() => setFocusPass(false), 3200);
+        }
+
+        return () => {
+            clearTimeout(timerEmail);
+            clearTimeout(timerPass);
+        }
+
+    }, [focusEmail, focusPass])
 
 
     return (<>
@@ -94,7 +105,7 @@ export const Login =  () => {
                         <input
                             onChange={handleChange}
                             type="email"
-                            className="form-control" 
+                            className={`form-control  ${focusEmail ? "foco" : ""}`} 
                             id="AuthEmail"
                             name="usuario"/>
                         <label className="form-label mt-1">EMAIL</label>
@@ -104,7 +115,7 @@ export const Login =  () => {
                         <input
                             onChange={handleChange} 
                             type="password"
-                            className="form-control" 
+                            className={`form-control  ${focusPass ? "foco" : ""}`} 
                             id="AuthPassword"
                             name="password"/>
                         <label className="form-label mt-1">PASSWORD</label>

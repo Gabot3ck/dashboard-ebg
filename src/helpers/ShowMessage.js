@@ -2,11 +2,11 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export const showMessage = (mensaje) => {
+export const showMessageError = (mensaje) => {
     
     toast.error(`${mensaje}`, {
         position: "top-center",
-        autoClose: false,
+        autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -16,4 +16,3 @@ export const showMessage = (mensaje) => {
         });
 }
 
-export default showMessage;

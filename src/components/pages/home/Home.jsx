@@ -9,7 +9,6 @@ import RegistrosProyectos from '../../container/registros/RegistrosProyectos';
 import RegistroClientes from '../../container/registros/RegistroClientes';
 import RegistroContratistas from '../../container/registros/RegistroContratistas';
 import ReportesProyectos from '../../container/reportes/ReportesProyectos';
-import {ProtectedRoute} from '../../../routes/ProtectedRoute';
 import "./Home.css";
 
 
@@ -26,11 +25,7 @@ export const Home = () => {
 
         <main className='HomeMain' >
             <Routes>
-                <Route path="/" element={
-                <ProtectedRoute>
-                    <Resultado/>
-                </ProtectedRoute>
-            }/>
+                <Route path="/" element={<Resultado/>}/>
                 <Route path="/registros/gastos" element={<RegistroDeGastos/>}/>
                 <Route path="/registros/proveedores" element={<RegistroProveedores />}/>
                 <Route path="registros/clientes" element={<RegistroClientes/>}/>
