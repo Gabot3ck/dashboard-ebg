@@ -3,40 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-.App {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  grid-template-rows: 70px minmax(calc(100vh - 102px), auto);
-  grid-template-areas: 
-    "navbar  header"
-    "navbar  main";
-  grid-row-gap: 2rem;
-  background-color: #c4ddd8;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.AppNavbar{
-  grid-area: navbar;
-}
-
-.AppHeader{
-  padding: .4em;
-  grid-area: header;
-}
-
-.AppMain{
-  margin: 0 auto;
-  padding: .4em;
-  border-radius: 5px;
-  width: 98%;
-  height: 100%;
-  grid-area: main;
-  background-color: #ffffffd2;
-}
 
 
 @media (prefers-reduced-motion: no-preference) {
