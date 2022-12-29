@@ -28,7 +28,7 @@ export const AuthProvider = ({children}) => {
     const logout = () => signOut(auth)
 
     useEffect(() => {
-        onAuthStateChanged(auth, currentUser => {
+        onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             setLoading(false);
         })

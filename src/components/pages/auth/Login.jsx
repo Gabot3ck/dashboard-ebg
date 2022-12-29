@@ -35,7 +35,7 @@ export const Login =  () => {
         try {
 
             await login(user.usuario, user.password);
-            navigate("/home");
+            navigate("/");
 
         } catch (error){
             

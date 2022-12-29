@@ -28,12 +28,12 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-              <Route path="/home" element={
+              <Route path="/*" element={
                 <ProtectedRoute>
                   <Home/>
                 </ProtectedRoute>
               }/>
-              <Route path="login" element={<Login />}/>
+              <Route path="/login" element={<Login />}/>
             </Routes>
         </AuthProvider>
       </BrowserRouter>
