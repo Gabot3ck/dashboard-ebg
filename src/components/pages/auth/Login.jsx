@@ -35,7 +35,12 @@ export const Login =  () => {
         try {
 
             await login(user.usuario, user.password);
+            setUser({
+                usuario: "",
+                password: "",
+            });
             navigate("/");
+            
 
         } catch (error){
             
@@ -64,6 +69,7 @@ export const Login =  () => {
                 showMessageError(error.message);
             }
         }
+        
 
     }
 

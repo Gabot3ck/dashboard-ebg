@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { signInWithEmailAndPassword, getAuth, onAuthStateChanged, signOut} from 'firebase/auth';
 import {firebaseApp} from '../backend/DBFiresbase';
+import {doc, getDoc} from 'firebase/firestore';
+import db from '../backend/DBFiresbase';
 
 const auth = getAuth(firebaseApp);
 
@@ -27,12 +29,39 @@ export const AuthProvider = ({children}) => {
     // Cerrar sesión
     const logout = () => signOut(auth)
 
+
+    const getPerfil = async (uid) => {
+        const docRef = await (getDoc(doc(db, `usuarios/${uid}`)))
+        const dataPerfil = docRef.data().perfil;
+        return dataPerfil;
+    }
+    
+
     useEffect(() => {
-        onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-            setLoading(false);
-        })
-    }, [])
+
+        const setUserWithFirebaseAndRol = (usuarioFirebase) => {
+            getPerfil(usuarioFirebase.uid)
+                    .then(perfil => {
+                        const userData = {
+                            uid: usuarioFirebase.uid,
+                            perfil: perfil,
+                        }
+                        setUser(userData);
+                        console.log(userData);
+                    })
+        }
+
+        onAuthStateChanged(auth, (usuarioFirebase) => {
+            if (usuarioFirebase) {
+                setLoading(false);
+                
+                setUserWithFirebaseAndRol(usuarioFirebase)
+                
+            } else {
+                setUser(null);
+            }
+        });
+    }, [user])
     
 
     return (

@@ -9,11 +9,15 @@ import RegistrosProyectos from '../../container/registros/RegistrosProyectos';
 import RegistroClientes from '../../container/registros/RegistroClientes';
 import RegistroContratistas from '../../container/registros/RegistroContratistas';
 import ReportesProyectos from '../../container/reportes/ReportesProyectos';
+import {useAuth} from '../../../context/authContext';
 import "./Home.css";
 
 
-export const Home = ({ user }) => {
-    
+export const Home = () => {
+
+    const {user} = useAuth();
+
+
     return( <>
     <div className="Home">
         <nav className='HomeNavbar'>
