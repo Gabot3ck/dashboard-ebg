@@ -11,6 +11,7 @@ import RegistroContratistas from '../../container/registros/RegistroContratistas
 import ReportesProyectos from '../../container/reportes/ReportesProyectos';
 import {useAuth} from '../../../context/authContext';
 import "./Home.css";
+import { Saludo } from '../saludo/Saludo';
 
 
 export const Home = () => {
@@ -21,7 +22,7 @@ export const Home = () => {
     return( <>
     <div className="Home">
         <nav className='HomeNavbar'>
-        {user.perfil === "Gerente" && <Navbar/>}
+            <Navbar/> 
         </nav>
         
         <header className='HomeHeader'>
@@ -30,7 +31,10 @@ export const Home = () => {
 
         <main className='HomeMain' >
             <Routes>
-                <Route path="/" element={ <Resultado/>}/>
+                {user.perfil === "Gerente" ? 
+                <Route path="/" element={ <Resultado/>}/> : 
+                <Route path="/" element={ <Saludo/>}/> 
+                }
                 <Route path="/registros/gastos" element={<RegistroDeGastos/>}/>
                 <Route path="/registros/proveedores" element={<RegistroProveedores />}/>
                 <Route path="registros/clientes" element={<RegistroClientes/>}/>
