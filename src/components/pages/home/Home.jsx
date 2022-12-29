@@ -12,11 +12,12 @@ import ReportesProyectos from '../../container/reportes/ReportesProyectos';
 import "./Home.css";
 
 
-export const Home = () => {
+export const Home = ({ user }) => {
+    
     return( <>
     <div className="Home">
         <nav className='HomeNavbar'>
-            <Navbar/>
+        {user.perfil === "Gerente" && <Navbar/>}
         </nav>
         
         <header className='HomeHeader'>
@@ -25,7 +26,7 @@ export const Home = () => {
 
         <main className='HomeMain' >
             <Routes>
-                <Route path="/" element={<Resultado/>}/>
+                <Route path="/" element={ <Resultado/>}/>
                 <Route path="/registros/gastos" element={<RegistroDeGastos/>}/>
                 <Route path="/registros/proveedores" element={<RegistroProveedores />}/>
                 <Route path="registros/clientes" element={<RegistroClientes/>}/>
