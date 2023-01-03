@@ -22,43 +22,41 @@ export const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
 
     // Iniciar sesión
-    const login = (usuario, password) => 
-        signInWithEmailAndPassword(auth, usuario, password) ;
-    
+    const login = (usuario, password) => {
+        return signInWithEmailAndPassword(auth, usuario, password);
+    };
+
 
     // Cerrar sesión
     const logout = () => {
-        // setUser(null);
+        setUser(null);
         signOut(auth);
     }
 
 
-    const getPerfil = async (uid) => {
-        const docRef = await (getDoc(doc(db, `usuarios/${uid}`)))
-        const dataPerfil = docRef.data().perfil;
-        return dataPerfil;
-    }
-    
-
     useEffect(() => {
 
-        const setUserWithFirebaseAndRol = (usuarioFirebase) => {
-            getPerfil(usuarioFirebase.uid)
-                    .then(perfil => {
-                        const userData = {
-                            uid: usuarioFirebase.uid,
-                            perfil: perfil,
-                        }
-                        setUser(userData);
-                        console.log(userData);
-                    })
+        const getPerfil = async (uid) => {
+            const docRef = await (getDoc(doc(db, `usuarios/${uid}`)))
+            const dataPerfil = docRef.data();
+            return dataPerfil;
         }
+
 
         onAuthStateChanged(auth, (usuarioFirebase) => {
             if (usuarioFirebase) {
                 setLoading(false);
-                
-                setUserWithFirebaseAndRol(usuarioFirebase)
+
+                setUser(getPerfil(usuarioFirebase.uid)
+                    .then(data => {
+                        const userData = {
+                            uid: usuarioFirebase.uid,
+                            perfil: data.perfil,
+                            nombre: data.nombre,
+                            apellido: data.apellido,
+                        }
+                        setUser(userData);
+                    }))
                 
             } else {
                 setUser(null);

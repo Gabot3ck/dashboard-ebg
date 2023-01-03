@@ -10,12 +10,12 @@ export default function SubmenuRegistros() {
     return (<>
 
         <ul className="wrapper_SubmenuContainer">
-            <ItemSubmenu titulo="Gastos" ruta="/registros/gastos"/>
-            <ItemSubmenu titulo="Proveedores" ruta="/registros/proveedores"/>
+            <ItemSubmenu titulo="Gastos" ruta="registros/gastos"/>
+            <ItemSubmenu titulo="Proveedores" ruta="registros/proveedores"/>
             <ItemSubmenu titulo="Clientes" ruta="registros/clientes"/>
             <ItemSubmenu titulo="Contratistas" ruta="registros/contratistas"/>
-            {user.perfil === "Gerente" && <ItemSubmenu titulo="Proyectos" ruta="/registros/proyectos"/>}
-            {user.perfil === "Gerente" && <ItemSubmenu titulo="Ventas" ruta="/registros/ventas"/> }
+            {user.perfil === "Gerente" && <ItemSubmenu titulo="Proyectos" ruta="registros/proyectos"/>}
+            {user.perfil === "Gerente" && <ItemSubmenu titulo="Ventas" ruta="registros/ventas"/> }
         </ul>
 
     </>)

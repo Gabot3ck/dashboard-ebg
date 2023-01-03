@@ -35,12 +35,12 @@ export const Home = () => {
                 <Route path="/" element={ <Resultado/>}/> : 
                 <Route path="/" element={ <Saludo/>}/> 
                 }
-                <Route path="/registros/gastos" element={<RegistroDeGastos/>}/>
-                <Route path="/registros/proveedores" element={<RegistroProveedores />}/>
+                <Route path="registros/gastos" element={<RegistroDeGastos/>}/>
+                <Route path="registros/proveedores" element={<RegistroProveedores />}/>
                 <Route path="registros/clientes" element={<RegistroClientes/>}/>
                 <Route path="registros/contratistas" element={<RegistroContratistas/>}/>
-                <Route path="/registros/proyectos" element={<RegistrosProyectos />}/>
-                <Route path="/registros/ventas" element={<RegistrosVentas />}/>
+                <Route path="registros/proyectos" element={<RegistrosProyectos />}/>
+                <Route path="registros/ventas" element={<RegistrosVentas />}/>
                 <Route path="reportes/proyectos" element={<ReportesProyectos/>}/>
             </Routes>
         </main>

@@ -35,11 +35,12 @@ export const Login =  () => {
         try {
 
             await login(user.usuario, user.password);
+            navigate("/home");
             setUser({
                 usuario: "",
                 password: "",
             });
-            navigate("/home");
+            
             
 
         } catch (error){
