@@ -39,7 +39,7 @@ export const Login =  () => {
                 usuario: "",
                 password: "",
             });
-            navigate("/");
+            navigate("/home");
             
 
         } catch (error){

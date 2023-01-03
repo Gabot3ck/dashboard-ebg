@@ -27,7 +27,10 @@ export const AuthProvider = ({children}) => {
     
 
     // Cerrar sesión
-    const logout = () => signOut(auth)
+    const logout = () => {
+        // setUser(null);
+        signOut(auth);
+    }
 
 
     const getPerfil = async (uid) => {
