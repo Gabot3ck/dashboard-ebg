@@ -72,6 +72,7 @@ export default function RegistrosProyectos() {
                             <th>Nombre</th>
                             <th>Presupuesto</th>
                             <th>Cliente</th>
+                            <th>Área</th>
                             <th>Descripción</th>
                             <th>Dirección</th>
                             <th>Comuna</th>
@@ -88,6 +89,7 @@ export default function RegistrosProyectos() {
                                     <td>{el.nombre}</td>
                                     <td>$ {new Intl.NumberFormat('de-DE').format(el.presupuesto)}</td>
                                     <td>{el.cliente}</td>
+                                    <td>{el.area}</td>
                                     <td>{el.descripcion}</td>
                                     <td >{el.direccion}</td>
                                     <td>{el.comuna}</td>

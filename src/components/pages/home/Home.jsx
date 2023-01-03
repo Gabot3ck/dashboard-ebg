@@ -12,6 +12,7 @@ import ReportesProyectos from '../../container/reportes/ReportesProyectos';
 import {useAuth} from '../../../context/authContext';
 import "./Home.css";
 import { Saludo } from '../saludo/Saludo';
+import { ResultadoRemodelaciones } from '../../container/principal/ResultadoRemodelaciones';
 
 
 export const Home = () => {
@@ -42,6 +43,7 @@ export const Home = () => {
                 <Route path="registros/proyectos" element={<RegistrosProyectos />}/>
                 <Route path="registros/ventas" element={<RegistrosVentas />}/>
                 <Route path="reportes/proyectos" element={<ReportesProyectos/>}/>
+                <Route path="resultados/remodelaciones" element={<ResultadoRemodelaciones />}/>
             </Routes>
         </main>
     </div>

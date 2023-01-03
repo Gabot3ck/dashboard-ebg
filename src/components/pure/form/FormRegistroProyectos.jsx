@@ -21,6 +21,7 @@ export default function FormRegistroProyectos({setData}) {
         fechaRegistro: "",
         descripcion: "",
         estado: "ejecución",
+        area:"",
         ventas:[],
         gastos:[],
     }
@@ -159,6 +160,22 @@ export default function FormRegistroProyectos({setData}) {
                 name="fechaTermino"
                 value={valores.fechaTermino}
                 />
+            </div>
+
+            <div className="col-md-4">
+                <label className="form-label">Área del proyecto</label>
+                <select
+                    onChange={handleInput}
+                    className="form-select"
+                    id="areaProyecto"
+                    name="area"
+                    value={valores.area}>
+                    <option value="">Seleccione</option>
+                    <option value="OOCC">OOCC</option>
+                    <option value="Remodelaciones">Remodelaciones</option>
+                    <option value="Licitaciones">Licitaciones</option>
+                    <option value="Mueblería">Mueblería</option>
+                </select>
             </div>
 
 
