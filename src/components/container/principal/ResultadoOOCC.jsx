@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import CardImportes from '../../../models/CardImportes';
 import GraficoDonut from '../../../helpers/graficos/GraficoDonut';
-import TipoGastos from '../../../helpers/graficos/TipoGastos';
+import GraficoTipoGastos from '../../../helpers/graficos/GraficoTipoGastos';
 import ProyectosVentasGastos from '../../../helpers/graficos/ProyectosVentasGastos';
 import {Link} from 'react-router-dom';
 import getSumaVentasXArea from '../../../helpers/getSumaVentasXArea';
@@ -73,7 +73,7 @@ export const ResultadoOOCC = () => {
                 <h4 className='m-0' >Total Gastos Netos</h4>
                 <div className='w-50 mx-auto my-5 d-flex flex-column align-items-center'>
                     <GraficoDonut />
-                    <TipoGastos/>
+                    <GraficoTipoGastos/>
                     <ProyectosVentasGastos/>
                 </div>
                 

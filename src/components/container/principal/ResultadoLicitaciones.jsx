@@ -1,13 +1,13 @@
 import {useEffect, useState} from 'react';
 import CardImportes from '../../../models/CardImportes';
 import GraficoDonut from '../../../helpers/graficos/GraficoDonut';
-import TipoGastos from '../../../helpers/graficos/TipoGastos';
 import ProyectosVentasGastos from '../../../helpers/graficos/ProyectosVentasGastos';
 import {Link} from 'react-router-dom';
 import getSumaVentasXArea from '../../../helpers/getSumaVentasXArea';
 import getSumaGastosXArea from '../../../helpers/getSumaGastosXArea';
 import getSumaPresupuestoXArea from '../../../helpers/getSumaPresupuestoXArea';
 import getSumaManoObraXArea from '../../../helpers/getSumaManoObraXArea';
+import GraficoTipoGastos from '../../../helpers/graficos/GraficoTipoGastosRemodelaciones';
 
 
 export const ResultadoLicitaciones = () => {
@@ -73,7 +73,7 @@ export const ResultadoLicitaciones = () => {
                 <h4 className='m-0' >Total Gastos Netos</h4>
                 <div className='w-50 mx-auto my-5 d-flex flex-column align-items-center'>
                     <GraficoDonut />
-                    <TipoGastos/>
+                    <GraficoTipoGastos/>
                     <ProyectosVentasGastos/>
                 </div>
                 

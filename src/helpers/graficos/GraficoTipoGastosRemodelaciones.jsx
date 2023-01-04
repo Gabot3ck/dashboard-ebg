@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
-import getSumaQuerySimple from '../getSumaQuerySimple';
-import getTotalSuma from '../getTotalSuma';
+import getSumaGastosXArea from '../getSumaGastosXArea';
+import getSumaGastoXAreaYConcepto from '../getSumaGastosXAreaYConcepto';
 
 
-export default function TipoGastos() {
+export default function GraficoTipoGastos() {
 
     const [valorEquipos, setValorEquipos] = useState(0);
     const [valorMateriales, setValorMateriales] = useState(0);
@@ -27,7 +27,6 @@ export default function TipoGastos() {
     const [valorOtros, setValorOtros] = useState(0);
 
     const [gastosTotal, setGastosTotal] = useState(0);
-
 
 
     const options = {
@@ -93,43 +92,33 @@ export default function TipoGastos() {
             },
         ]
 
-    
-
     useEffect( () => {
 
-        getTotalSuma("gastos", setGastosTotal);
+        getSumaGastosXArea("proyectos", "area", "Remodelaciones", setGastosTotal);
 
-        getSumaQuerySimple("gastos", "concepto", "Equipos", setValorEquipos);
-        getSumaQuerySimple("gastos", "concepto", "Materiales", setValorMateriales);
-        getSumaQuerySimple("gastos", "concepto", "Herramientas", setValorHerramientas);
-        getSumaQuerySimple("gastos", "concepto", "Mano de Obra", setValorManoObra);
-        getSumaQuerySimple("gastos", "concepto", "Combustible", setValorCombustible);
-        getSumaQuerySimple("gastos", "concepto", "Arriendos", setValorArriendos);
-        getSumaQuerySimple("gastos", "concepto", "EPPs", setValorEPP);
-        getSumaQuerySimple("gastos", "concepto", "Mantenimientos", setValorMantenimiento);
-        getSumaQuerySimple("gastos", "concepto", "Fletes", setValorFletes);
-        getSumaQuerySimple("gastos", "concepto", "Retiro de escombro", setValorEscombro);
-        getSumaQuerySimple("gastos", "concepto", "Servicios", setValorServicios);
-        getSumaQuerySimple("gastos", "concepto", "Capacitaciones", setValorCapacitaciones);
-        getSumaQuerySimple("gastos", "concepto", "Exámenes médicos", setValorExamenesMed);
-        getSumaQuerySimple("gastos", "concepto", "Alojamientos", setValorAlojamientos);
-        getSumaQuerySimple("gastos", "concepto", "Viáticos", setValorViaticos);
-        getSumaQuerySimple("gastos", "concepto", "Contratistas", setValorContratistas);
-        getSumaQuerySimple("gastos", "concepto", "Servicio Contabilidad", setValorContabilidad);
-        getSumaQuerySimple("gastos", "concepto", "Hosting", setValorHosting);
-        getSumaQuerySimple("gastos", "concepto", "Otros", setValorOtros);
-
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Equipos", setValorEquipos);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Materiales", setValorMateriales);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Herramientas", setValorHerramientas);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Mano de Obra", setValorManoObra);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Combustible", setValorCombustible);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Arriendos", setValorArriendos);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "EPPs", setValorEPP);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Mantenimientos", setValorMantenimiento);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Fletes", setValorFletes);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Retiro de escombro", setValorEscombro);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Servicios", setValorServicios);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Capacitaciones", setValorCapacitaciones);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Exámenes médicos", setValorExamenesMed);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Alojamientos", setValorAlojamientos);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Viáticos", setValorViaticos);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Contratistas", setValorContratistas);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Servicio Contabilidad", setValorContabilidad);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Hosting", setValorHosting);
+        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Otros", setValorOtros);
 
     }, [gastosTotal]);
 
-    
-
     return (<>
-        {/* <button
-            
-            className='btn btn-danger'>
-                <i className="bi bi-arrow-clockwise fw-bold fs-3"></i>
-        </button> */}
         <Chart 
             options={options}
             series={series} 

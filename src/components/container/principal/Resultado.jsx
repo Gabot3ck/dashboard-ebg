@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import CardImportes from '../../../models/CardImportes';
 import getTotalSuma from '../../../helpers/getTotalSuma';
 import GraficoDonut from '../../../helpers/graficos/GraficoDonut';
-import TipoGastos from '../../../helpers/graficos/TipoGastos';
+import GraficoTipoGastos from '../../../helpers/graficos/GraficoTipoGastos';
 import ProyectosVentasGastos from '../../../helpers/graficos/ProyectosVentasGastos';
 import getSumaQuerySimple from '../../../helpers/getSumaQuerySimple';
 import getSumaPresupuesto from '../../../helpers/getSumaPresupuesto';
@@ -75,7 +75,7 @@ export default function Resultado() {
                 <h4 className='m-0' >Total Gastos Netos</h4>
                 <div className='w-50 mx-auto my-5 d-flex flex-column align-items-center'>
                     <GraficoDonut />
-                    <TipoGastos/>
+                    <GraficoTipoGastos/>
                     <ProyectosVentasGastos/>
                 </div>
                 
