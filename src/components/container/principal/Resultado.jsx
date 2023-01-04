@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import CardImportes from '../../../models/CardImportes';
 import getTotalSuma from '../../../helpers/getTotalSuma';
-import GraficoDonut from '../../../helpers/GraficoDonut';
+import GraficoDonut from '../../../helpers/graficos/GraficoDonut';
 import TipoGastos from '../../../helpers/graficos/TipoGastos';
 import ProyectosVentasGastos from '../../../helpers/graficos/ProyectosVentasGastos';
 import getSumaQuerySimple from '../../../helpers/getSumaQuerySimple';
@@ -35,6 +35,8 @@ export default function Resultado() {
                 <Link to="/home" className='btn btn-success' >Total</Link>
                 <Link to="resultados/oocc">OOCC</Link>
                 <Link to="resultados/remodelaciones">Remodelaciones</Link>
+                <Link to="/resultados/licitaciones">Licitaciones</Link>
+                <Link to="/resultados/mueblería">Mueblería</Link>
             </div>
             <div className="w-100 d-flex justify-content-around mt-4">
 

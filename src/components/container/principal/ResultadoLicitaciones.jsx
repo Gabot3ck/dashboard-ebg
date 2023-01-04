@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import CardImportes from '../../../models/CardImportes';
-import GraficoDonutRemodelaciones from '../../../helpers/graficos/GraficoDonutRemodelaciones';
+import GraficoDonut from '../../../helpers/graficos/GraficoDonut';
 import TipoGastos from '../../../helpers/graficos/TipoGastos';
 import ProyectosVentasGastos from '../../../helpers/graficos/ProyectosVentasGastos';
 import {Link} from 'react-router-dom';
@@ -10,7 +10,7 @@ import getSumaPresupuestoXArea from '../../../helpers/getSumaPresupuestoXArea';
 import getSumaManoObraXArea from '../../../helpers/getSumaManoObraXArea';
 
 
-export const ResultadoRemodelaciones = () => {
+export const ResultadoLicitaciones = () => {
     // todo  ---- GETTING DATA DE FIREBASE  -----
     const [gastos, setGastos ] = useState(0);
     const [ventas, setVentas] = useState(0);
@@ -19,10 +19,10 @@ export const ResultadoRemodelaciones = () => {
 
 
     useEffect(() => {
-        getSumaVentasXArea("proyectos","area","Remodelaciones",setVentas);
-        getSumaGastosXArea("proyectos","area","Remodelaciones",setGastos);
-        getSumaPresupuestoXArea("proyectos","area","Remodelaciones",setPorCobrar);
-        getSumaManoObraXArea("proyectos", "area", "Remodelaciones", setManoObra );
+        getSumaVentasXArea("proyectos","area","Licitaciones",setVentas);
+        getSumaGastosXArea("proyectos","area","Licitaciones",setGastos);
+        getSumaPresupuestoXArea("proyectos","area","Licitaciones",setPorCobrar);
+        getSumaManoObraXArea("proyectos", "area", "Licitaciones", setManoObra );
     }, []);
 
 
@@ -34,7 +34,7 @@ export const ResultadoRemodelaciones = () => {
                 <Link to="/resultados/remodelaciones">Remodelaciones</Link>
                 <Link to="/resultados/licitaciones">Licitaciones</Link>
             </div>
-            <h1 className='text-center' >Resultados Remodelaciones</h1>
+            <h1 className='text-center' >Resultados Licitaciones</h1>
             
             <div className="w-100 d-flex justify-content-around mt-4">
 
@@ -72,7 +72,7 @@ export const ResultadoRemodelaciones = () => {
             <div className='w-100 mx-auto my-5 d-flex flex-column text-center ' style={{background: "#d1d2d1"}} >
                 <h4 className='m-0' >Total Gastos Netos</h4>
                 <div className='w-50 mx-auto my-5 d-flex flex-column align-items-center'>
-                    <GraficoDonutRemodelaciones />
+                    <GraficoDonut />
                     <TipoGastos/>
                     <ProyectosVentasGastos/>
                 </div>

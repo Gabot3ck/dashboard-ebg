@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-import getSumaQuerySimple from "./getSumaQuerySimple";
+import getSumaGastoFijoXArea from "../getSumaGastoFijoXArea";
+import getSumaGastoVariableXArea from "../getSumaGastoVariableXArea";
 
 
 export default function GraficoDonut() {
@@ -83,9 +84,8 @@ export default function GraficoDonut() {
     const series = [gastosFijos, gastosVariables];
 
     useEffect(() => {
-        
-        getSumaQuerySimple("gastos", "tipo", "Fijo", setGastosFijos);
-        getSumaQuerySimple("gastos", "tipo", "Variable", setGastosVariables);
+        getSumaGastoVariableXArea("proyectos","area","Remodelaciones", setGastosVariables);
+        getSumaGastoFijoXArea("proyectos","area","Remodelaciones", setGastosFijos);
 
     }, [] )
 

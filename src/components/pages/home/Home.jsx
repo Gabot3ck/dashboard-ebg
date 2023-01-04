@@ -13,6 +13,8 @@ import {useAuth} from '../../../context/authContext';
 import "./Home.css";
 import { Saludo } from '../saludo/Saludo';
 import { ResultadoRemodelaciones } from '../../container/principal/ResultadoRemodelaciones';
+import { ResultadoOOCC } from '../../container/principal/ResultadoOOCC';
+import { ResultadoLicitaciones } from '../../container/principal/ResultadoLicitaciones';
 
 
 export const Home = () => {
@@ -44,6 +46,8 @@ export const Home = () => {
                 <Route path="registros/ventas" element={<RegistrosVentas />}/>
                 <Route path="reportes/proyectos" element={<ReportesProyectos/>}/>
                 <Route path="resultados/remodelaciones" element={<ResultadoRemodelaciones />}/>
+                <Route path="resultados/oocc" element={<ResultadoOOCC />}/>
+                <Route path="resultados/licitaciones" element={<ResultadoLicitaciones />}/>
             </Routes>
         </main>
     </div>
