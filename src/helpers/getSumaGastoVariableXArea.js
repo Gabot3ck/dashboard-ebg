@@ -9,7 +9,7 @@ const  getSumaGastoVariableXArea = (coleccion, clave, valor, estado) => {
             docs.push({...doc.data(), id:doc.id});
         });
 
-        const [precioTotal] = docs.map(el => el.gastos);
+        const precioTotal = docs.map(el => el.gastos);
             
         let lista = [];
 
