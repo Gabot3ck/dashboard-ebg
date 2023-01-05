@@ -3,7 +3,7 @@ import CardImportes from '../../../models/CardImportes';
 import getTotalSuma from '../../../helpers/getTotalSuma';
 import GraficoDonut from '../../../helpers/graficos/GraficoDonut';
 import GraficoTipoGastos from '../../../helpers/graficos/GraficoTipoGastos';
-import ProyectosVentasGastos from '../../../helpers/graficos/ProyectosVentasGastos';
+import GraficoProyectosVentasGastos from '../../../helpers/graficos/GraficoProyectosVentasGastos';
 import getSumaQuerySimple from '../../../helpers/getSumaQuerySimple';
 import getSumaPresupuesto from '../../../helpers/getSumaPresupuesto';
 import { Link } from 'react-router-dom';
@@ -76,7 +76,7 @@ export default function Resultado() {
                 <div className='w-50 mx-auto my-5 d-flex flex-column align-items-center'>
                     <GraficoDonut />
                     <GraficoTipoGastos/>
-                    <ProyectosVentasGastos/>
+                    <GraficoProyectosVentasGastos/>
                 </div>
                 
             </div>

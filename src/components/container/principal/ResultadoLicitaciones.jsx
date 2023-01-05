@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import CardImportes from '../../../models/CardImportes';
 import GraficoDonut from '../../../helpers/graficos/GraficoDonut';
-import ProyectosVentasGastos from '../../../helpers/graficos/ProyectosVentasGastos';
+import ProyectosVentasGastos from '../../../helpers/graficos/GraficoProyectosVentasGastos';
 import {Link} from 'react-router-dom';
 import getSumaVentasXArea from '../../../helpers/getSumaVentasXArea';
 import getSumaGastosXArea from '../../../helpers/getSumaGastosXArea';
