@@ -4,7 +4,6 @@ import db from '../backend/DBFiresbase';
 const  getSumaGastoVariableXArea = (coleccion, clave, valor, estado) => {
     onSnapshot(query(collection(db,coleccion), where(clave, "==", valor)), (querySnapshot) => {
         const docs = [];
-        let suma = 0;
 
         querySnapshot.forEach((doc) => {
             docs.push({...doc.data(), id:doc.id});
@@ -12,14 +11,24 @@ const  getSumaGastoVariableXArea = (coleccion, clave, valor, estado) => {
 
         const [precioTotal] = docs.map(el => el.gastos);
             
-            precioTotal.forEach((el) => {
-                if(el.tipo === "Variable"){
-                    return suma += parseInt(el.valor);
-                }
-            });
-            
+        let lista = [];
 
-        estado(suma);
+        precioTotal.forEach( (array) => {
+
+            if(array.length){
+                if(array.length === 1){
+                    array.map(gasto => gasto.tipo === "Variable" && lista.push( parseInt(gasto.valor)))
+                    
+                }
+                
+                if(array.length !== 1){
+                    lista.push(array.map(gasto => gasto.tipo === "Variable" &&  parseInt(gasto.valor)).reduce((a,b) => a+b));
+                }
+            }
+            
+        })
+
+        estado(lista.reduce((a,b) => a+b));
     });
 
 }
