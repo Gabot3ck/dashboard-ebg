@@ -30,14 +30,9 @@ export default function Resultado() {
 
     return (<>
         <div className='container bg-light w-100'>
-            <h1 className='text-center' >Resultados</h1>
-            <div className='w-100 d-flex justify-content-evenly'>
-                <Link to="/home" className='btn btn-success' >Total</Link>
-                <Link to="resultados/oocc">OOCC</Link>
-                <Link to="resultados/remodelaciones">Remodelaciones</Link>
-                <Link to="/resultados/licitaciones">Licitaciones</Link>
-                <Link to="/resultados/mueblería">Mueblería</Link>
-            </div>
+            
+            <h1 className='text-center' >Resultados Totales</h1>
+            
             <div className="w-100 d-flex justify-content-around mt-4">
 
                 <CardImportes nombre="Ventas" 

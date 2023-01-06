@@ -1,0 +1,10 @@
+:root{
+    --colorTexto: #ffffffcc;
+}
+
+.texto{
+    color: var(--colorTexto);
+}
+.texto:hover{
+    color: rgb(236, 124, 124)
+}
