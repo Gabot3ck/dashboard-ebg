@@ -6,7 +6,6 @@ import GraficoTipoGastos from '../../../helpers/graficos/GraficoTipoGastos';
 import GraficoProyectosVentasGastos from '../../../helpers/graficos/GraficoProyectosVentasGastos';
 import getSumaQuerySimple from '../../../helpers/getSumaQuerySimple';
 import getSumaPresupuesto from '../../../helpers/getSumaPresupuesto';
-import { Link } from 'react-router-dom';
 
 
 export default function Resultado() {

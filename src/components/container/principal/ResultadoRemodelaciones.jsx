@@ -1,13 +1,12 @@
 import {useEffect, useState} from 'react';
 import CardImportes from '../../../models/CardImportes';
-import GraficoDonutRemodelaciones from '../../../helpers/graficos/GraficoDonutRemodelaciones';
-import GraficoTipoGastosRemodelaciones from '../../../helpers/graficos/GraficoTipoGastosRemodelaciones';
-import {Link} from 'react-router-dom';
 import getSumaVentasXArea from '../../../helpers/getSumaVentasXArea';
 import getSumaGastosXArea from '../../../helpers/getSumaGastosXArea';
 import getSumaPresupuestoXArea from '../../../helpers/getSumaPresupuestoXArea';
 import getSumaManoObraXArea from '../../../helpers/getSumaManoObraXArea';
-import GraficoProyectosVentasGastosRemodelaciones from '../../../helpers/graficos/GraficoProyectosVentasGastosRemodelaciones';
+import GraficoDonutTipoGastos from '../../../helpers/graficos/GraficoDonutTipoGastos';
+import GraficoBarraConceptoGastos from '../../../helpers/graficos/GraficoBarraConceptoGastos';
+import GraficoBarraDobleVentasGastos from '../../../helpers/graficos/GraficoBarraDobleVentasGastos';
 
 
 export const ResultadoRemodelaciones = () => {
@@ -66,9 +65,9 @@ export const ResultadoRemodelaciones = () => {
             <div className='w-100 mx-auto my-5 d-flex flex-column text-center ' style={{background: "#d1d2d1"}} >
                 <h4 className='m-0' >Total Gastos Netos</h4>
                 <div className='w-50 mx-auto my-5 d-flex flex-column align-items-center'>
-                    <GraficoDonutRemodelaciones />
-                    <GraficoTipoGastosRemodelaciones/>
-                    <GraficoProyectosVentasGastosRemodelaciones/>
+                    <GraficoDonutTipoGastos tipoArea="Remodelaciones" />
+                    <GraficoBarraConceptoGastos tipoArea="Remodelaciones"/>
+                    <GraficoBarraDobleVentasGastos tipoArea="Remodelaciones" />
                 </div>
                 
             </div>

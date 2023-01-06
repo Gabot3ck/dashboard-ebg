@@ -1,13 +1,12 @@
 import {useEffect, useState} from 'react';
 import CardImportes from '../../../models/CardImportes';
-import GraficoDonut from '../../../helpers/graficos/GraficoDonut';
-import GraficoTipoGastos from '../../../helpers/graficos/GraficoTipoGastos';
-import ProyectosVentasGastos from '../../../helpers/graficos/GraficoProyectosVentasGastos';
-import {Link} from 'react-router-dom';
 import getSumaVentasXArea from '../../../helpers/getSumaVentasXArea';
 import getSumaGastosXArea from '../../../helpers/getSumaGastosXArea';
 import getSumaPresupuestoXArea from '../../../helpers/getSumaPresupuestoXArea';
 import getSumaManoObraXArea from '../../../helpers/getSumaManoObraXArea';
+import GraficoDonutTipoGastos from '../../../helpers/graficos/GraficoDonutTipoGastos';
+import GraficoBarraConceptoGastos from '../../../helpers/graficos/GraficoBarraConceptoGastos';
+import GraficoBarraDobleVentasGastos from '../../../helpers/graficos/GraficoBarraDobleVentasGastos';
 
 
 export const ResultadoOOCC = () => {
@@ -67,9 +66,9 @@ export const ResultadoOOCC = () => {
             <div className='w-100 mx-auto my-5 d-flex flex-column text-center ' style={{background: "#d1d2d1"}} >
                 <h4 className='m-0' >Total Gastos Netos</h4>
                 <div className='w-50 mx-auto my-5 d-flex flex-column align-items-center'>
-                    <GraficoDonut />
-                    <GraficoTipoGastos/>
-                    <ProyectosVentasGastos/>
+                    <GraficoDonutTipoGastos tipoArea="OOCC" />
+                    <GraficoBarraConceptoGastos tipoArea="OOCC" />
+                    <GraficoBarraDobleVentasGastos tipoArea="OOCC" />
                 </div>
                 
             </div>

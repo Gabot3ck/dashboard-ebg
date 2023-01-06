@@ -4,7 +4,7 @@ import getSumaGastosXArea from '../getSumaGastosXArea';
 import getSumaGastoXAreaYConcepto from '../getSumaGastosXAreaYConcepto';
 
 
-export default function GraficoTipoGastos() {
+export default function GraficoBarraConceptoGastos({tipoArea}) {
 
     const [valorEquipos, setValorEquipos] = useState(0);
     const [valorMateriales, setValorMateriales] = useState(0);
@@ -96,27 +96,27 @@ export default function GraficoTipoGastos() {
 
         getSumaGastosXArea("proyectos", "area", "Remodelaciones", setGastosTotal);
 
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Equipos", setValorEquipos);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Materiales", setValorMateriales);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Herramientas", setValorHerramientas);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Mano de Obra", setValorManoObra);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Combustible", setValorCombustible);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Arriendos", setValorArriendos);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "EPPs", setValorEPP);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Mantenimientos", setValorMantenimiento);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Fletes", setValorFletes);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Retiro de escombro", setValorEscombro);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Servicios", setValorServicios);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Capacitaciones", setValorCapacitaciones);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Exámenes médicos", setValorExamenesMed);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Alojamientos", setValorAlojamientos);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Viáticos", setValorViaticos);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Contratistas", setValorContratistas);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Servicio Contabilidad", setValorContabilidad);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Hosting", setValorHosting);
-        getSumaGastoXAreaYConcepto("proyectos", "area", "Remodelaciones", "Otros", setValorOtros);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Equipos", setValorEquipos);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Materiales", setValorMateriales);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Herramientas", setValorHerramientas);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Mano de Obra", setValorManoObra);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Combustible", setValorCombustible);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Arriendos", setValorArriendos);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "EPPs", setValorEPP);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Mantenimientos", setValorMantenimiento);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Fletes", setValorFletes);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Retiro de escombro", setValorEscombro);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Servicios", setValorServicios);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Capacitaciones", setValorCapacitaciones);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Exámenes médicos", setValorExamenesMed);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Alojamientos", setValorAlojamientos);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Viáticos", setValorViaticos);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Contratistas", setValorContratistas);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Servicio Contabilidad", setValorContabilidad);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Hosting", setValorHosting);
+        getSumaGastoXAreaYConcepto("proyectos", "area", tipoArea, "Otros", setValorOtros);
 
-    }, [gastosTotal]);
+    }, [tipoArea]);
 
     return (<>
         <Chart 

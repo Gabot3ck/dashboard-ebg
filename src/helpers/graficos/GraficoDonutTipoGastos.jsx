@@ -4,7 +4,7 @@ import getSumaGastoFijoXArea from "../getSumaGastoFijoXArea";
 import getSumaGastoVariableXArea from "../getSumaGastoVariableXArea";
 
 
-export default function GraficoDonut() {
+export default function GraficoDonutTipoGastos({tipoArea}) {
 
     const [gastosFijos, setGastosFijos] = useState([]);
     const [gastosVariables, setGastosVariables] = useState([]);
@@ -84,10 +84,10 @@ export default function GraficoDonut() {
     const series = [gastosFijos, gastosVariables];
 
     useEffect(() => {
-        getSumaGastoVariableXArea("proyectos","area","Remodelaciones", setGastosVariables);
-        getSumaGastoFijoXArea("proyectos","area","Remodelaciones", setGastosFijos);
+        getSumaGastoVariableXArea("proyectos","area", tipoArea , setGastosVariables);
+        getSumaGastoFijoXArea("proyectos","area", tipoArea , setGastosFijos);
 
-    }, [] )
+    }, [tipoArea] )
 
 
     return (<>

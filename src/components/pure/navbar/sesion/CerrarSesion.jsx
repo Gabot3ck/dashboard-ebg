@@ -15,7 +15,7 @@ const CerrarSesion = () => {
             <button
                 onClick={handleLogout}
                 className="btn texto">
-                <i class="bi bi-power me-2 btn btn-danger"></i>
+                <i className="bi bi-power me-2 btn btn-danger"></i>
                 Cerrar sesión
             </button>
         </div>

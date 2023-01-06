@@ -5,7 +5,7 @@ import getListaTotalVentasXArea from '../getListaTotalVentasXArea';
 import getListaXArea from '../getListaXArea';
 
 
-export default function ProyectosVentasGastos() {
+export default function GraficoBarraDobleVentasGastos({tipoArea}) {
 
     const [listaProyectos, setListaProyectos] = useState([]);
     const [ventas, setVentas] = useState([]);
@@ -78,11 +78,11 @@ export default function ProyectosVentasGastos() {
 
     useEffect(() => {
 
-        getListaXArea("proyectos", "area", "Remodelaciones", setListaProyectos);
-        getListaTotalVentasXArea("proyectos", "area", "Remodelaciones", setVentas);
-        getListaTotalGastosXArea("proyectos", "area", "Remodelaciones", setGastos);
+        getListaXArea("proyectos", "area", tipoArea, setListaProyectos);
+        getListaTotalVentasXArea("proyectos", "area", tipoArea, setVentas);
+        getListaTotalGastosXArea("proyectos", "area", tipoArea, setGastos);
         
-    }, []);
+    }, [tipoArea]);
 
     return (<>
 
