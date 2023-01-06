@@ -15,6 +15,7 @@ import { Saludo } from '../saludo/Saludo';
 import { ResultadoRemodelaciones } from '../../container/principal/ResultadoRemodelaciones';
 import { ResultadoOOCC } from '../../container/principal/ResultadoOOCC';
 import { ResultadoLicitaciones } from '../../container/principal/ResultadoLicitaciones';
+import { ResultadoMuebleria } from '../../container/principal/ResultadoMuebleria';
 
 
 export const Home = () => {
@@ -48,6 +49,7 @@ export const Home = () => {
                 <Route path="resultados/remodelaciones" element={<ResultadoRemodelaciones />}/>
                 <Route path="resultados/oocc" element={<ResultadoOOCC />}/>
                 <Route path="resultados/licitaciones" element={<ResultadoLicitaciones />}/>
+                <Route path="resultados/muebleria" element={<ResultadoMuebleria />}/>
             </Routes>
         </main>
     </div>
