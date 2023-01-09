@@ -1,11 +1,12 @@
 import {useEffect, useState} from 'react';
 import CardImportes from '../../../models/CardImportes';
-import getTotalSuma from '../../../helpers/getTotalSuma';
 import GraficoDonut from '../../../helpers/graficos/GraficoDonut';
 import GraficoTipoGastos from '../../../helpers/graficos/GraficoTipoGastos';
 import GraficoProyectosVentasGastos from '../../../helpers/graficos/GraficoProyectosVentasGastos';
 import getSumaQuerySimple from '../../../helpers/getSumaQuerySimple';
 import getSumaPresupuesto from '../../../helpers/getSumaPresupuesto';
+import getSumaGastos from '../../../helpers/getSumaGastos';
+import getSumaVentas from '../../../helpers/getSumaVentas';
 
 
 export default function Resultado() {
@@ -18,8 +19,8 @@ export default function Resultado() {
 
 
     useEffect(() => {
-        getTotalSuma("ventas", setVentas);
-        getTotalSuma("gastos", setGastos);
+        getSumaVentas("proyectos", setVentas);
+        getSumaGastos("proyectos", setGastos);
         getSumaQuerySimple("gastos", "concepto", "Mano de Obra", setManoObra );
         getSumaPresupuesto("proyectos",setPorCobrar);
         
