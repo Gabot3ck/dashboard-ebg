@@ -3,10 +3,10 @@ import CardImportes from '../../../models/CardImportes';
 import GraficoDonut from '../../../helpers/graficos/GraficoDonut';
 import GraficoTipoGastos from '../../../helpers/graficos/GraficoTipoGastos';
 import GraficoProyectosVentasGastos from '../../../helpers/graficos/GraficoProyectosVentasGastos';
-import getSumaQuerySimple from '../../../helpers/getSumaQuerySimple';
 import getSumaPresupuesto from '../../../helpers/getSumaPresupuesto';
 import getSumaGastos from '../../../helpers/getSumaGastos';
 import getSumaVentas from '../../../helpers/getSumaVentas';
+import getSumaManoObra from '../../../helpers/getSumaManoObra';
 
 
 export default function Resultado() {
@@ -21,7 +21,7 @@ export default function Resultado() {
     useEffect(() => {
         getSumaVentas("proyectos", setVentas);
         getSumaGastos("proyectos", setGastos);
-        getSumaQuerySimple("gastos", "concepto", "Mano de Obra", setManoObra );
+        getSumaManoObra("proyectos", setManoObra);
         getSumaPresupuesto("proyectos",setPorCobrar);
         
         
