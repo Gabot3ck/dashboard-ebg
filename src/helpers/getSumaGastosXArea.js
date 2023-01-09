@@ -28,7 +28,7 @@ const  getSumaGastosXArea = (coleccion, clave, valor, estado) => {
             
         })
 
-        estado(lista.reduce((a,b) => a+b));
+        estado(lista.length ? lista.reduce((a,b) => a+b) : 0);
     });
 
 }
