@@ -78,7 +78,6 @@ export default function ProyectosVentasGastos() {
 
     useEffect(() => {
         getListaProyectos("proyectos",setNombreProyectos);
-        
         getListaTotalVentas("proyectos", setVentas);
         getListaTotalGastos("proyectos", setGastos);
 
