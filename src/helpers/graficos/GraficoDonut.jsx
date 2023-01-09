@@ -84,8 +84,6 @@ export default function GraficoDonut() {
 
     useEffect(() => {
         
-        // getSumaQuerySimple("gastos", "tipo", "Fijo", setGastosFijos);
-        // getSumaQuerySimple("gastos", "tipo", "Variable", setGastosVariables);
         getSumaGastoXTipo("proyectos","Fijo",setGastosFijos);
         getSumaGastoXTipo("proyectos","Variable",setGastosVariables);
 

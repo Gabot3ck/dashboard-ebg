@@ -2,16 +2,14 @@ import { query, collection, onSnapshot, orderBy} from 'firebase/firestore';
 import db from '../backend/DBFiresbase';
 
 const  getListaTotalGastos = (coleccion, estado ) => {
-    onSnapshot(query(collection(db,coleccion), orderBy("fechaRegistro", "desc")), (querySnapshot) => {
+    onSnapshot(query(collection(db,coleccion), orderBy("nombre", "asc")), (querySnapshot) => {
         const docs = [];
-        // let suma = 0;
 
         querySnapshot.forEach((doc) => {
             docs.push({...doc.data(), id:doc.id});
         });
 
         const precioTotal = docs.map(el => el.gastos);
-
 
         let lista = [];
 

@@ -3,7 +3,7 @@ import db from '../backend/DBFiresbase';
 
 const getListaProyectos = (coleccion,  estado) => {
 
-    onSnapshot(query(collection(db,coleccion), orderBy("fechaRegistro", "desc")), (querySnapshot) => {
+    onSnapshot(query(collection(db,coleccion), orderBy("nombre", "asc")), (querySnapshot) => {
         const docs = [];
 
         querySnapshot.forEach((doc) => {

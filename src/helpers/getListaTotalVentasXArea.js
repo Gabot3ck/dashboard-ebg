@@ -2,7 +2,7 @@ import { query, collection, onSnapshot, where, orderBy} from 'firebase/firestore
 import db from '../backend/DBFiresbase';
 
 const  getListaTotalVentasXArea = (coleccion, clave, valor, estado ) => {
-    onSnapshot(query(collection(db,coleccion), where(clave, "==", valor), orderBy("fechaRegistro", "desc")), (querySnapshot) => {
+    onSnapshot(query(collection(db,coleccion), where(clave, "==", valor), orderBy("nombre", "asc")), (querySnapshot) => {
         const docs = [];
         // let suma = 0;
 
