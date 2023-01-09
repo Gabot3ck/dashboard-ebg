@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import moment from 'moment';
-import {collection, doc, arrayUnion, updateDoc, setDoc} from 'firebase/firestore';
+import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
 import db from '../../../backend/DBFiresbase';
 import getDataCollection from "../../../helpers/getDataCollection";
 import getIDDoc from "../../../helpers/getIDDoc.js"
@@ -60,9 +60,7 @@ export default function FormRegistroVentas() {
         //Se envían los datos de la venta al proyecto correspondiente
         const nuevaVenta = doc(db, "proyectos", id);
 
-        updateDoc(nuevaVenta,{ ventas: arrayUnion({...valores, fechaRegistro: fechaRegistro, anioVenta:anio, mesVenta:mes, proyecto:nombreProyecto })})
-        setDoc(doc(collection(db, "ventas")), {...valores, fechaRegistro: fechaRegistro, anioVenta:anio, mesVenta:mes, proyecto:nombreProyecto } )
-        
+        updateDoc(nuevaVenta,{ ventas: arrayUnion({...valores, fechaRegistro: fechaRegistro, anioVenta:anio, mesVenta:mes, proyecto:nombreProyecto })});
 
         //Se limpian los valores del formulario
         setValores({...valoresIniciales});

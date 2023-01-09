@@ -1,12 +1,12 @@
 import {useState, useEffect} from 'react';
 import moment from "moment";
 import getDataCollection from '../../../helpers/getDataCollection';
-import {arrayUnion, doc, updateDoc, setDoc, collection} from 'firebase/firestore';
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import db from '../../../backend/DBFiresbase';
 import getIDDoc from '../../../helpers/getIDDoc.js';
 
 
-export default function FormRegistroDeGastos({setData}) {
+export default function FormRegistroDeGastos() {
 
 
   const valoresIniciales = {
@@ -59,7 +59,7 @@ export default function FormRegistroDeGastos({setData}) {
 
     //Enviando Data a Firebase
     updateDoc(nuevoGasto, {gastos: arrayUnion({...valores, fechaRegistro: fechaRegistro, anioGasto:anio, mesGasto:mes, proyecto:nombreProyecto })});
-    setDoc(doc(collection(db, "gastos")), {...valores, fechaRegistro: fechaRegistro, anioGasto:anio, mesGasto:mes, proyecto:nombreProyecto})
+    
 
     //Se limpian los valores del formulario
     setValores({...valoresIniciales});

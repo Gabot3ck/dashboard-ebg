@@ -1,6 +1,6 @@
 import FormRegistroDeGastos from "../../pure/form/FormRegistroDeGastos"
 import styles from "./Registros.module.css"
-import {collection, onSnapshot, doc, setDoc, query, orderBy} from 'firebase/firestore';
+import {collection, onSnapshot, query, orderBy} from 'firebase/firestore';
 import {useState, useEffect} from 'react';
 import moment from "moment";
 import db from "../../../backend/DBFiresbase"
@@ -14,17 +14,17 @@ export default function RegistroDeGastos() {
 
     
     // Enviando datos a Firebase
-    const setData = async (linkObjeto) => {
+    // const setData = async (linkObjeto) => {
 
-        const nuevoGasto = doc(collection(db, "gastos"));
-        await setDoc(nuevoGasto, linkObjeto);
-    }
+    //     const nuevoGasto = doc(collection(db, "gastos"));
+    //     await setDoc(nuevoGasto, linkObjeto);
+    // }
 
 
     // Obteniendo  datos de Firebase
     const [gastos, setGastos] = useState([]);
 
-    const q = query(collection(db, "gastos"), orderBy("fechaRegistro", "desc"));
+    const q = query(collection(db, "proyectos"), orderBy("fechaRegistro", "desc"));
 
     const getData = async () => {
     onSnapshot(q, (querySnapshot) => {
@@ -33,8 +33,21 @@ export default function RegistroDeGastos() {
             querySnapshot.forEach((doc) => {
                 docs.push({...doc.data(), id:doc.id});
             });
-            setGastos(docs);
-            setTablaUsuarios(docs);
+
+            const precioTotal = docs.map(el => el.gastos);
+
+            let lista = [];
+
+            precioTotal.forEach( (array) => {
+
+                if(array.length){
+                    array.map(el => lista.push( el))
+                }
+                
+            })
+
+            setGastos(lista);
+            setTablaUsuarios(lista);
         });
     }
 
@@ -89,7 +102,7 @@ export default function RegistroDeGastos() {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <FormRegistroDeGastos setData={setData}/>
+                            <FormRegistroDeGastos />
                         </div>
                     </div>
                 </div>
