@@ -1,8 +1,8 @@
-import { query, collection, onSnapshot, where, orderBy} from 'firebase/firestore';
+import { query, collection, onSnapshot, orderBy} from 'firebase/firestore';
 import db from '../backend/DBFiresbase';
 
-const  getListaTotalVentasXArea = (coleccion, clave, valor, estado ) => {
-    onSnapshot(query(collection(db,coleccion), where(clave, "==", valor), orderBy("fechaRegistro", "desc")), (querySnapshot) => {
+const  getListaTotalGastos = (coleccion, estado ) => {
+    onSnapshot(query(collection(db,coleccion), orderBy("fechaRegistro", "desc")), (querySnapshot) => {
         const docs = [];
         // let suma = 0;
 
@@ -10,7 +10,7 @@ const  getListaTotalVentasXArea = (coleccion, clave, valor, estado ) => {
             docs.push({...doc.data(), id:doc.id});
         });
 
-        const precioTotal = docs.map(el => el.ventas);
+        const precioTotal = docs.map(el => el.gastos);
 
 
         let lista = [];
@@ -34,4 +34,4 @@ const  getListaTotalVentasXArea = (coleccion, clave, valor, estado ) => {
 
 
 
-export default  getListaTotalVentasXArea;
+export default  getListaTotalGastos;

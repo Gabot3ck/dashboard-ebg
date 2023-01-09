@@ -1,9 +1,9 @@
-import {query, collection, onSnapshot, where} from 'firebase/firestore';
+import {query, collection, onSnapshot, where, orderBy} from 'firebase/firestore';
 import db from '../backend/DBFiresbase';
 
 const getListaXArea = (coleccion, clave, valor, estado) => {
 
-    onSnapshot(query(collection(db,coleccion), where(clave, "==", valor)), (querySnapshot) => {
+    onSnapshot(query(collection(db,coleccion), where(clave, "==", valor), orderBy("fechaRegistro", "desc")), (querySnapshot) => {
         const docs = [];
 
         querySnapshot.forEach((doc) => {

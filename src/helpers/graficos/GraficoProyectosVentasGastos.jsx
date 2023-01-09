@@ -1,21 +1,16 @@
 import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
-import getListaColeccion from '../getListaColeccion';
-import getSumaQuerySimple from '../getSumaQuerySimple';
+import getListaProyectos from '../getListaProyectos';
+import getListaTotalVentas from '../getListaTotalVentas';
+import getListaTotalGastos from '../getTotalGastos';
 
 
 export default function ProyectosVentasGastos() {
 
     const [nombreProyectos, setNombreProyectos] = useState([]);
 
-    const [ventasEnelCasinoEstadio, setVentasEnelCasinoEstadio] = useState(0);
-    const [ventasEnelProvidencia, setVentasEnelProvidencia] = useState(0);
-    
-
-    const [gastosEnelCasinoEstadio, setGastosEnelCasinoEstadio] = useState(0);
-    const [gastosEnelProvidencia, setGastosEnelProvidencia] = useState(0);
-    
-
+    const[ventas, setVentas] = useState([]);
+    const [gastos, setGastos] = useState([]);
 
 
     const options = {
@@ -73,24 +68,19 @@ export default function ProyectosVentasGastos() {
     const series = [
         {
             name: 'Ventas',
-            data: [ventasEnelCasinoEstadio, ventasEnelProvidencia],
+            data: ventas,
         }, 
         {
             name: 'Gastos',
-            data: [gastosEnelCasinoEstadio, gastosEnelProvidencia],
+            data: gastos,
         }, 
     ];
 
     useEffect(() => {
-        getListaColeccion("proyectos",setNombreProyectos);
-
-        getSumaQuerySimple("ventas", "proyecto", "ENEL Casino Estadio", setVentasEnelCasinoEstadio);
-        getSumaQuerySimple("ventas", "proyecto", "Altos del Polo", setVentasEnelProvidencia);
+        getListaProyectos("proyectos",setNombreProyectos);
         
-
-        getSumaQuerySimple("gastos", "proyecto", "ENEL Casino Estadio", setGastosEnelCasinoEstadio);
-        getSumaQuerySimple("gastos", "proyecto", "Altos del Polo", setGastosEnelProvidencia);
-        
+        getListaTotalVentas("proyectos", setVentas);
+        getListaTotalGastos("proyectos", setGastos);
 
     }, []);
 

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
-import getSumaQuerySimple from '../getSumaQuerySimple';
-import getTotalSuma from '../getTotalSuma';
+import getSumaGastos from '../getSumaGastos';
+import getSumaGastosXConcepto from '../getSumaGastosXConcepto';
+
 
 
 export default function GraficoTipoGastos() {
@@ -48,7 +49,7 @@ export default function GraficoTipoGastos() {
                     // fontWeight: 500,
                 },
                 formatter: function (val) {
-                    return (`$ ` + new Intl.NumberFormat('de-DE').format(val) )
+                    return (`$ ` + new Intl.NumberFormat('de-DE').format(val) );
                 },
             },
             xaxis: {
@@ -62,7 +63,7 @@ export default function GraficoTipoGastos() {
                         fontWeight: "600",
                     },
                     formatter: function (val) {
-                        return (`$ ${new Intl.NumberFormat('de-DE').format(val / 1000000)}M`) 
+                        return (`$ ${new Intl.NumberFormat('de-DE').format(val / 1000000)}M`);
                     },
                 },
             },
@@ -97,27 +98,29 @@ export default function GraficoTipoGastos() {
 
     useEffect( () => {
 
-        getTotalSuma("gastos", setGastosTotal);
+        // getTotalSuma("gastos", setGastosTotal);
+        getSumaGastos("proyectos", setGastosTotal)
 
-        getSumaQuerySimple("gastos", "concepto", "Equipos", setValorEquipos);
-        getSumaQuerySimple("gastos", "concepto", "Materiales", setValorMateriales);
-        getSumaQuerySimple("gastos", "concepto", "Herramientas", setValorHerramientas);
-        getSumaQuerySimple("gastos", "concepto", "Mano de Obra", setValorManoObra);
-        getSumaQuerySimple("gastos", "concepto", "Combustible", setValorCombustible);
-        getSumaQuerySimple("gastos", "concepto", "Arriendos", setValorArriendos);
-        getSumaQuerySimple("gastos", "concepto", "EPPs", setValorEPP);
-        getSumaQuerySimple("gastos", "concepto", "Mantenimientos", setValorMantenimiento);
-        getSumaQuerySimple("gastos", "concepto", "Fletes", setValorFletes);
-        getSumaQuerySimple("gastos", "concepto", "Retiro de escombro", setValorEscombro);
-        getSumaQuerySimple("gastos", "concepto", "Servicios", setValorServicios);
-        getSumaQuerySimple("gastos", "concepto", "Capacitaciones", setValorCapacitaciones);
-        getSumaQuerySimple("gastos", "concepto", "Exámenes médicos", setValorExamenesMed);
-        getSumaQuerySimple("gastos", "concepto", "Alojamientos", setValorAlojamientos);
-        getSumaQuerySimple("gastos", "concepto", "Viáticos", setValorViaticos);
-        getSumaQuerySimple("gastos", "concepto", "Contratistas", setValorContratistas);
-        getSumaQuerySimple("gastos", "concepto", "Servicio Contabilidad", setValorContabilidad);
-        getSumaQuerySimple("gastos", "concepto", "Hosting", setValorHosting);
-        getSumaQuerySimple("gastos", "concepto", "Otros", setValorOtros);
+        getSumaGastosXConcepto("proyectos",  "Equipos", setValorEquipos);
+        getSumaGastosXConcepto("proyectos",  "Materiales", setValorMateriales);
+        getSumaGastosXConcepto("proyectos",  "Herramientas", setValorHerramientas);
+        getSumaGastosXConcepto("proyectos",  "Mano de Obra", setValorManoObra);
+        getSumaGastosXConcepto("proyectos",  "Combustible", setValorCombustible);
+        getSumaGastosXConcepto("proyectos",  "Arriendos", setValorArriendos);
+        getSumaGastosXConcepto("proyectos",  "EPPs", setValorEPP);
+        getSumaGastosXConcepto("proyectos",  "Mantenimientos", setValorMantenimiento);
+        getSumaGastosXConcepto("proyectos",  "Fletes", setValorFletes);
+        getSumaGastosXConcepto("proyectos",  "Retiro de escombro", setValorEscombro);
+        getSumaGastosXConcepto("proyectos",  "Servicios", setValorServicios);
+        getSumaGastosXConcepto("proyectos",  "Capacitaciones", setValorCapacitaciones);
+        getSumaGastosXConcepto("proyectos",  "Exámenes médicos", setValorExamenesMed);
+        getSumaGastosXConcepto("proyectos",  "Alojamientos", setValorAlojamientos);
+        getSumaGastosXConcepto("proyectos",  "Viáticos", setValorViaticos);
+        getSumaGastosXConcepto("proyectos",  "Contratistas", setValorContratistas);
+        getSumaGastosXConcepto("proyectos",  "Servicio Contabilidad", setValorContabilidad);
+        getSumaGastosXConcepto("proyectos",  "Hosting", setValorHosting);
+        getSumaGastosXConcepto("proyectos",  "Otros", setValorOtros);
+        
 
 
     }, [gastosTotal]);
