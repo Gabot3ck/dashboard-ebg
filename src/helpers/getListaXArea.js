@@ -11,7 +11,7 @@ const getListaXArea = (coleccion, clave, valor, estado) => {
         });
 
         let lista = docs.map(el => el.nombre)
-        estado(lista);
+        estado(lista.sort());
     });
 
 }

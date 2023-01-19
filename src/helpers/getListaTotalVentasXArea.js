@@ -10,7 +10,7 @@ const  getListaTotalVentasXArea = (coleccion, clave, valor, estado ) => {
             docs.push({...doc.data(), id:doc.id});
         });
 
-        const precioTotal = docs.map(el => el.ventas);
+        const precioTotal = docs.map(el => el.ventas.length ? el.ventas : [0]);
 
 
         let lista = [];
