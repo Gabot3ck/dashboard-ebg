@@ -4,19 +4,17 @@ import db from '../backend/DBFiresbase' ;
 const  getListaTotalVentas = (coleccion, estado ) => {
     onSnapshot(query(collection(db,coleccion), orderBy("nombre", "asc")), (querySnapshot) => {
         const docs = [];
-        // let suma = 0;
 
         querySnapshot.forEach((doc) => {
             docs.push({...doc.data(), id:doc.id});
         });
+        
 
-        const precioTotal = docs.map(el => el.ventas);
-
+        const precioTotal = docs.map(el => el.ventas.length ? el.ventas : [0]);
 
         let lista = [];
 
         precioTotal.forEach( (array) => {
-
             if(array.length !== 0){
                 array.length === 1 ? 
                 array.map(venta => lista.push( parseInt(venta.valor))) :

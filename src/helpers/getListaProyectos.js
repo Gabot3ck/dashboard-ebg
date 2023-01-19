@@ -1,9 +1,9 @@
-import {query, collection, onSnapshot, orderBy} from 'firebase/firestore';
+import {query, collection, onSnapshot} from 'firebase/firestore';
 import db from '../backend/DBFiresbase';
 
 const getListaProyectos = (coleccion,  estado) => {
 
-    onSnapshot(query(collection(db,coleccion), orderBy("nombre", "asc")), (querySnapshot) => {
+    onSnapshot(query(collection(db,coleccion)), (querySnapshot) => {
         const docs = [];
 
         querySnapshot.forEach((doc) => {
@@ -11,7 +11,7 @@ const getListaProyectos = (coleccion,  estado) => {
         });
 
         let lista = docs.map(el => el.nombre)
-        estado(lista);
+        estado(lista.sort());
     });
 
 }
