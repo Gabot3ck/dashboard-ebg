@@ -49,7 +49,7 @@ export default function FormRegistroProyectos({setData}) {
 
     //Capturando la fecha del registro
     const handleClick = () => {
-        setFechaRegistro(moment().format('DD-MM-YYYY hh:mm:ss a'));
+        setFechaRegistro(moment().format('DD-MM-YYYY HH:mm:ss'));
     }
 
     // Mostrando los datos en la interfaz

@@ -113,7 +113,7 @@ export default function FormRegistroContratistas({setData}) {
     }
     
     const handleClick = () => {
-    setFechaRegistro(moment().format('DD-MM-YYYY hh:mm:ss a'));
+    setFechaRegistro(moment().format('DD-MM-YYYY HH:mm:ss'));
     }
 
 

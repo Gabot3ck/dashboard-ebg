@@ -28,7 +28,6 @@ export default function RegistrosProyectos() {
                 docs.push({...doc.data(), id:doc.id});
             });
             setProyectos(docs);
-            // setTablaUsuarios(docs);
         });
     }
 
