@@ -70,7 +70,7 @@ export default function FormRegistroVentas() {
 
 //? *** Registar la fecha en la que se envía la venta ***
     const handleClick = () => {
-        setFechaRegistro(moment().format('DD-MM-YYYY'));
+        setFechaRegistro(moment().format('YYYY-MM-DD'));
     }
 
 

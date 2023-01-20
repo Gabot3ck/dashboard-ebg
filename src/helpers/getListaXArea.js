@@ -3,7 +3,7 @@ import db from '../backend/DBFiresbase';
 
 const getListaXArea = (coleccion, clave, valor, estado) => {
 
-    onSnapshot(query(collection(db,coleccion), orderBy("fechaRegistro", "desc"), where(clave, "==", valor)), (querySnapshot) => {
+    onSnapshot(query(collection(db,coleccion), orderBy("fechaRegistro", "asc"), where(clave, "==", valor)), (querySnapshot) => {
         const docs = [];
 
         querySnapshot.forEach((doc) => {

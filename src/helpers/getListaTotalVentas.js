@@ -2,7 +2,7 @@ import { query, collection, onSnapshot, orderBy} from 'firebase/firestore';
 import db from '../backend/DBFiresbase' ;
 
 const  getListaTotalVentas = (coleccion, estado ) => {
-    onSnapshot(query(collection(db,coleccion), orderBy("fechaRegistro", "desc")), (querySnapshot) => {
+    onSnapshot(query(collection(db,coleccion), orderBy("fechaRegistro", "asc")), (querySnapshot) => {
         const docs = [];
 
         querySnapshot.forEach((doc) => {

@@ -67,7 +67,7 @@ export default function FormRegistroDeGastos() {
 
 
   const handleClick = () => {
-    setFechaRegistro(moment().format('DD-MM-YYYY HH:mm:ss'));
+    setFechaRegistro(moment().format('YYYY-MM-DD HH:mm:ss'));
   }
 
   // Obteniendo  datos de Firebase (proveedores y proyectos)

@@ -115,7 +115,7 @@ export default function FormRegistroProveedores({setData}) {
     }
 
     const handleClick = () => {
-    setFechaRegistro(moment().format('DD-MM-YYYY HH:mm:ss'));
+    setFechaRegistro(moment().format('YYYY-MM-DD HH:mm:ss'));
     }
 
 
