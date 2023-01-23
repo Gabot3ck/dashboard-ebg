@@ -1,6 +1,6 @@
 import FormRegistroDeGastos from "../../pure/form/FormRegistroDeGastos"
 import styles from "./Registros.module.css"
-import {collection, onSnapshot, query, orderBy} from 'firebase/firestore';
+import {collection, onSnapshot, query} from 'firebase/firestore';
 import {useState, useEffect} from 'react';
 import moment from "moment";
 import db from "../../../backend/DBFiresbase"
@@ -12,19 +12,12 @@ export default function RegistroDeGastos() {
     const [busqueda, setBusqueda]= useState("");
     const [tablaUsuarios, setTablaUsuarios]= useState([]);
 
-    
-    // Enviando datos a Firebase
-    // const setData = async (linkObjeto) => {
-
-    //     const nuevoGasto = doc(collection(db, "gastos"));
-    //     await setDoc(nuevoGasto, linkObjeto);
-    // }
 
 
     // Obteniendo  datos de Firebase
     const [gastos, setGastos] = useState([]);
 
-    const q = query(collection(db, "proyectos"), orderBy("fechaRegistro", "desc"));
+    const q = query(collection(db, "proyectos"));
 
     const getData = async () => {
     onSnapshot(q, (querySnapshot) => {
@@ -48,6 +41,7 @@ export default function RegistroDeGastos() {
 
             setGastos(lista);
             setTablaUsuarios(lista);
+            
         });
     }
 

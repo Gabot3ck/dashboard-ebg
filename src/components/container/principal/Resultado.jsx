@@ -35,7 +35,7 @@ export default function Resultado() {
             
             <div className="w-100 d-flex justify-content-around mt-4">
 
-                <CardImportes nombre="Ventas" 
+                <CardImportes nombre="Facturado" 
                 importe={new Intl.NumberFormat('de-DE').format(ventas)} 
                 fondo="primary"
                 asunto="IVA:"
