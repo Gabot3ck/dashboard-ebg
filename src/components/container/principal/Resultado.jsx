@@ -7,6 +7,7 @@ import getSumaPresupuesto from '../../../helpers/getSumaPresupuesto';
 import getSumaGastos from '../../../helpers/getSumaGastos';
 import getSumaVentas from '../../../helpers/getSumaVentas';
 import getSumaManoObra from '../../../helpers/getSumaManoObra';
+import { GraficoBarraDobleAvances } from '../../../helpers/graficos/GraficoBarraDobleAvances';
 
 
 export default function Resultado() {
@@ -27,7 +28,7 @@ export default function Resultado() {
         
     }, []);
 
-
+    
     return (<>
         <div className='container bg-light w-100'>
             
@@ -72,6 +73,7 @@ export default function Resultado() {
                     <GraficoDonut />
                     <GraficoTipoGastos/>
                     <GraficoProyectosVentasGastos/>
+                    <GraficoBarraDobleAvances />
                 </div>
                 
             </div>

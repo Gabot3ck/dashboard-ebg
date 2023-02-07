@@ -24,6 +24,7 @@ export default function FormRegistroProyectos({setData}) {
         area:"",
         ventas:[],
         gastos:[],
+        produccion: "",
     }
 
     const [valores, setValores] = useState(valoresIniciales);
