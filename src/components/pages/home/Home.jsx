@@ -16,6 +16,7 @@ import { ResultadoRemodelaciones } from '../../container/principal/ResultadoRemo
 import { ResultadoOOCC } from '../../container/principal/ResultadoOOCC';
 import { ResultadoLicitaciones } from '../../container/principal/ResultadoLicitaciones';
 import { ResultadoMuebleria } from '../../container/principal/ResultadoMuebleria';
+import { RegistroProduccion } from '../../container/registros/RegistroProduccion';
 
 
 export const Home = () => {
@@ -45,6 +46,7 @@ export const Home = () => {
                 <Route path="registros/contratistas" element={<RegistroContratistas/>}/>
                 <Route path="registros/proyectos" element={<RegistrosProyectos />}/>
                 <Route path="registros/ventas" element={<RegistrosVentas />}/>
+                <Route path="registros/produccion" element={<RegistroProduccion />}/>
                 <Route path="reportes/proyectos" element={<ReportesProyectos/>}/>
                 <Route path="resultados/remodelaciones" element={<ResultadoRemodelaciones />}/>
                 <Route path="resultados/oocc" element={<ResultadoOOCC />}/>

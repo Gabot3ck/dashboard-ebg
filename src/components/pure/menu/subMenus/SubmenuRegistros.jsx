@@ -16,6 +16,7 @@ export default function SubmenuRegistros() {
             <ItemSubmenu titulo="Contratistas" ruta="registros/contratistas"/>
             {user.perfil === "Gerente" && <ItemSubmenu titulo="Proyectos" ruta="registros/proyectos"/>}
             {user.perfil === "Gerente" && <ItemSubmenu titulo="Ventas" ruta="registros/ventas"/> }
+            {user.perfil === "Gerente" && <ItemSubmenu titulo="Producción" ruta="registros/produccion"/> }
         </ul>
 
     </>)

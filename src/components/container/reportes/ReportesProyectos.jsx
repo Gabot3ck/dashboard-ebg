@@ -1,4 +1,4 @@
-import {query, where, collection} from 'firebase/firestore';
+import {query, where, collection, doc, updateDoc} from 'firebase/firestore';
 import {useState, useEffect} from 'react';
 import db from '../../../backend/DBFiresbase';
 import getOnSnapshot from '../../../helpers/getOnSnapshot';
@@ -85,6 +85,8 @@ export default function VentasProyectos() {
                     
                     let deuda = precioProyecto -  (ventasTodas - ventasAdicionales)
                     let porcentaje = (( ventasTodas  / precioProyecto)* 100).toFixed(2);
+
+
 
 
 // todo    *****  Datos para los gráficos   ****

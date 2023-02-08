@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
+import getAvanceFacturado from '../getAvanceFacturado';
 import getAvanceProduccion from '../getAvanceProduccion';
 import getListaProyectos from '../getListaProyectos';
 
@@ -8,7 +9,8 @@ export const GraficoBarraDobleAvances = ({tipoArea}) => {
 
     const [listaProyectos, setListaProyectos] = useState([]);
 
-    const [produccion, setProduccion ] = useState([])
+    const [produccion, setProduccion ] = useState([]);
+    const [facturado, setFacturado] = useState([]);
 
     const options = {
         chart: {
@@ -40,7 +42,11 @@ export const GraficoBarraDobleAvances = ({tipoArea}) => {
                     fontSize: "15px",
                     fontWeight: "600",
                 },
+                formatter: function (val) {
+                    return val + "%";
+                },
             },
+            
         },
         yaxis: {
             labels: {
@@ -64,18 +70,19 @@ export const GraficoBarraDobleAvances = ({tipoArea}) => {
 
     const series = [
         {
-            name: '% Producción',
-            data: produccion,
+            name: '% Facturación',
+            data: facturado,
         }, {
-            name: '% Ventas',
-            data: [76, 85, 10, 98, 87, 100, 91]
+            name: '% Producción',
+            data: produccion
         },
     ]
 
     useEffect(() => {
         
-        getListaProyectos("proyectos", setListaProyectos)
-        getAvanceProduccion("proyectos", setProduccion)
+        getListaProyectos("proyectos", setListaProyectos);
+        getAvanceProduccion("proyectos", setProduccion);
+        getAvanceFacturado("proyectos", setFacturado);
     
     
     }, [tipoArea])
