@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import {collection, doc, setDoc, onSnapshot, query, orderBy, limit, updateDoc} from 'firebase/firestore';
+import {collection, doc, onSnapshot, query, orderBy, updateDoc} from 'firebase/firestore';
 import db from "../../../backend/DBFiresbase";
+import styles from "./Registros.module.css";
+
+
+
 export const RegistroProduccion = () => {
 
-    
     const [proyectos, setProyectos] = useState([]);
     const [idProyecto, setIDProyecto] = useState("");
     const [value, setValue] = useState("")
@@ -22,23 +25,29 @@ export const RegistroProduccion = () => {
         });
     }
 
+    //Obteniendo ID
     const getId = (id) => {
         setIDProyecto(id)
     }
 
+
+    //Obteniendo el valor del input
     const handleInput = (e) => {
         const { value } = e.target;
         setValue(value);
     }
 
+
+    //Envío de formulario
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const nuevoAvance = doc(db, "proyectos", idProyecto);
         updateDoc(nuevoAvance, { produccion: value} )
         setValue("");
-
     }
+
+
 
     useEffect(() => {
         getData();
@@ -48,20 +57,26 @@ export const RegistroProduccion = () => {
     
 
     return (<>
-        <h1 className="text-center">Avance de % Producción</h1>
+        <h2 className="text-center">% de Avance de Producción</h2>
 
-        <div className="container w-100 px-3">
-            <ul>
+        <div className={`container w-100 px-5  text-center ${styles.wrapper_produccion}`}>
+            <ul className="w-100  p-0 ">
+                <li className="py-2 gap-4 text-center fw-bold mb-2 rounded-1 d-flex justify-content-center align-items-center">
+                    <p className={ styles.index }>#</p>
+                    <p className={ styles.proyecto }>Proyecto</p>
+                    <p className={ styles.avance }>% Avance</p>
+                    <p className={ styles.boton }>Actualizar</p>
+                </li>
                 {
                     proyectos.map((proyecto, index) => (
                         <li 
-                            className="w-100 d-flex gap-3 my-3 py-2 align-items-center justify-content-start" 
+                            className="py-2 gap-4 text-center fw-bold h5 rounded-1 d-flex justify-content-center align-items-center" 
                             key={ proyecto.id }>
-                            <p className="m-0 fw-semibold "> { index + 1 }.-</p>
-                            <p className="m-0 fw-semibold ">{ proyecto.nombre }: </p>
-                            <p className=" m-0 ">{ proyecto.produccion ?  proyecto.produccion : 0} %</p>  
+                            <p className={`m-0 fw-semibold ${styles.index}`}> { index + 1 }.-</p>
+                            <p className={`m-0 fw-semibold ${styles.proyecto}`}>{ proyecto.nombre }: </p>
+                            <p className={`m-0 fw-semibold ${styles.avance}`}>{ proyecto.produccion ?  proyecto.produccion : 0} %</p>  
                             <button 
-                                className="btn btn-success py-1"
+                                className={`btn btn-primary py-1 ${styles.boton}`}
                                 onClick={() => getId(proyecto.id) }
                                 type="button" 
                                 data-bs-toggle="modal" 

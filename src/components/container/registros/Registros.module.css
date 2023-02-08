@@ -33,3 +33,30 @@
     text-align: center;
     font-size: .8rem;
 }
+.wrapper_produccion li:first-child{
+    background-color:  rgb(164, 172, 166) ;
+}
+.wrapper_produccion li:first-child p{
+    font-size: 1.25rem;
+}
+.wrapper_produccion li{
+    background-color: rgb(214, 224, 217) ;
+}
+.wrapper_produccion li p{
+    margin: 0;
+    font-size: 1rem;
+}
+.index{
+    width: 40px;
+}
+.proyecto{
+    width: 300px;
+    
+}
+.avance{
+    width: 150px;
+    
+}
+.boton{
+    width: 120px;
+}
