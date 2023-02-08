@@ -118,7 +118,7 @@ export const RegistroProduccion = () => {
                                                 </div>
 
                                                 <div className="col-md-7 mx-auto">
-                                                    <button className="btn btn-primary">Enviar</button>
+                                                    <button className="btn btn-primary "  data-bs-dismiss="modal">Enviar</button>
                                                 </div>
                                                 
                                             </form>
