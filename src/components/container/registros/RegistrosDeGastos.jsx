@@ -57,9 +57,8 @@ export default function RegistroDeGastos() {
                 (el.tipo.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
                 || 
                 el.proyecto.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()))
-            ){
-                return el;
-            }
+            ) return el;
+            return "";
         });
         setGastos(resultadosBusqueda);
     }
@@ -140,7 +139,6 @@ export default function RegistroDeGastos() {
                                     })}
                                 </select>
                             </th>
-                            <th>Cantidad</th>
                             <th>Proveedor</th>
                             <th>Factura</th>
                             <th>Forma de pago</th>
@@ -159,7 +157,6 @@ export default function RegistroDeGastos() {
                                     <td>{el.concepto}</td>
                                     <td>{el.descripcion}</td>
                                     <td>{el.proyecto}</td>
-                                    <td >{el.cantidad}</td>
                                     <td>{el.proveedor}</td>
                                     <td>{el.factura}</td>
                                     <td>{el.formaPago}</td>

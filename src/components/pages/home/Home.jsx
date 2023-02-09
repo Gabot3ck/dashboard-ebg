@@ -10,13 +10,14 @@ import RegistroClientes from '../../container/registros/RegistroClientes';
 import RegistroContratistas from '../../container/registros/RegistroContratistas';
 import ReportesProyectos from '../../container/reportes/ReportesProyectos';
 import {useAuth} from '../../../context/authContext';
-import "./Home.css";
 import { Saludo } from '../saludo/Saludo';
 import { ResultadoRemodelaciones } from '../../container/principal/ResultadoRemodelaciones';
 import { ResultadoOOCC } from '../../container/principal/ResultadoOOCC';
 import { ResultadoLicitaciones } from '../../container/principal/ResultadoLicitaciones';
 import { ResultadoMuebleria } from '../../container/principal/ResultadoMuebleria';
 import { RegistroProduccion } from '../../container/registros/RegistroProduccion';
+import { RegistroManoObra } from '../../container/registros/RegistroManoObra';
+import "./Home.css";
 
 
 export const Home = () => {
@@ -46,6 +47,7 @@ export const Home = () => {
                 <Route path="registros/contratistas" element={<RegistroContratistas/>}/>
                 <Route path="registros/proyectos" element={<RegistrosProyectos />}/>
                 <Route path="registros/ventas" element={<RegistrosVentas />}/>
+                <Route path="registros/mano-de-obra" element={<RegistroManoObra />}/>
                 <Route path="registros/produccion" element={<RegistroProduccion />}/>
                 <Route path="reportes/proyectos" element={<ReportesProyectos/>}/>
                 <Route path="resultados/remodelaciones" element={<ResultadoRemodelaciones />}/>

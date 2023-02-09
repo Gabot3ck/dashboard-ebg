@@ -13,7 +13,6 @@ export default function FormRegistroDeGastos() {
     factura: "",
     fechaGasto: "",
     valor: "",
-    cantidad: "",
     proveedor: "",
     tipo: "",
     concepto: "",
@@ -141,20 +140,6 @@ export default function FormRegistroDeGastos() {
             </div>
           </div>
 
-          <div className="col-md-4">
-            <label className="form-label">Cantidad:</label>
-            <div className="input-group">
-              <input 
-              onChange={handleInput}
-              type="number" 
-              className="form-control" 
-              id="inputCantidadProductos"
-              name="cantidad" 
-              min="0"
-              value={valores.cantidad}
-              />
-            </div>
-          </div>
 
           <div className="col-md-4">
             <label className="form-label">Proveedor:</label>
