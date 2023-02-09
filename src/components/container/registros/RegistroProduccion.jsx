@@ -104,10 +104,11 @@ export const RegistroProduccion = () => {
                                                 className="row g-4"
                                                 onSubmit={ handleSubmit }>
 
-                                                <div className="col-md-7 w-75 mx-auto">
+                                                <div className="col-md-6 mx-auto">
                                                     <label className="form-label mb-3">{ nombre }</label>
                                                     <div className="input-group d-flex justify-content-center">
-                                                        <input 
+                                                        <input
+                                                            className="form-control w-25"
                                                             type="text" 
                                                             placeholder="Ingrese % de avance..."
                                                             onChange={ handleInput }
@@ -117,7 +118,7 @@ export const RegistroProduccion = () => {
                                                     </div>
                                                 </div>
 
-                                                <div className="col-md-7 mx-auto">
+                                                <div className="col-md-10 mx-auto">
                                                     <button className="btn btn-primary "  data-bs-dismiss="modal">Enviar</button>
                                                 </div>
                                                 
