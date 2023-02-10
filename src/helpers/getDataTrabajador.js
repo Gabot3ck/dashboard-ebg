@@ -2,7 +2,7 @@ import { doc, getDoc} from 'firebase/firestore';
 import db from '../backend/DBFiresbase';
 
 
-export const getSueldoBase = async ( id , estado ) => {
+export const getDataTrabajador = async ( id , estado ) => {
 
     let data = []
 
@@ -11,8 +11,7 @@ export const getSueldoBase = async ( id , estado ) => {
 
     docSnap.exists() && data.push(docSnap.data());
 
-    const { sueldo_base } = data[0];
 
-    estado( sueldo_base );
+    estado( data[0] );
     
 }

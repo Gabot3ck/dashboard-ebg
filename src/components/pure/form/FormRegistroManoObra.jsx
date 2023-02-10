@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import moment from "moment";
 import getDataCollection from '../../../helpers/getDataCollection';
 import getIDDoc from '../../../helpers/getIDDoc';
-import { getSueldoBase } from '../../../helpers/getSueldoBase';
+import { getDataTrabajador } from '../../../helpers/getDataTrabajador';
 import { getImposiciones } from '../../../helpers/getImposiciones';
 
 
@@ -24,6 +24,7 @@ export const FormRegistroManoObra = () => {
         proyecto:""
     }
 
+    //Variables para enviar
     const [valores, setValores] = useState(valoresIniciales);
 
     const [fechaRegistro, setFechaRegistro] = useState("");
@@ -36,6 +37,8 @@ export const FormRegistroManoObra = () => {
     const [sueldoBase, setSueldoBase] = useState(0);
     const [sueldo, setSueldo] = useState(0);
     const [horasNoTrabajadas, setHorasNoTrabajadas] = useState("");
+    const [gratificacion, setGratificacion] = useState(0);
+    const [dataTrabajador, setDataTrabajador] = useState({})
 
 
 // todo  *** Capturar los valores de los inputs del Form  ***
@@ -75,7 +78,8 @@ export const FormRegistroManoObra = () => {
                 ID: ${idTrabajador}
                 Sueldo Base: ${ sueldoBase }
                 Sueldo: ${ sueldo }
-                Hrs No Trabaj: ${ horasNoTrabajadas }`)
+                Hrs No Trabaj: ${ horasNoTrabajadas }
+                Gratificacion: ${ gratificacion }`)
 
         setValores( {...valoresIniciales} )
         setHorasNoTrabajadas("")
@@ -92,9 +96,11 @@ export const FormRegistroManoObra = () => {
         if(nombreTrabajador === "") return;
 
         getIDDoc("colaboradores", nombreTrabajador, setIdTrabajador )
-        getSueldoBase(idTrabajador, setSueldoBase);
+        getDataTrabajador(idTrabajador, setDataTrabajador);
+        setSueldoBase(dataTrabajador.sueldo_base);
+        setGratificacion(dataTrabajador.gratificacion_legal)
         
-    }, [nombreTrabajador, idTrabajador, sueldoBase])
+    }, [nombreTrabajador, idTrabajador, dataTrabajador])
 
 
 
