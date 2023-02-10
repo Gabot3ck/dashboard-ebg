@@ -73,7 +73,10 @@ export default function FormRegistroDeGastos() {
   const [proveedores, setProveedores] = useState([]);
   const [proyectos, setProyectos] = useState([]);
 
-    // Mostrando los datos en la interfaz
+  
+  
+  
+  // Mostrando los datos en la interfaz
     useEffect(() => {
 
       // Obteniendo  datos de Firebase (proveedores y proyectos)
