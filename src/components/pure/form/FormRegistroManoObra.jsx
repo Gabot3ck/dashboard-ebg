@@ -3,6 +3,7 @@ import moment from "moment";
 import getDataCollection from '../../../helpers/getDataCollection';
 import getIDDoc from '../../../helpers/getIDDoc';
 import { getSueldoBase } from '../../../helpers/getSueldoBase';
+import { getImposiciones } from '../../../helpers/getImposiciones';
 
 
 
@@ -32,7 +33,9 @@ export const FormRegistroManoObra = () => {
     const [trabajadores, setTrabajadores] = useState([]);
     const [nombreTrabajador, setNombreTrabajador] = useState("");
     const [idTrabajador, setIdTrabajador] = useState("");
-    const [sueldoBase, setSueldoBase] = useState("");
+    const [sueldoBase, setSueldoBase] = useState(0);
+    const [sueldo, setSueldo] = useState(0);
+    const [horasNoTrabajadas, setHorasNoTrabajadas] = useState("");
 
 
 // todo  *** Capturar los valores de los inputs del Form  ***
@@ -56,7 +59,6 @@ export const FormRegistroManoObra = () => {
         const mes = moment(valores.fecha_actividad).format("MMMM");
         const anio = moment(valores.fecha_actividad).format("YYYY");
 
-        console.log(sueldoBase);
 
         alert(` Fecha: ${valores.fecha_actividad} 
                 Proyecto: ${nombreProyecto}
@@ -71,9 +73,12 @@ export const FormRegistroManoObra = () => {
                 Mes: ${mes}
                 Año: ${anio}
                 ID: ${idTrabajador}
-                Sueldo Base: ${ sueldoBase }`)
+                Sueldo Base: ${ sueldoBase }
+                Sueldo: ${ sueldo }
+                Hrs No Trabaj: ${ horasNoTrabajadas }`)
 
         setValores( {...valoresIniciales} )
+        setHorasNoTrabajadas("")
     }
 
 
@@ -89,9 +94,15 @@ export const FormRegistroManoObra = () => {
         getIDDoc("colaboradores", nombreTrabajador, setIdTrabajador )
         getSueldoBase(idTrabajador, setSueldoBase);
         
-    }, [nombreTrabajador, idTrabajador])
+    }, [nombreTrabajador, idTrabajador, sueldoBase])
 
 
+
+    useEffect(() => {
+        if(nombreTrabajador === "") return;
+        setSueldo( getImposiciones(parseInt(valores.dias), sueldoBase))
+
+    },[nombreTrabajador, sueldoBase, valores.dias])
 
     return (<>
         <form 
@@ -164,9 +175,29 @@ export const FormRegistroManoObra = () => {
 
             </div>
 
+{/* //todo  ******   Horas No Trabajadas ******/ }
 
-{/* //todo  ******   Contribuciones Adicionales  ******/}
-            <div className="container w-100 d-flex justify-content-around my-5">
+            <div className="container w-100 d-flex justify-content-around py-4">
+                <div className="col-md-3 text-center">
+                    <label className="form-label">Horas no trabajadas:</label>
+                    <div className="input-group w-75 mx-auto" >
+                        <span className="input-group-text">$</span>
+                        <input
+                            onChange={ (e) => setHorasNoTrabajadas(e.target.value) }
+                            value={ horasNoTrabajadas }
+                            className="form-control "
+                            type="text" 
+                            name='horas_no_trabajadas'
+                            placeholder='Ejm: 4'/>
+                        <span className="input-group-text">hrs.</span>
+                    </div>
+                </div>
+            </div>
+
+
+
+{/* //todo  ******   Contribuciones Adicionales  ******/ }
+            <div className="container w-100 d-flex justify-content-around my-3">
                 <div className="col-md-3 text-center">
                     <label className="form-label">Horas extras:</label>
                     <div className="input-group w-75 mx-auto" >
