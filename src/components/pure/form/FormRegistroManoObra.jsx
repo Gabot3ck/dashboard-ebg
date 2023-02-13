@@ -7,12 +7,12 @@ import { getImposiciones } from '../../../helpers/getImposiciones';
 
 
 
+
 export const FormRegistroManoObra = () => {
 
     const valoresIniciales = {
         nombre_trabajador: "",
         dias: "",
-        sueldo: "",
         fecha_registro:"",
         fecha_actividad:"",
         mes_actividad: "",
@@ -21,24 +21,37 @@ export const FormRegistroManoObra = () => {
         asig_herramientas:"",
         bono_produccion:"",
         aguinaldo:"",
-        proyecto:""
+        proyecto:"",
+        horas_no_trabajadas:"",
     }
 
     //Variables para enviar
     const [valores, setValores] = useState(valoresIniciales);
-
     const [fechaRegistro, setFechaRegistro] = useState("");
+
+
+    const [idTrabajador, setIdTrabajador] = useState("");
+    const [trabajadores, setTrabajadores] = useState([]);
+    const [nombreTrabajador, setNombreTrabajador] = useState("");
+    const [dataTrabajador, setDataTrabajador] = useState({});
+    const [sueldoBase, setSueldoBase] = useState(0);
+    const [gratificacion, setGratificacion] = useState(0);
+    const [bonoSeguridad, setBonoSeguridad] = useState(0);
+    const [bonoAsistencia, setBonoAsistencia] = useState(0);
+    const [colacion, setColacion] = useState(0);
+    const [movilizacion, setMovilizacion] = useState(0);
+    const [montoImponible, setMontoImponible] = useState(0);
+    const [montoNoImponible, setMontoNoImponible] = useState(0);
+
 
     const [proyectos, setProyectos] = useState([]);
     const [nombreProyecto, setNombreProyecto] = useState("");
-    const [trabajadores, setTrabajadores] = useState([]);
-    const [nombreTrabajador, setNombreTrabajador] = useState("");
-    const [idTrabajador, setIdTrabajador] = useState("");
-    const [sueldoBase, setSueldoBase] = useState(0);
-    const [sueldo, setSueldo] = useState(0);
+
+
+
+
     const [horasNoTrabajadas, setHorasNoTrabajadas] = useState("");
-    const [gratificacion, setGratificacion] = useState(0);
-    const [dataTrabajador, setDataTrabajador] = useState({})
+
 
 
 // todo  *** Capturar los valores de los inputs del Form  ***
@@ -67,7 +80,6 @@ export const FormRegistroManoObra = () => {
                 Proyecto: ${nombreProyecto}
                 Trabajador: ${nombreTrabajador}
                 Días trabaj: ${valores.dias}
-                Sueldo: ${valores.sueldo}
                 Horas extras: ${valores.horas_extras}
                 Asig. Herram: ${valores.asig_herramientas}
                 Bono Produc: ${valores.bono_produccion}
@@ -77,38 +89,76 @@ export const FormRegistroManoObra = () => {
                 Año: ${anio}
                 ID: ${idTrabajador}
                 Sueldo Base: ${ sueldoBase }
-                Sueldo: ${ sueldo }
                 Hrs No Trabaj: ${ horasNoTrabajadas }
-                Gratificacion: ${ gratificacion }`)
+                Gratificacion: ${ gratificacion }
+                Bono Asisten: ${bonoAsistencia}
+                Bono Seguridad: ${ bonoSeguridad}
+                Total Imponible: ${ montoImponible }
+                No imponible: ${ montoNoImponible }`);
 
         setValores( {...valoresIniciales} )
         setHorasNoTrabajadas("")
     }
 
+    //Obteniendo la suma del Total Imponible
+    const  getTotalImponible = () => {
+        let suma = 
+            parseInt(sueldoBase) +
+            parseInt(gratificacion) + 
+            (bonoSeguridad ? parseInt(bonoSeguridad) : 0) + 
+            (bonoAsistencia ? parseInt(bonoAsistencia) : 0) + 
+            (valores.bono_produccion.trim().length > 1 ? parseInt(valores.bono_produccion) : 0) + 
+            (valores.horas_extras.trim().length > 1 ? parseInt(valores.horas_extras) : 0) - 
+            (valores.horas_no_trabajadas.trim().length > 1 ? parseInt(valores.horas_no_trabajadas) : 0);
 
+        setMontoImponible(suma.toFixed(0));
+    }
+
+
+
+    //Obteniendo la suma del Total  No Imponible
+    const getTotalNoImponible = () => {
+        let suma = 
+            (movilizacion ?  parseInt(movilizacion) : 0) +
+            (colacion ?  parseInt(colacion) : 0) +
+            (valores.asig_herramientas.trim().length > 1 ? parseInt(valores.asig_herramientas) : 0) +
+            (valores.aguinaldo.trim().length > 1 ? parseInt(valores.aguinaldo) : 0);
+
+        setMontoNoImponible(suma.toFixed(0));
+    }
+
+//todo   Obteniendo lista de Proyectos 
     useEffect(() => {
         getDataCollection("proyectos", setProyectos);
-        getDataCollection("colaboradores", setTrabajadores);
     },[])
 
 
+
+//todo   Obteniendo lista de Colaboradores 
+useEffect(() => {
+    getDataCollection("colaboradores", setTrabajadores);
+},[])
+
+
+
+//todo    Obteniendo data del trabajador
     useEffect(() => {
         if(nombreTrabajador === "") return;
 
         getIDDoc("colaboradores", nombreTrabajador, setIdTrabajador )
         getDataTrabajador(idTrabajador, setDataTrabajador);
-        setSueldoBase(dataTrabajador.sueldo_base);
-        setGratificacion(dataTrabajador.gratificacion_legal)
+        setSueldoBase( getImposiciones( valores.dias, dataTrabajador.sueldo_base ));
+        setGratificacion( getImposiciones( valores.dias, dataTrabajador.gratificacion_legal ));
+        setBonoSeguridad( getImposiciones( valores.dias, dataTrabajador.bono_seguridad ));
+        setBonoAsistencia( getImposiciones( valores.dias, dataTrabajador.bono_asistencia ));
+        setColacion( dataTrabajador.colacion);
+        setMovilizacion( dataTrabajador.movilizacion );
+        getTotalImponible();
+        getTotalNoImponible();
         
-    }, [nombreTrabajador, idTrabajador, dataTrabajador])
+    }, [nombreTrabajador, idTrabajador, dataTrabajador, valores.dias])
 
 
-
-    useEffect(() => {
-        if(nombreTrabajador === "") return;
-        setSueldo( getImposiciones(parseInt(valores.dias), sueldoBase))
-
-    },[nombreTrabajador, sueldoBase, valores.dias])
 
     return (<>
         <form 
@@ -194,8 +244,8 @@ export const FormRegistroManoObra = () => {
                             className="form-control "
                             type="text" 
                             name='horas_no_trabajadas'
-                            placeholder='Ejm: 4'/>
-                        <span className="input-group-text">hrs.</span>
+                            placeholder='Ejm: 12000'/>
+                        <span className="input-group-text">.00</span>
                     </div>
                 </div>
             </div>

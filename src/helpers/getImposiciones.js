@@ -1,8 +1,8 @@
 
 
-export const getImposiciones = (dias, sueldoBase) => {
+export const getImposiciones = (dias, montoBase) => {
 
-    let sueldo = (dias * sueldoBase)/30
+    let sueldo = (parseInt(dias) * montoBase)/30;
 
     return sueldo.toFixed(0);
 
