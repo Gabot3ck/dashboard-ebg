@@ -23,6 +23,9 @@ export const FormRegistroManoObra = () => {
         aguinaldo:"",
         proyecto:"",
         horas_no_trabajadas:"",
+        afp:"",
+        prevision_salud:"",
+        cesantia: "",
     }
 
     //Variables para enviar
@@ -42,6 +45,9 @@ export const FormRegistroManoObra = () => {
     const [movilizacion, setMovilizacion] = useState(0);
     const [montoImponible, setMontoImponible] = useState(0);
     const [montoNoImponible, setMontoNoImponible] = useState(0);
+    const [afp, setAfp] = useState(0);
+    const [salud, setSalud] = useState(0);
+    const [cesantia, setCesantia] = useState(0);
 
 
     const [proyectos, setProyectos] = useState([]);
@@ -94,7 +100,10 @@ export const FormRegistroManoObra = () => {
                 Bono Asisten: ${bonoAsistencia}
                 Bono Seguridad: ${ bonoSeguridad}
                 Total Imponible: ${ montoImponible }
-                No imponible: ${ montoNoImponible }`);
+                No imponible: ${ montoNoImponible }
+                AFP: ${afp}
+                Fonasa: ${salud }
+                Cesantía: ${cesantia}`);
 
         setValores( {...valoresIniciales} )
         setHorasNoTrabajadas("")
@@ -153,8 +162,13 @@ useEffect(() => {
         setBonoAsistencia( getImposiciones( valores.dias, dataTrabajador.bono_asistencia ));
         setColacion( dataTrabajador.colacion);
         setMovilizacion( dataTrabajador.movilizacion );
+        setAfp( (montoImponible * dataTrabajador.afp).toFixed(0) );
+        setSalud( (montoImponible * dataTrabajador.prevision_salud).toFixed(0) );
+        setCesantia( (montoImponible * dataTrabajador.cesantia).toFixed(0) );
+        
         getTotalImponible();
         getTotalNoImponible();
+
         
     }, [nombreTrabajador, idTrabajador, dataTrabajador, valores.dias])
 
