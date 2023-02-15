@@ -187,7 +187,6 @@ export default function FormRegistroDeGastos() {
               <option value="Equipos">Equipos</option>
               <option value="Materiales">Materiales</option>
               <option value="Herramientas">Herramientas</option>
-              <option value="Mano de Obra">Mano de Obra</option>
               <option value="Combustible">Combustible</option>
               <option value="Arriendos">Arriendos</option>
               <option value="EPPs">EPPs</option>
