@@ -4,6 +4,8 @@ import getDataCollection from '../../../helpers/getDataCollection';
 import getIDDoc from '../../../helpers/getIDDoc';
 import { getDataTrabajador } from '../../../helpers/getDataTrabajador';
 import { getImposiciones } from '../../../helpers/getImposiciones';
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import db from '../../../backend/DBFiresbase';
 
 
 
@@ -11,30 +13,37 @@ import { getImposiciones } from '../../../helpers/getImposiciones';
 export const FormRegistroManoObra = () => {
 
     const valoresIniciales = {
+        fechaRegistro:"",
+        fechaGasto:"",
+        mesGasto: "",
+        anioGasto: "",
+        proyecto:"",
         nombre_trabajador: "",
-        dias: "",
-        fecha_registro:"",
-        fecha_actividad:"",
-        mes_actividad: "",
-        anio_actividad: "",
+        dias_trabajados: "",
+        horas_no_trabajadas:"",
         horas_extras:"",
         asig_herramientas:"",
         bono_produccion:"",
         aguinaldo:"",
-        proyecto:"",
-        horas_no_trabajadas:"",
+        bono_asistencia:"",
+        bono_seguridad:"",
         afp:"",
         prevision_salud:"",
         cesantia: "",
+        mutual:"",
+        sis:"",
+        total_imponible:"",
+        total_no_imponible:"",
+        valor: "",
+        concepto:"Mano de Obra",
+        tipo:"Fijo",
     }
 
     //Variables para enviar
     const [valores, setValores] = useState(valoresIniciales);
     const [fechaRegistro, setFechaRegistro] = useState("");
 
-
     const [idTrabajador, setIdTrabajador] = useState("");
-    const [trabajadores, setTrabajadores] = useState([]);
     const [nombreTrabajador, setNombreTrabajador] = useState("");
     const [dataTrabajador, setDataTrabajador] = useState({});
     const [sueldoBase, setSueldoBase] = useState(0);
@@ -48,15 +57,17 @@ export const FormRegistroManoObra = () => {
     const [afp, setAfp] = useState(0);
     const [salud, setSalud] = useState(0);
     const [cesantia, setCesantia] = useState(0);
+    const [sis, setSis] = useState(0);
+    const [mutual, setMutual] = useState(0);
 
-
-    const [proyectos, setProyectos] = useState([]);
+    const [idProyecto, setIdProyecto] = useState("");
     const [nombreProyecto, setNombreProyecto] = useState("");
-
-
+    const [proyectos, setProyectos] = useState([]);
+    const [trabajadores, setTrabajadores] = useState([]);
 
 
     const [horasNoTrabajadas, setHorasNoTrabajadas] = useState("");
+    const [costoMO, setCostoMO] = useState(0);
 
 
 
@@ -69,7 +80,6 @@ export const FormRegistroManoObra = () => {
 
     const handleClick = () => {
         setFechaRegistro(moment().format('YYYY-MM-DD HH:mm:ss'));
-        
     }
 
 
@@ -78,32 +88,32 @@ export const FormRegistroManoObra = () => {
         e.preventDefault();
 
         //Se capturan el mes y año de la fecha de la venta
-        const mes = moment(valores.fecha_actividad).format("MMMM");
-        const anio = moment(valores.fecha_actividad).format("YYYY");
+        const mes = moment(valores.fechaGasto).format("MMMM");
+        const anio = moment(valores.fechaGasto).format("YYYY");
 
+        // Enviando Data a Firebase
+        const nuevoGasto = doc(db, "proyectos", idProyecto);
 
-        alert(` Fecha: ${valores.fecha_actividad} 
-                Proyecto: ${nombreProyecto}
-                Trabajador: ${nombreTrabajador}
-                Días trabaj: ${valores.dias}
-                Horas extras: ${valores.horas_extras}
-                Asig. Herram: ${valores.asig_herramientas}
-                Bono Produc: ${valores.bono_produccion}
-                Aguinaldo: ${valores.aguinaldo}
-                Fecha registro: ${fechaRegistro}
-                Mes: ${mes}
-                Año: ${anio}
-                ID: ${idTrabajador}
-                Sueldo Base: ${ sueldoBase }
-                Hrs No Trabaj: ${ horasNoTrabajadas }
-                Gratificacion: ${ gratificacion }
-                Bono Asisten: ${bonoAsistencia}
-                Bono Seguridad: ${ bonoSeguridad}
-                Total Imponible: ${ montoImponible }
-                No imponible: ${ montoNoImponible }
-                AFP: ${afp}
-                Fonasa: ${salud }
-                Cesantía: ${cesantia}`);
+        updateDoc(nuevoGasto, 
+            {gastos: arrayUnion({...valores, 
+                fechaRegistro: fechaRegistro, 
+                anioGasto:anio, 
+                mesGasto:mes, 
+                proyecto:nombreProyecto,
+                bono_asistencia: bonoAsistencia,
+                bono_seguridad: bonoSeguridad,
+                afp: afp,
+                prevision_salud: salud,
+                cesantia: cesantia,
+                mutual: mutual,
+                sis: sis,
+                total_imponible: montoImponible,
+                total_no_imponible: montoNoImponible,
+                valor: costoMO,
+                concepto:"Mano de Obra",
+                tipo:"Fijo", })
+            }
+        );
 
         setValores( {...valoresIniciales} )
         setHorasNoTrabajadas("")
@@ -155,22 +165,28 @@ useEffect(() => {
         if(nombreTrabajador === "") return;
 
         getIDDoc("colaboradores", nombreTrabajador, setIdTrabajador )
+        getIDDoc("proyectos", nombreProyecto, setIdProyecto);
         getDataTrabajador(idTrabajador, setDataTrabajador);
-        setSueldoBase( getImposiciones( valores.dias, dataTrabajador.sueldo_base ));
-        setGratificacion( getImposiciones( valores.dias, dataTrabajador.gratificacion_legal ));
-        setBonoSeguridad( getImposiciones( valores.dias, dataTrabajador.bono_seguridad ));
-        setBonoAsistencia( getImposiciones( valores.dias, dataTrabajador.bono_asistencia ));
+        setSueldoBase( getImposiciones( valores.dias_trabajados, dataTrabajador.sueldo_base ));
+        setGratificacion( getImposiciones( valores.dias_trabajados, dataTrabajador.gratificacion_legal ));
+        setBonoSeguridad( getImposiciones( valores.dias_trabajados, dataTrabajador.bono_seguridad ));
+        setBonoAsistencia( getImposiciones( valores.dias_trabajados, dataTrabajador.bono_asistencia ));
         setColacion( dataTrabajador.colacion);
         setMovilizacion( dataTrabajador.movilizacion );
         setAfp( (montoImponible * dataTrabajador.afp).toFixed(0) );
         setSalud( (montoImponible * dataTrabajador.prevision_salud).toFixed(0) );
         setCesantia( (montoImponible * dataTrabajador.cesantia).toFixed(0) );
-        
+        setSis( (montoImponible * dataTrabajador.sis).toFixed(0) );
+        setMutual( (montoImponible * dataTrabajador.seguro_mutual).toFixed(0) );
+        setCostoMO( (parseInt(montoImponible) + parseInt(montoNoImponible) 
+        + parseInt(afp) + parseInt(salud) + parseInt(sis) + parseInt(cesantia) + parseInt(mutual)) );
+
         getTotalImponible();
         getTotalNoImponible();
 
-        
-    }, [nombreTrabajador, idTrabajador, dataTrabajador, valores.dias])
+    }, [idProyecto, nombreTrabajador, idTrabajador, dataTrabajador, valores.dias])
+
+
 
 
 
@@ -189,8 +205,8 @@ useEffect(() => {
                     type="date" 
                     className="form-control w-75 mx-auto" 
                     id="inputFechaManoObra" 
-                    name="fecha_actividad"
-                    value={valores.fecha_actividad}
+                    name="fechaGasto"
+                    value={valores.fechaGasto}
                     />
                 </div>
 
@@ -233,10 +249,10 @@ useEffect(() => {
                     <div className="input-group w-75 mx-auto" >
                         <input
                             className="form-control "
-                            name='dias'
+                            name='dias_trabajados'
                             type="text"
                             onChange={ handleInput }
-                            value={ valores.dias }
+                            value={ valores.dias_trabajados }
                             placeholder='Ejm: 30'/>
                         <span className="input-group-text">días</span>
                     </div>
