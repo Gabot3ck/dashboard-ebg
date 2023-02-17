@@ -226,47 +226,31 @@ export const FormRegistroManoObra = () => {
 
 
     return (<>
-        <div className={ `pb-4 rounded-bottom ${ Style.wrapper_formManoObra }` }>
+        <div className={ `pb-4 rounded-bottom px-2 ${ Style.wrapper_formManoObra }` }>
             <form 
                 className="row g-4 needs-validation" 
                 id="formRegistroGastos" 
                 onSubmit={ handleSubmit }
                 autoComplete="off">
 
-                <div className="container w-100 d-flex justify-content-around mt-5">
-                    <div className="col-md-3 text-center">
-                        <label className="form-label">Fecha de actividad:</label>
+                <div className={`container w-100 d-flex justify-content-around mt-5 flex-wrap`}>
+                
+                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                        <label className={ `form-label mb-0 ${ Style.labelForm }` }>Fecha de actividad:</label>
                         <input
                         onChange={ handleInput }
                         type="date" 
-                        className="form-control w-75 mx-auto" 
+                        className={ `form-control py-1 ${ Style.labelForm } `} 
                         id="inputFechaManoObra" 
                         name="fechaGasto"
                         value={valores.fechaGasto}
                         />
                     </div>
 
-                    <div className="col-md-3 text-center">
-                        <label className="form-label">Proyecto:</label>
+                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                        <label className={ `form-label mb-0 ${ Style.labelForm }` }>Colaborador:</label>
                         <select 
-                        className="form-select w-75 mx-auto" 
-                        id="proyectoManoObra" 
-                        onChange={(e) => setNombreProyecto(e.target.value)} 
-                        name="proyecto"
-                        value={nombreProyecto}>
-                        <option value="">Seleccione</option>
-                        { proyectos.map((el, index) => {
-                            return(
-                                <option value={el.nombre} key={index}> {el.nombre} </option>
-                            )
-                            })}
-                        </select>
-                    </div>
-
-                    <div className="col-md-3 text-center">
-                        <label className="form-label">Colaborador:</label>
-                        <select 
-                        className="form-select w-75 mx-auto" 
+                        className={ `form-select py-1 ${ Style.labelForm } `} 
                         id="trabajadorManoObra" 
                         onChange={(e) => setNombreTrabajador(e.target.value)} 
                         name="nombre_trabajador"
@@ -280,19 +264,36 @@ export const FormRegistroManoObra = () => {
                         </select>
                     </div>
 
-                    <div className="col-md-3 text-center">
-                        <label className="form-label">Días trabajados:</label>
+
+                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                        <label className={ `form-label mb-0 ${ Style.labelForm }` }>Días trabajados:</label>
                         <div className="input-group w-75 mx-auto" >
                             <input
-                                className="form-control "
+                                className={ `form-control py-1 ${ Style.labelForm } `}
                                 name='dias_trabajados'
                                 type="text"
                                 onChange={ handleInput }
                                 value={ valores.dias_trabajados }
                                 placeholder='Ejm: 30'/>
-                            <span className="input-group-text">días</span>
+                            <span className={ `input-group-text py-1 px-2 ${ Style.labelForm } `}>días</span>
                         </div>
-                        
+                    </div>
+
+                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                        <label className={ `form-label mb-0 ${ Style.labelForm }` }>Proyecto:</label>
+                        <select 
+                        className={ `form-select py-1 ${ Style.labelForm } `} 
+                        id="proyectoManoObra" 
+                        onChange={(e) => setNombreProyecto(e.target.value)} 
+                        name="proyecto"
+                        value={nombreProyecto}>
+                        <option value="">Seleccione</option>
+                        { proyectos.map((el, index) => {
+                            return(
+                                <option value={el.nombre} key={index}> {el.nombre} </option>
+                            )
+                            })}
+                        </select>
                     </div>
 
                 </div>
@@ -300,8 +301,8 @@ export const FormRegistroManoObra = () => {
     {/* //todo  ******   Horas No Trabajadas ******/ }
 
                 <div className="container w-100 d-flex justify-content-around py-4">
-                    <div className="col-md-3 text-center">
-                        <label className="form-label">Horas no trabajadas:</label>
+                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                        <label className={ `form-label mb-0 ${ Style.labelForm }` }>Horas no trabajadas:</label>
                         <div className="input-group w-75 mx-auto" >
                             <span className="input-group-text">$</span>
                             <input
@@ -320,8 +321,8 @@ export const FormRegistroManoObra = () => {
 
     {/* //todo  ******   Contribuciones Adicionales  ******/ }
                 <div className="container w-100 d-flex justify-content-around my-3">
-                    <div className="col-md-3 text-center">
-                        <label className="form-label">Horas extras:</label>
+                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                        <label className={ `form-label mb-0 ${ Style.labelForm }` }>Horas extras:</label>
                         <div className="input-group w-75 mx-auto" >
                             <span className="input-group-text">$</span>
                             <input
@@ -335,8 +336,8 @@ export const FormRegistroManoObra = () => {
                         </div>
                     </div>
 
-                    <div className="col-md-3 text-center">
-                        <label className="form-label">Asignación Herramienta:</label>
+                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                        <label className={ `form-label mb-0 ${ Style.labelForm }` }>Asignación Herramienta:</label>
                         <div className="input-group w-75 mx-auto" >
                             <span className="input-group-text">$</span>
                             <input
@@ -350,8 +351,8 @@ export const FormRegistroManoObra = () => {
                         </div>
                     </div>
 
-                    <div className="col-md-3 text-center">
-                        <label className="form-label">Bono Producción:</label>
+                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                        <label className={ `form-label mb-0 ${ Style.labelForm }` }>Bono Producción:</label>
                         <div className="input-group w-75 mx-auto" >
                             <span className="input-group-text">$</span>
                             <input
@@ -365,8 +366,8 @@ export const FormRegistroManoObra = () => {
                         </div>
                     </div>
 
-                    <div className="col-md-3 text-center">
-                        <label className="form-label">Aguinaldo:</label>
+                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                        <label className={ `form-label mb-0 ${ Style.labelForm }` }>Aguinaldo:</label>
                         <div className="input-group w-75 mx-auto" >
                             <span className="input-group-text">$</span>
                             <input
