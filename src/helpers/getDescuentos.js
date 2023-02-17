@@ -2,31 +2,23 @@
 
 export const getDescuentos = ( imponible, imposicion ) => {
 
-    let porcentaje = 0;
     let descuento = 0;
 
     switch (imposicion) {
         case "salud":
-            porcentaje = 0.07;
-            return  descuento = (imponible * porcentaje).toFixed(0);
+            return  descuento = (parseInt(imponible) * 0.07).toFixed(3);
         
         case "cesantia":
-            porcentaje = 0.03;
-            return descuento = (imponible * porcentaje).toFixed(0);
+            return descuento = (parseInt(imponible) *  0.03).toFixed(3);
 
         case "sis":
-            porcentaje = 0.0154;
-            return descuento = (imponible * porcentaje).toFixed(0);
+            return descuento = (parseInt(imponible) *  0.0154).toFixed(3);
 
         case "mutual":
-            porcentaje = 0.0671;
-            return descuento = (imponible * porcentaje).toFixed(0);
+            return descuento = (parseInt(imponible) * 0.0671).toFixed(3);
         default:
             break;
     }
-
-
-
 
     return descuento;
 }

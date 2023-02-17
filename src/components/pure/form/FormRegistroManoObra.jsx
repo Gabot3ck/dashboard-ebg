@@ -28,11 +28,6 @@ export const FormRegistroManoObra = () => {
         aguinaldo:"",
         bono_asistencia:"",
         bono_seguridad:"",
-        afp:"",
-        prevision_salud:"",
-        cesantia: "",
-        mutual:"",
-        sis:"",
         total_imponible:"",
         total_no_imponible:"",
         valor: "",
@@ -102,17 +97,21 @@ export const FormRegistroManoObra = () => {
                 proyecto:nombreProyecto,
                 bono_asistencia: bonoAsistencia,
                 bono_seguridad: bonoSeguridad,
-                afp: afp,
-                prevision_salud: salud,
-                cesantia: cesantia,
-                mutual: mutual,
-                sis: sis,
-                total_imponible: totalImponible,
-                total_no_imponible: totalNoImponible,
+                afp: afp.toFixed(0),
+                prevision_salud: salud.toFixed(0),
+                cesantia: cesantia.toFixed(0),
+                mutual: mutual.toFixed(0),
+                sis: sis.toFixed(0),
+                total_imponible: totalImponible.toFixed(0),
+                total_no_imponible: totalNoImponible.toFixed(0),
                 valor: (parseInt(totalImponible) + parseInt(totalNoImponible) 
                 + parseInt(afp) + parseInt(salud) + parseInt(sis) + parseInt(cesantia) + parseInt(mutual)),
                 concepto:"Mano de Obra",
                 tipo:"Fijo", 
+                gratificacion: gratificacion,
+                movilizacion: "",
+                colacion: "",
+                sueldo_base: sueldoBase.toFixed(0),
                 })
             }
         );
@@ -122,21 +121,20 @@ export const FormRegistroManoObra = () => {
 
     //Obteniendo la suma del Total Imponible
     const  getCalculoDelImponible = () => {
-        let suma = 
-            parseInt(sueldoBase) +
-            parseInt(gratificacion) + 
-            (bonoSeguridad ? parseInt(bonoSeguridad) : 0) + 
-            (bonoAsistencia ? parseInt(bonoAsistencia) : 0) + 
-            (valores.bono_produccion.trim().length > 1 ? parseInt(valores.bono_produccion) : 0) + 
-            (valores.horas_extras.trim().length > 1 ? parseInt(valores.horas_extras) : 0) - 
-            (valores.horas_no_trabajadas.trim().length > 1 ? parseInt(valores.horas_no_trabajadas) : 0);
+        // let suma = 
+            // parseInt(sueldoBase) 
+            // parseInt(gratificacion) +
+            // (bonoSeguridad ? parseInt(bonoSeguridad) : 0) +
+            // (bonoAsistencia ? parseInt(bonoAsistencia) : 0)+ 
+            // (valores.bono_produccion.trim().length > 1 ? parseInt(valores.bono_produccion) : 0) + 
+            // (valores.horas_extras.trim().length > 1 ? parseInt(valores.horas_extras) : 0) +
+            // (valores.horas_no_trabajadas.trim().length > 1 ? parseInt(valores.horas_no_trabajadas) : 0);
 
-        setTotalImponible(suma.toFixed(0));
+        setTotalImponible(sueldoBase);
     }
 
 
-
-    //Obteniendo la suma del Total  No Imponible
+//todo  Obteniendo la suma del Total  No Imponible
     const getCalculoDelNoImponible = () => {
         let suma = 
             (movilizacion ?  parseInt(movilizacion) : 0) +
@@ -144,7 +142,7 @@ export const FormRegistroManoObra = () => {
             (valores.asig_herramientas.trim().length > 1 ? parseInt(valores.asig_herramientas) : 0) +
             (valores.aguinaldo.trim().length > 1 ? parseInt(valores.aguinaldo) : 0);
 
-        setTotalNoImponible(suma.toFixed(0));
+        setTotalNoImponible(suma);
     }
 
 //todo   Obteniendo lista de Proyectos 
@@ -200,12 +198,20 @@ export const FormRegistroManoObra = () => {
     useEffect(() => {
         if(valores.dias_trabajados ==="")  return;
 
-        getCalculoDelImponible();
-    },[ dataTrabajador, 
+        // getCalculoDelImponible();
+        setTotalImponible(
+            sueldoBase + 
+            gratificacion +
+            (bonoSeguridad ? parseInt(bonoSeguridad) : 0));
+
+
+    },[
+        // dataTrabajador, 
         valores.dias_trabajados, 
-        valores.bono_produccion,
-        valores.horas_extras,
-        valores.horas_no_trabajadas ]);
+        // valores.bono_produccion,
+        // valores.horas_extras,
+        // valores.horas_no_trabajadas, 
+        sueldoBase, gratificacion, bonoSeguridad ]);
 
 
 
@@ -225,7 +231,7 @@ export const FormRegistroManoObra = () => {
     useEffect(() => {
         if(totalImponible === 0)  return;
 
-        setAfp( (totalImponible * dataTrabajador.afp).toFixed(0) );
+        setAfp( (totalImponible * dataTrabajador.afp) );
         setSalud( getDescuentos(totalImponible, "salud"));
         setCesantia( getDescuentos(totalImponible, "cesantia") );
         setSis( getDescuentos(totalImponible, "sis") );
@@ -233,7 +239,29 @@ export const FormRegistroManoObra = () => {
     },[totalImponible, dataTrabajador, ])
 
 
-
+const click = (e) => {
+    
+    console.log({...valores,
+        nombre_trabajador: nombreTrabajador, 
+        proyecto:nombreProyecto,
+        bono_asistencia: bonoAsistencia,
+        bono_seguridad: bonoSeguridad,
+        afp: afp,
+        prevision_salud: salud,
+        cesantia: cesantia,
+        mutual: mutual,
+        sis: sis,
+        total_imponible: totalImponible,
+        total_no_imponible: totalNoImponible,
+        valor: (parseInt(totalImponible) + parseInt(totalNoImponible) 
+        + parseInt(afp) + parseInt(salud) + parseInt(sis) + parseInt(cesantia) + parseInt(mutual)),
+        concepto:"Mano de Obra",
+        tipo:"Fijo",
+        sueldoBase: sueldoBase,
+        gratificacion: gratificacion,
+        })
+    ;
+}
     return (<>
         <form 
             className="row g-4 needs-validation" 
@@ -397,9 +425,15 @@ export const FormRegistroManoObra = () => {
                         type="submit" >
                         Registrar
                     </button>
+
+                    
                 </div>
 
         </form>
-
+        <button
+                        onClick={() => { click()}}
+                        className="btn btn-danger w-25" >
+                        Probar
+                    </button>
     </>)
 }
