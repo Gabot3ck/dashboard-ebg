@@ -223,29 +223,7 @@ export const FormRegistroManoObra = () => {
     },[totalImponible, dataTrabajador, ])
 
 
-const click = (e) => {
-    
-    console.log({...valores,
-        nombre_trabajador: nombreTrabajador, 
-        proyecto:nombreProyecto,
-        bono_asistencia: bonoAsistencia,
-        bono_seguridad: bonoSeguridad,
-        afp: afp,
-        prevision_salud: salud,
-        cesantia: cesantia,
-        mutual: mutual,
-        sis: sis,
-        total_imponible: totalImponible,
-        total_no_imponible: totalNoImponible,
-        valor: (parseInt(totalImponible) + parseInt(totalNoImponible) 
-        + parseInt(afp) + parseInt(salud) + parseInt(sis) + parseInt(cesantia) + parseInt(mutual)),
-        concepto:"Mano de Obra",
-        tipo:"Fijo",
-        sueldoBase: sueldoBase,
-        gratificacion: gratificacion,
-        })
-    ;
-}
+
     return (<>
         <form 
             className="row g-4 needs-validation" 
