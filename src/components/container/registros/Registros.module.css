@@ -60,3 +60,8 @@
 .boton{
     width: 120px;
 }
+
+.titulo_manoObra{
+    background-color:#dce0e0;
+    border-right: 3px solid rgb(158, 161, 161);
+}

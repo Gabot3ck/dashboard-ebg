@@ -3,7 +3,8 @@ import moment from 'moment';
 import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
 import db from '../../../backend/DBFiresbase';
 import getDataCollection from "../../../helpers/getDataCollection";
-import getIDDoc from "../../../helpers/getIDDoc.js"
+import getIDDoc from "../../../helpers/getIDDoc.js";
+
 
 
 export default function FormRegistroVentas() {
