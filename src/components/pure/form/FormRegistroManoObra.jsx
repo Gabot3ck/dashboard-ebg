@@ -119,19 +119,6 @@ export const FormRegistroManoObra = () => {
         setValores( {...valoresIniciales} )
     }
 
-    //Obteniendo la suma del Total Imponible
-    const  getCalculoDelImponible = () => {
-        // let suma = 
-            // parseInt(sueldoBase) 
-            // parseInt(gratificacion) +
-            // (bonoSeguridad ? parseInt(bonoSeguridad) : 0) +
-            // (bonoAsistencia ? parseInt(bonoAsistencia) : 0)+ 
-            // (valores.bono_produccion.trim().length > 1 ? parseInt(valores.bono_produccion) : 0) + 
-            // (valores.horas_extras.trim().length > 1 ? parseInt(valores.horas_extras) : 0) +
-            // (valores.horas_no_trabajadas.trim().length > 1 ? parseInt(valores.horas_no_trabajadas) : 0);
-
-        setTotalImponible(sueldoBase);
-    }
 
 
 //todo  Obteniendo la suma del Total  No Imponible
@@ -198,20 +185,24 @@ export const FormRegistroManoObra = () => {
     useEffect(() => {
         if(valores.dias_trabajados ==="")  return;
 
-        // getCalculoDelImponible();
         setTotalImponible(
             sueldoBase + 
             gratificacion +
-            (bonoSeguridad ? parseInt(bonoSeguridad) : 0));
+            (bonoSeguridad ? parseInt(bonoSeguridad) : 0)
+            (bonoAsistencia ? parseInt(bonoAsistencia) : 0)+ 
+            (valores.bono_produccion.trim().length > 1 ? parseInt(valores.bono_produccion) : 0) + 
+            (valores.horas_extras.trim().length > 1 ? parseInt(valores.horas_extras) : 0) +
+            (valores.horas_no_trabajadas.trim().length > 1 ? parseInt(valores.horas_no_trabajadas) : 0)
+            );
 
-
-    },[
-        // dataTrabajador, 
-        valores.dias_trabajados, 
-        // valores.bono_produccion,
-        // valores.horas_extras,
-        // valores.horas_no_trabajadas, 
-        sueldoBase, gratificacion, bonoSeguridad ]);
+    },[valores.dias_trabajados,
+        valores.bono_produccion,
+        valores.horas_extras,
+        valores.horas_no_trabajadas,
+        sueldoBase, 
+        gratificacion, 
+        bonoSeguridad,
+        bonoAsistencia]);
 
 
 
