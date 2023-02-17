@@ -120,18 +120,6 @@ export const FormRegistroManoObra = () => {
     }
 
 
-
-//todo  Obteniendo la suma del Total  No Imponible
-    const getCalculoDelNoImponible = () => {
-        let suma = 
-            (movilizacion ?  parseInt(movilizacion) : 0) +
-            (colacion ?  parseInt(colacion) : 0) +
-            (valores.asig_herramientas.trim().length > 1 ? parseInt(valores.asig_herramientas) : 0) +
-            (valores.aguinaldo.trim().length > 1 ? parseInt(valores.aguinaldo) : 0);
-
-        setTotalNoImponible(suma);
-    }
-
 //todo   Obteniendo lista de Proyectos 
     useEffect(() => {
         getDataCollection("proyectos", setProyectos);
@@ -183,38 +171,43 @@ export const FormRegistroManoObra = () => {
 
 //todo   Calculo del Imponible
     useEffect(() => {
-        if(valores.dias_trabajados ==="")  return;
+        if( valores.dias_trabajados === "" )  return;
 
         setTotalImponible(
             sueldoBase + 
             gratificacion +
-            (bonoSeguridad ? parseInt(bonoSeguridad) : 0)
-            (bonoAsistencia ? parseInt(bonoAsistencia) : 0)+ 
+            (bonoSeguridad ? parseInt(bonoSeguridad) : 0) +
+            (bonoAsistencia ? parseInt(bonoAsistencia) : 0) + 
             (valores.bono_produccion.trim().length > 1 ? parseInt(valores.bono_produccion) : 0) + 
             (valores.horas_extras.trim().length > 1 ? parseInt(valores.horas_extras) : 0) +
-            (valores.horas_no_trabajadas.trim().length > 1 ? parseInt(valores.horas_no_trabajadas) : 0)
-            );
+            (valores.horas_no_trabajadas.trim().length > 1 ? parseInt(valores.horas_no_trabajadas) : 0));
 
-    },[valores.dias_trabajados,
+    },[ valores.dias_trabajados,
         valores.bono_produccion,
         valores.horas_extras,
         valores.horas_no_trabajadas,
         sueldoBase, 
         gratificacion, 
         bonoSeguridad,
-        bonoAsistencia]);
+        bonoAsistencia ]);
 
 
 
 //todo   Calculo del NO Imponible
     useEffect(() => {
-        if(valores.dias_trabajados ==="")  return;
+        if( valores.dias_trabajados === "" )  return;
 
-        getCalculoDelNoImponible();
-    },[ dataTrabajador, 
-        valores.dias_trabajados,
+        setTotalNoImponible(
+            (movilizacion ?  parseInt(movilizacion) : 0) +
+            (colacion ?  parseInt(colacion) : 0) +
+            (valores.asig_herramientas.trim().length > 1 ? parseInt(valores.asig_herramientas) : 0) +
+            (valores.aguinaldo.trim().length > 1 ? parseInt(valores.aguinaldo) : 0));
+
+    },[ valores.dias_trabajados,
         valores.asig_herramientas,
-        valores.aguinaldo ])
+        valores.aguinaldo,
+        colacion,
+        movilizacion ]);
 
 
 
@@ -421,10 +414,5 @@ const click = (e) => {
                 </div>
 
         </form>
-        <button
-                        onClick={() => { click()}}
-                        className="btn btn-danger w-25" >
-                        Probar
-                    </button>
     </>)
 }
