@@ -226,16 +226,16 @@ export const FormRegistroManoObra = () => {
 
 
     return (<>
-        <div className={ `pb-4 rounded-bottom px-2 ${ Style.wrapper_formManoObra }` }>
+        <div className={ `pb-4 rounded-bottom px-4 ${ Style.wrapper_formManoObra }` }>
             <form 
                 className="row g-4 needs-validation" 
                 id="formRegistroGastos" 
                 onSubmit={ handleSubmit }
                 autoComplete="off">
 
-                <div className={`container w-100 d-flex justify-content-around mt-5 flex-wrap`}>
+                <div className={`container w-100 d-flex justify-content-between mt-5 flex-wrap`}>
                 
-                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                    <div className={`d-flex flex-column align-items-center px-1 ${Style.wrapper_input} `}>
                         <label className={ `form-label mb-0 ${ Style.labelForm }` }>Fecha de actividad:</label>
                         <input
                         onChange={ handleInput }
@@ -247,7 +247,7 @@ export const FormRegistroManoObra = () => {
                         />
                     </div>
 
-                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                    <div className={`d-flex flex-column align-items-center px-1 ${Style.wrapper_input}`}>
                         <label className={ `form-label mb-0 ${ Style.labelForm }` }>Colaborador:</label>
                         <select 
                         className={ `form-select py-1 ${ Style.labelForm } `} 
@@ -265,9 +265,9 @@ export const FormRegistroManoObra = () => {
                     </div>
 
 
-                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                    <div className={`d-flex flex-column align-items-center px-1 ${Style.wrapper_input}`}>
                         <label className={ `form-label mb-0 ${ Style.labelForm }` }>Días trabajados:</label>
-                        <div className="input-group w-75 mx-auto" >
+                        <div className={ `input-group  mx-auto ${ Style.inputSmall }`} >
                             <input
                                 className={ `form-control py-1 ${ Style.labelForm } `}
                                 name='dias_trabajados'
@@ -279,7 +279,7 @@ export const FormRegistroManoObra = () => {
                         </div>
                     </div>
 
-                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                    <div className={`d-flex flex-column align-items-center px-1 ${Style.wrapper_input} ${Style.inputLarge}`}>
                         <label className={ `form-label mb-0 ${ Style.labelForm }` }>Proyecto:</label>
                         <select 
                         className={ `form-select py-1 ${ Style.labelForm } `} 
@@ -298,101 +298,95 @@ export const FormRegistroManoObra = () => {
 
                 </div>
 
-    {/* //todo  ******   Horas No Trabajadas ******/ }
 
-                <div className="container w-100 d-flex justify-content-around py-4">
-                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                <div className={`container w-100 d-flex justify-content-between mt-5 flex-wrap`}>
+
+                    <div className={`d-flex flex-column align-items-center px-1 ${Style.wrapper_input} ${Style.inputLarge}`}>
                         <label className={ `form-label mb-0 ${ Style.labelForm }` }>Horas no trabajadas:</label>
-                        <div className="input-group w-75 mx-auto" >
-                            <span className="input-group-text">$</span>
+                        <div className="input-group mx-auto" >
+                            <span className={ `input-group-text py-1 px-1 ${ Style.labelForm } `}>$</span>
                             <input
                                 onChange={  handleInput }
                                 value={ valores.horas_no_trabajadas }
-                                className="form-control "
+                                className={ `form-control py-1 ${ Style.labelForm } `} 
                                 type="text" 
                                 name='horas_no_trabajadas'
                                 placeholder='Ejm: 12000'/>
-                            <span className="input-group-text">.00</span>
+                            <span className={ `input-group-text py-1 px-1 ${ Style.labelForm } `}>.00</span>
                         </div>
                     </div>
-                </div>
 
-
-
-    {/* //todo  ******   Contribuciones Adicionales  ******/ }
-                <div className="container w-100 d-flex justify-content-around my-3">
-                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                    <div className={`d-flex flex-column align-items-center px-1 ${Style.wrapper_input} ${Style.inputLarge}`}>
                         <label className={ `form-label mb-0 ${ Style.labelForm }` }>Horas extras:</label>
-                        <div className="input-group w-75 mx-auto" >
-                            <span className="input-group-text">$</span>
+                        <div className="input-group  mx-auto" >
+                            <span className={ `input-group-text py-1 px-1 ${ Style.labelForm } `}>$</span>
                             <input
                                 onChange={ handleInput }
                                 value={ valores.horas_extras }
-                                className="form-control "
+                                className={ `form-control py-1 ${ Style.labelForm } `} 
                                 type="text" 
                                 name='horas_extras'
                                 placeholder='Ejm: 50000'/>
-                            <span className="input-group-text">.00</span>
+                            <span className={ `input-group-text py-1 px-1 ${ Style.labelForm } `}>.00</span>
                         </div>
                     </div>
 
-                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
-                        <label className={ `form-label mb-0 ${ Style.labelForm }` }>Asignación Herramienta:</label>
-                        <div className="input-group w-75 mx-auto" >
-                            <span className="input-group-text">$</span>
+                    <div className={`d-flex flex-column align-items-center px-1 ${Style.wrapper_input} ${Style.inputLarge}`}>
+                        <label className={ `form-label mb-0 ${ Style.labelForm }` }>Asig. Herramienta:</label>
+                        <div className="input-group mx-auto" >
+                            <span className={ `input-group-text py-1 px-1 ${ Style.labelForm } `}>$</span>
                             <input
                                 onChange={ handleInput }
-                                className="form-control "
+                                className={ `form-control py-1 ${ Style.labelForm } `} 
                                 type="text"
                                 name='asig_herramientas'
                                 value={ valores.asig_herramientas }
                                 placeholder='Ejm: 200000'/>
-                            <span className="input-group-text">.00</span>
+                            <span className={ `input-group-text py-1 px-1 ${ Style.labelForm } `}>.00</span>
                         </div>
                     </div>
 
-                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                    <div className={`d-flex flex-column align-items-center px-1 ${Style.wrapper_input} ${Style.inputLarge}`}>
                         <label className={ `form-label mb-0 ${ Style.labelForm }` }>Bono Producción:</label>
-                        <div className="input-group w-75 mx-auto" >
-                            <span className="input-group-text">$</span>
+                        <div className="input-group mx-auto" >
+                            <span className={ `input-group-text py-1 px-1 ${ Style.labelForm } `}>$</span>
                             <input
                                 onChange={ handleInput }
-                                className="form-control "
+                                className={ `form-control py-1 ${ Style.labelForm } `} 
                                 type="text"
                                 name='bono_produccion'
                                 value={ valores.bono_produccion } 
                                 placeholder='Ejm: 200000'/>
-                            <span className="input-group-text">.00</span>
+                            <span className={ `input-group-text py-1 px-1 ${ Style.labelForm } `}>.00</span>
                         </div>
                     </div>
 
-                    <div className={`d-flex  align-items-center px-1 ${Style.wrapper_input}`}>
+                    <div className={`d-flex flex-column align-items-center px-1 ${Style.wrapper_input} ${Style.inputLarge}`}>
                         <label className={ `form-label mb-0 ${ Style.labelForm }` }>Aguinaldo:</label>
-                        <div className="input-group w-75 mx-auto" >
-                            <span className="input-group-text">$</span>
+                        <div className="input-group mx-auto" >
+                            <span className={ `input-group-text py-1 px-1 ${ Style.labelForm } `}>$</span>
                             <input
                                 onChange={ handleInput }
-                                className="form-control "
+                                className={ `form-control py-1 ${ Style.labelForm } `} 
                                 type="text"
                                 name='aguinaldo' 
                                 placeholder='Ejm: 100000'
                                 value={ valores.aguinaldo }/>
-                            <span className="input-group-text">.00</span>
+                            <span className={ `input-group-text py-1 px-1 ${ Style.labelForm } `}>.00</span>
                         </div>
                     </div>
 
                 </div>
 
-                <div className='col-6 mx-auto d-flex  justify-content-evenly '>
-                        <button
-                            onClick={() => { handleClick()}}
-                            className="btn btn-primary w-25" 
-                            type="submit" >
-                            Registrar
-                        </button>
 
-                        
-                    </div>
+                <div className='col-6 mx-auto d-flex  justify-content-evenly mt-5'>
+                    <button
+                        onClick={() => { handleClick()}}
+                        className="btn btn-primary w-25" 
+                        type="submit" >
+                        Registrar
+                    </button>
+                </div>
 
             </form>
         </div>

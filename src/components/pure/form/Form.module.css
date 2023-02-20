@@ -11,3 +11,9 @@
 .wrapper_input{
     height: 3rem;
 }
+.inputSmall{
+    width: 150px;
+}
+.inputLarge{
+    width: 150px;
+}
