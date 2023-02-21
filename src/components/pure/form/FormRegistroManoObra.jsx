@@ -1,14 +1,14 @@
 import {useState, useEffect} from 'react';
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { getDataTrabajador } from '../../../helpers/getDataTrabajador';
+import { getImposiciones } from '../../../helpers/getImposiciones';
+import { getDescuentos } from '../../../helpers/getDescuentos';
 import moment from "moment";
 import getDataCollection from '../../../helpers/getDataCollection';
 import getIDDoc from '../../../helpers/getIDDoc';
-import { getDataTrabajador } from '../../../helpers/getDataTrabajador';
-import { getImposiciones } from '../../../helpers/getImposiciones';
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
-import db from '../../../backend/DBFiresbase';
-import { getDescuentos } from '../../../helpers/getDescuentos';
-import Style from "./Form.module.css";
 import getListaCostosMO from '../../../helpers/getListaCostosMO';
+import db from '../../../backend/DBFiresbase';
+import Style from "./Form.module.css";
 
 
 
@@ -37,6 +37,11 @@ export const FormRegistroManoObra = () => {
         concepto:"Mano de Obra",
         tipo:"Fijo",
     }
+
+    const [btnDisable, setBtnDisable] = useState(true);
+    const [trabajadorActiva, setTrabajadorActiva] = useState(false);
+    const [diasActiva, setDiasActiva] = useState(false);
+    const [proyectoActiva, setProyectoActiva] = useState(false);
 
     //Variables para enviar
     const [valores, setValores] = useState(valoresIniciales);
@@ -78,7 +83,6 @@ export const FormRegistroManoObra = () => {
     const handleClick = () => {
         setFechaRegistro(moment().format('YYYY-MM-DD HH:mm:ss'));
     }
-
 
 
     const handleSubmit = (e) => {
@@ -140,20 +144,35 @@ export const FormRegistroManoObra = () => {
 
 //todo   Obteniendo ID del Proyecto
     useEffect(() => {
-        if(nombreProyecto === "") return;
+        if(nombreProyecto === ""){
+            setProyectoActiva(false)
+            return;
+        } else {
+            setProyectoActiva(true)
+        };
         getIDDoc("proyectos", nombreProyecto, setIdProyecto);
     },[nombreProyecto]);
 
 
 //todo   Obteniendo ID del Trabajador
     useEffect(() => {
-        if(nombreTrabajador === "") return;
+        if(nombreTrabajador === ""){
+            setTrabajadorActiva(false);
+            return
+        } else {
+            setDiasActiva(true);
+        };
         getIDDoc("colaboradores", nombreTrabajador, setIdTrabajador )
     },[nombreTrabajador]);
 
 //todo   Obteniendo Data del trabajador desde Firestore
     useEffect(() => {
-        if(idTrabajador === "") return;
+        if(idTrabajador === ""){
+            
+            return
+        } else{
+            setTrabajadorActiva(true);
+        };
         getDataTrabajador(idTrabajador, setDataTrabajador);
     },[idTrabajador]);
 
@@ -175,7 +194,12 @@ export const FormRegistroManoObra = () => {
 
 //todo   Calculo del Imponible
     useEffect(() => {
-        if( valores.dias_trabajados === "" )  return;
+        if( valores.dias_trabajados === "" ) {
+            setDiasActiva(false);
+            return
+        }else{
+            setDiasActiva(true);
+        };
 
         setTotalImponible(
             sueldoBase + 
@@ -226,6 +250,23 @@ export const FormRegistroManoObra = () => {
         setMutual( getDescuentos(totalImponible, "mutual") );
     },[totalImponible, dataTrabajador, ])
 
+//todo Habilitar btn Enviar
+    useEffect(() => {
+        const handleDOMLoaded = () => setBtnDisable(true)
+    
+        if((trabajadorActiva) && (diasActiva) && (proyectoActiva)){
+            window.removeEventListener('DOMContentLoaded', handleDOMLoaded)
+            setBtnDisable(false);
+        } else {
+            window.addEventListener('DOMContentLoaded', handleDOMLoaded);
+            setBtnDisable(true);
+        }
+
+        return () => window.removeEventListener('DOMContentLoaded', handleDOMLoaded);
+        
+
+    }, [trabajadorActiva, diasActiva, proyectoActiva])
+    
 
 //todo Obteniendo datos de los costos de Firebase
     useEffect(() => {
@@ -390,8 +431,9 @@ export const FormRegistroManoObra = () => {
                 <div className='col-6 mx-auto d-flex  justify-content-evenly mt-5'>
                     <button
                         onClick={() => { handleClick()}}
-                        className="btn btn-primary w-25" 
-                        type="submit" >
+                        className={`btn btn-primary w-25 ${ btnDisable ? Style.bloqueado : "" }`} 
+                        type="submit" 
+                        disabled={btnDisable}>
                         Registrar
                     </button>
                 </div>

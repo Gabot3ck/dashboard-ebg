@@ -21,3 +21,10 @@
     background-color:#dce0e0;
     border-right: 3px solid rgb(158, 161, 161);
 }
+.bloqueado{
+	opacity: 35% !important;
+    pointer-events: visible !important;
+    cursor: not-allowed !important;
+    background-color: red !important;
+}
+
