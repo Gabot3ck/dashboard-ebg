@@ -8,6 +8,8 @@ import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import db from '../../../backend/DBFiresbase';
 import { getDescuentos } from '../../../helpers/getDescuentos';
 import Style from "./Form.module.css";
+import getListaCostosMO from '../../../helpers/getListaCostosMO';
+
 
 
 
@@ -62,6 +64,7 @@ export const FormRegistroManoObra = () => {
     const [proyectos, setProyectos] = useState([]);
     const [trabajadores, setTrabajadores] = useState([]);
 
+    const [gastosMO, setGastosMO] = useState([]);
 
 
 
@@ -223,6 +226,11 @@ export const FormRegistroManoObra = () => {
         setMutual( getDescuentos(totalImponible, "mutual") );
     },[totalImponible, dataTrabajador, ])
 
+
+//todo Obteniendo datos de los costos de Firebase
+    useEffect(() => {
+        getListaCostosMO("proyectos", setGastosMO);
+    }, []);
 
 
     return (<>
@@ -389,6 +397,40 @@ export const FormRegistroManoObra = () => {
                 </div>
 
             </form>
+        </div>
+
+        <p className={ `mt-5 fs-5 fw-bold p-2 mb-0 rounded-1 ${Style.titulo_manoObra}` } >
+            Resultados
+        </p>
+
+        <div className={`w-100 pb-4 rounded-bottom px-4 ${ Style.wrapper_formManoObra }`}>
+            <div className="table-responsive text-center mt-5" style={{overflowX: "scroll"}}>
+                <table id="tablaCostosMO" className="table table-sm table-bordered text-center" style={{minWidth: "100%"}}> 
+                    <thead>
+                        <tr className="table-primary" style={{fontSize: ".9rem"}} >
+                            <th>Fecha</th>
+                            <th>Proyecto</th>
+                            <th>Colaborador</th>
+                            <th>Costo Mano de Obra</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {gastosMO.map((el,index) => {
+                            return(
+                                <tr key= {index}  className="table-warning" style={{fontSize: ".85rem"}}>
+                                    <td>{moment(el.fechaRegistro).format('YYYY-MM-DD')}</td>
+                                    <td>{el.proyecto}</td>
+                                    <td>{el.nombre_trabajador}</td>
+                                    <td>$ { Intl.NumberFormat('de-DE').format(el.valor) }</td>
+                                </tr>
+                            )
+                        })}
+
+                    </tbody>
+
+                </table>
+            </div>
         </div>
     </>)
 }
