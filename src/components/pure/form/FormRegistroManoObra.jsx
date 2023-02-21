@@ -3,12 +3,15 @@ import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { getDataTrabajador } from '../../../helpers/getDataTrabajador';
 import { getImposiciones } from '../../../helpers/getImposiciones';
 import { getDescuentos } from '../../../helpers/getDescuentos';
+import { showMessageExit } from '../../../helpers/ShowMessage';
+import { ToastContainer } from 'react-toastify';
 import moment from "moment";
 import getDataCollection from '../../../helpers/getDataCollection';
 import getIDDoc from '../../../helpers/getIDDoc';
 import getListaCostosMO from '../../../helpers/getListaCostosMO';
 import db from '../../../backend/DBFiresbase';
 import Style from "./Form.module.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -88,6 +91,8 @@ export const FormRegistroManoObra = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        showMessageExit("¡Gasto agregado con éxito!")
+
         //Se capturan el mes y año de la fecha de la venta
         const mes = moment(valores.fechaGasto).format("MMMM");
         const anio = moment(valores.fechaGasto).format("YYYY");
@@ -95,6 +100,7 @@ export const FormRegistroManoObra = () => {
         // Enviando Data a Firebase
         const nuevoGasto = doc(db, "proyectos", idProyecto);
 
+        
 
         updateDoc(nuevoGasto, 
             {gastos: arrayUnion({...valores,
@@ -123,6 +129,8 @@ export const FormRegistroManoObra = () => {
                 })
             }
         );
+
+        
 
         setValores( {...valoresIniciales} )
     }
@@ -431,7 +439,7 @@ export const FormRegistroManoObra = () => {
                 <div className='col-6 mx-auto d-flex  justify-content-evenly mt-5'>
                     <button
                         onClick={() => { handleClick()}}
-                        className={`btn btn-primary w-25 ${ btnDisable ? Style.bloqueado : "" }`} 
+                        className={`btn btn-success w-25 ${ btnDisable ? Style.bloqueado : "" }`} 
                         type="submit" 
                         disabled={btnDisable}>
                         Registrar
@@ -439,6 +447,7 @@ export const FormRegistroManoObra = () => {
                 </div>
 
             </form>
+            <ToastContainer/>
         </div>
 
         <p className={ `mt-5 fs-5 fw-bold p-2 mb-0 rounded-1 ${Style.titulo_manoObra}` } >
@@ -446,10 +455,10 @@ export const FormRegistroManoObra = () => {
         </p>
 
         <div className={`w-100 pb-4 rounded-bottom px-4 ${ Style.wrapper_formManoObra }`}>
-            <div className="table-responsive text-center mt-5" style={{overflowX: "scroll"}}>
-                <table id="tablaCostosMO" className="table table-sm table-bordered text-center" style={{minWidth: "100%"}}> 
+            <div className="table-responsive text-center mt-4 rounded-top" style={{overflowX: "scroll"}}>
+                <table id="tablaCostosMO" className="table table-sm table-bordered text-center rounded-top" style={{minWidth: "100%"}}> 
                     <thead>
-                        <tr className="table-primary" style={{fontSize: ".9rem"}} >
+                        <tr className={`${Style.bg_thead} `}  >
                             <th>Fecha</th>
                             <th>Proyecto</th>
                             <th>Colaborador</th>
@@ -460,7 +469,7 @@ export const FormRegistroManoObra = () => {
                     <tbody>
                         {gastosMO.map((el,index) => {
                             return(
-                                <tr key= {index}  className="table-warning" style={{fontSize: ".85rem"}}>
+                                <tr key= {index}  className={`${Style.bg_tbody}`} style={{fontSize: ".85rem"}}>
                                     <td>{moment(el.fechaRegistro).format('YYYY-MM-DD')}</td>
                                     <td>{el.proyecto}</td>
                                     <td>{el.nombre_trabajador}</td>

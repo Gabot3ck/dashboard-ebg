@@ -27,4 +27,13 @@
     cursor: not-allowed !important;
     background-color: red !important;
 }
-
+.bg_thead{
+    font-size: .9rem;
+    font-weight: 600;
+    background-color:  #1aa184d2;
+    color: antiquewhite;
+}
+.bg_tbody{
+    background-color: rgb(193, 238, 208);
+    
+}
