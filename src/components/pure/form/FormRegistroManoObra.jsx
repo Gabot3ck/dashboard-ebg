@@ -14,7 +14,7 @@ import Style from "./Form.module.css";
 import 'react-toastify/dist/ReactToastify.css';
 
 
-
+const ITEMS_NAVEGACION = 3;
 
 
 export const FormRegistroManoObra = () => {
@@ -276,10 +276,51 @@ export const FormRegistroManoObra = () => {
     }, [trabajadorActiva, diasActiva, proyectoActiva])
     
 
+
+
+//todo Mostrando los datos en el formulario
+
+    const [items, setItems] = useState([]);
+    const [currentPage, setCurrentPage] = useState(0);
+    
 //todo Obteniendo datos de los costos de Firebase
     useEffect(() => {
         getListaCostosMO("proyectos", setGastosMO);
+        
     }, []);
+
+//todo Separando los datos traídos de Firebase
+    useEffect(() => {
+        setItems([...gastosMO].splice(0, ITEMS_NAVEGACION))
+    },[gastosMO])
+
+
+//todo Funciones de Navegación
+    const nextHandler = () => {
+        const totalElementos = gastosMO.length;
+
+        const nextPage = currentPage + 1;
+        const firstIndex = nextPage * ITEMS_NAVEGACION;
+
+        if(firstIndex >= totalElementos) return;
+
+        setItems([...gastosMO].splice(firstIndex, ITEMS_NAVEGACION));
+        setCurrentPage(nextPage);
+    }
+
+
+
+    const prevHandler = () => {
+        const prevPage = currentPage - 1;
+        
+        if(prevPage < 0) return;
+
+        const firstIndex = prevPage * ITEMS_NAVEGACION;
+
+        setItems([...gastosMO].splice(firstIndex, ITEMS_NAVEGACION));
+        setCurrentPage(prevPage);
+    }
+
 
 
     return (<>
@@ -453,9 +494,25 @@ export const FormRegistroManoObra = () => {
         <p className={ `mt-5 fs-5 fw-bold p-2 mb-0 rounded-1 ${Style.titulo_manoObra}` } >
             Resultados
         </p>
-
+        
         <div className={`w-100 pb-4 rounded-bottom px-4 ${ Style.wrapper_formManoObra }`}>
+
+
             <div className="table-responsive text-center mt-4 rounded-top" style={{overflowX: "scroll"}}>
+                <div className={`mx-auto w-50 gap-5  d-flex justify-content-center my-3`}>
+                    <button
+                        onClick={ prevHandler }
+                        className={`btn btn-success ${Style.btnNav}`}>
+                        <i className="bi bi-caret-left-fill"></i>Atrás
+                    </button>
+                    <h5>Página { currentPage + 1 }</h5>
+                    <button
+                        onClick={ nextHandler } 
+                        className={`btn btn-success ${Style.btnNav}`}>
+                        Siguiente<i className="bi bi-caret-right-fill"></i>
+                    </button>
+                </div>
+                
                 <table id="tablaCostosMO" className="table table-sm table-bordered text-center rounded-top" style={{minWidth: "100%"}}> 
                     <thead>
                         <tr className={`${Style.bg_thead} `}  >
@@ -467,7 +524,7 @@ export const FormRegistroManoObra = () => {
                     </thead>
 
                     <tbody>
-                        {gastosMO.map((el,index) => {
+                        {items.map((el,index) => {
                             return(
                                 <tr key= {index}  className={`${Style.bg_tbody}`} style={{fontSize: ".85rem"}}>
                                     <td>{moment(el.fechaRegistro).format('YYYY-MM-DD')}</td>
@@ -481,7 +538,11 @@ export const FormRegistroManoObra = () => {
                     </tbody>
 
                 </table>
+                
+                
             </div>
+            
+            
         </div>
     </>)
 }

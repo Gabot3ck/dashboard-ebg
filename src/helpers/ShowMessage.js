@@ -19,7 +19,7 @@ export const showMessageError = (mensaje) => {
 export const showMessageExit = (mensaje) => {
     toast.success(`${mensaje}`, {
         position: "bottom-center",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
