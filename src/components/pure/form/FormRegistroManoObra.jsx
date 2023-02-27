@@ -14,7 +14,8 @@ import Style from "./Form.module.css";
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const ITEMS_NAVEGACION = 3;
+//Cantidad de items para paginación de gastos de Mnao de Obra
+const ITEMS_NAVEGACION = 10;
 
 
 export const FormRegistroManoObra = () => {
@@ -57,6 +58,7 @@ export const FormRegistroManoObra = () => {
     const [gratificacion, setGratificacion] = useState(0);
     const [bonoSeguridad, setBonoSeguridad] = useState(0);
     const [bonoAsistencia, setBonoAsistencia] = useState(0);
+    const [bonoObjetivo, setBonoObjetivo] = useState(0);
     const [colacion, setColacion] = useState(0);
     const [movilizacion, setMovilizacion] = useState(0);
     const [totalImponible, setTotalImponible] = useState(0);
@@ -74,6 +76,10 @@ export const FormRegistroManoObra = () => {
 
     const [gastosMO, setGastosMO] = useState([]);
 
+    const [validaBonoSeguridad, setValidaBonoSeguridad] = useState("1");
+    const [validaBonoAsistencia, setValidaBonoAsistencia] = useState("1");
+    const [validaBonoObjetivo, setValidaBonoObjetivo] = useState("0");
+
 
 
 // todo  *** Capturar los valores de los inputs del Form  ***
@@ -82,10 +88,14 @@ export const FormRegistroManoObra = () => {
         setValores({...valores, [name]:value});
     }
 
+    const cambioRadioOption= (e, setEstado) =>{
+        setEstado(e.target.value);
+    }
 
     const handleClick = () => {
         setFechaRegistro(moment().format('YYYY-MM-DD HH:mm:ss'));
     }
+
 
 
     const handleSubmit = (e) => {
@@ -111,6 +121,7 @@ export const FormRegistroManoObra = () => {
                 proyecto:nombreProyecto,
                 bono_asistencia: bonoAsistencia,
                 bono_seguridad: bonoSeguridad,
+                bono_objetivo: bonoObjetivo,
                 afp: afp,
                 prevision_salud: salud,
                 cesantia: cesantia,
@@ -191,12 +202,18 @@ export const FormRegistroManoObra = () => {
 
         setSueldoBase( getImposiciones( valores.dias_trabajados, dataTrabajador.sueldo_base ));
         setGratificacion( getImposiciones( valores.dias_trabajados, dataTrabajador.gratificacion_legal ));
-        setBonoSeguridad( getImposiciones( valores.dias_trabajados, dataTrabajador.bono_seguridad ));
-        setBonoAsistencia( getImposiciones( valores.dias_trabajados, dataTrabajador.bono_asistencia ));
+        setBonoSeguridad( validaBonoSeguridad === "1" ? getImposiciones( valores.dias_trabajados, dataTrabajador.bono_seguridad ) : 0);
+        setBonoAsistencia( validaBonoAsistencia === "1" ? getImposiciones( valores.dias_trabajados, dataTrabajador.bono_asistencia ) : 0);
+        setBonoObjetivo( validaBonoObjetivo === "1" ? getImposiciones( valores.dias_trabajados, dataTrabajador.bono_objetivo ) : 0);
         setColacion( getImposiciones( valores.dias_trabajados, dataTrabajador.colacion));
         setMovilizacion( getImposiciones( valores.dias_trabajados, dataTrabajador.movilizacion));
 
-    },[ dataTrabajador,  valores.dias_trabajados ])
+    },[ 
+        dataTrabajador,  
+        valores.dias_trabajados, 
+        validaBonoSeguridad, 
+        validaBonoAsistencia,
+        validaBonoObjetivo ]);
 
 
 
@@ -214,6 +231,7 @@ export const FormRegistroManoObra = () => {
             gratificacion +
             (bonoSeguridad ? parseInt(bonoSeguridad) : 0) +
             (bonoAsistencia ? parseInt(bonoAsistencia) : 0) + 
+            (bonoObjetivo ? parseInt(bonoObjetivo) : 0) +
             (valores.bono_produccion.trim().length > 1 ? parseInt(valores.bono_produccion) : 0) + 
             (valores.horas_extras.trim().length > 1 ? parseInt(valores.horas_extras) : 0) +
             (valores.horas_no_trabajadas.trim().length > 1 ? parseInt(valores.horas_no_trabajadas) : 0));
@@ -225,7 +243,8 @@ export const FormRegistroManoObra = () => {
         sueldoBase, 
         gratificacion, 
         bonoSeguridad,
-        bonoAsistencia ]);
+        bonoAsistencia,
+        bonoObjetivo ]);
 
 
 
@@ -326,7 +345,7 @@ export const FormRegistroManoObra = () => {
     return (<>
         <div className={ `pb-4 rounded-bottom px-4 ${ Style.wrapper_formManoObra }` }>
             <form 
-                className="row g-4 needs-validation" 
+                className="row gap-3 needs-validation" 
                 id="formRegistroGastos" 
                 onSubmit={ handleSubmit }
                 autoComplete="off">
@@ -396,8 +415,106 @@ export const FormRegistroManoObra = () => {
 
                 </div>
 
+                <div className={`container w-100 d-flex justify-content-evenly mt-4 flex-wrap`}>
+                    <fieldset>
+                        <legend className={ `${Style.labelForm}` } >Bono de Seguridad:</legend>
+                        <div className='d-flex gap-3' >
+                            <div className="form-check">
+                                <input 
+                                    className={` form-check-input ${Style.labelForm} `}
+                                    value="1" 
+                                    checked={ validaBonoSeguridad === "1" ? true : false }
+                                    onChange={ (e) => cambioRadioOption(e, setValidaBonoSeguridad) }
+                                    type="radio" 
+                                    name="radioBonoSeguridad" 
+                                    id="radioBonoSeguridad1" />
+                                <label className= {` form-check-label ${Style.labelForm}`} >
+                                    Sí
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input 
+                                    className={` form-check-input ${Style.labelForm} `}
+                                    value="0"
+                                    checked={ validaBonoSeguridad === "0" ? true : false }
+                                    onChange={ (e) => cambioRadioOption(e, setValidaBonoSeguridad) }
+                                    type="radio" 
+                                    name="radioBonoSeguridad" 
+                                    id="radioBonoSeguridad2" />
+                                <label className={` form-check-label ${Style.labelForm}`}>
+                                No
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
 
-                <div className={`container w-100 d-flex justify-content-between mt-5 flex-wrap`}>
+                    <fieldset>
+                        <legend className={ `${Style.labelForm}` } >Bono de Asistencia:</legend>
+                        <div className='d-flex gap-3' >
+                            <div className="form-check">
+                                <input 
+                                    className={` form-check-input ${Style.labelForm} `}
+                                    value="1" 
+                                    checked={ validaBonoAsistencia === "1" ? true : false }
+                                    onChange={ (e) => cambioRadioOption(e, setValidaBonoAsistencia) }
+                                    type="radio" 
+                                    name="radioBonoAsistencia" 
+                                    id="radioBonoAsistencia1" />
+                                <label className= {` form-check-label ${Style.labelForm}`} >
+                                    Sí
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input 
+                                    className={` form-check-input ${Style.labelForm} `}
+                                    value="0"
+                                    checked={ validaBonoAsistencia === "0" ? true : false }
+                                    onChange={ (e) => cambioRadioOption(e, setValidaBonoAsistencia) }
+                                    type="radio" 
+                                    name="radioBonoAsistencia" 
+                                    id="radioBonoAsistencia2" />
+                                <label className={` form-check-label ${Style.labelForm}`}>
+                                No
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend className={ `${Style.labelForm}` } >Bono Objetivo:</legend>
+                        <div className='d-flex gap-3' >
+                            <div className="form-check">
+                                <input 
+                                    className={` form-check-input ${Style.labelForm} `}
+                                    value="1" 
+                                    checked={ validaBonoObjetivo === "1" ? true : false }
+                                    onChange={ (e) => cambioRadioOption(e, setValidaBonoObjetivo) }
+                                    type="radio" 
+                                    name="radioBonoObjetivo" 
+                                    id="radioBonoObjetivo1" />
+                                <label className= {` form-check-label ${Style.labelForm}`} >
+                                    Sí
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input 
+                                    className={` form-check-input ${Style.labelForm} `}
+                                    value="0"
+                                    checked={ validaBonoObjetivo === "0" ? true : false }
+                                    onChange={ (e) => cambioRadioOption(e, setValidaBonoObjetivo) }
+                                    type="radio" 
+                                    name="radioBonoObjetivo" 
+                                    id="radioBonoObjetivo2" />
+                                <label className={` form-check-label ${Style.labelForm}`}>
+                                No
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                </div>
+
+                <div className={`container w-100 d-flex justify-content-between mt-4 flex-wrap`}>
 
                     <div className={`d-flex flex-column align-items-center px-1 ${Style.wrapper_input} ${Style.inputLarge}`}>
                         <label className={ `form-label mb-0 ${ Style.labelForm }` }>Horas no trabajadas:</label>
@@ -477,7 +594,7 @@ export const FormRegistroManoObra = () => {
                 </div>
 
 
-                <div className='col-6 mx-auto d-flex  justify-content-evenly mt-5'>
+                <div className='col-6 mx-auto d-flex  justify-content-evenly mt-4'>
                     <button
                         onClick={() => { handleClick()}}
                         className={`btn btn-success w-25 ${ btnDisable ? Style.bloqueado : "" }`} 
