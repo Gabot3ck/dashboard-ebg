@@ -1,6 +1,6 @@
 import FormRegistroDeGastos from "../../pure/form/FormRegistroDeGastos"
 import styles from "./Registros.module.css"
-import {collection, onSnapshot, query} from 'firebase/firestore';
+import {collection, onSnapshot, orderBy, query} from 'firebase/firestore';
 import {useState, useEffect} from 'react';
 import moment from "moment";
 import db from "../../../backend/DBFiresbase"
@@ -131,7 +131,7 @@ export default function RegistroDeGastos() {
                                     name="proyecto"
                                     value={busqueda}
                                     data-index="5">
-                                    <option value="">Seleccione</option>
+                                    <option value="">Proyecto</option>
                                     { proyectos.map((el, index) => {
                                         return(
                                         <option value={el.nombre} key={index}> {el.nombre} </option>

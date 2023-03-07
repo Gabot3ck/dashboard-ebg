@@ -83,7 +83,7 @@ export const RegistroProduccion = () => {
                             <p className={`m-0 fw-semibold ${styles.proyecto}`}>{ proyecto.nombre }: </p>
                             <p className={`m-0 fw-semibold ${styles.avance}`}>{ proyecto.produccion ?  proyecto.produccion : 0} %</p>  
                             <button 
-                                className={`btn btn-primary py-1 ${styles.boton}`}
+                                className={`btn btn-success py-1 ${styles.boton}`}
                                 onClick={() => { getId(proyecto.id); getNombre(proyecto.nombre)} }
                                 type="button" 
                                 data-bs-toggle="modal" 
@@ -95,7 +95,7 @@ export const RegistroProduccion = () => {
                             <div className="modal fade" id="modalProduccion"  aria-labelledby="modalProduccionLabel" aria-hidden="true">
                                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable ">
                                     <div className="modal-content">
-                                        <div className="modal-header bg-primary">
+                                        <div className="modal-header bg-success">
                                             <h5 className="modal-title text-white" id="modalProduccionLabel">Registro Avance de Producción</h5>
                                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
@@ -119,7 +119,7 @@ export const RegistroProduccion = () => {
                                                 </div>
 
                                                 <div className="col-md-10 mx-auto">
-                                                    <button className="btn btn-primary "  data-bs-dismiss="modal">Enviar</button>
+                                                    <button className="btn btn-success "  data-bs-dismiss="modal">Enviar</button>
                                                 </div>
                                                 
                                             </form>

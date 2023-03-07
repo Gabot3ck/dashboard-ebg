@@ -367,17 +367,19 @@ export const FormRegistroManoObra = () => {
                     <div className={`d-flex flex-column align-items-center px-1 ${Style.wrapper_input}`}>
                         <label className={ `form-label mb-0 ${ Style.labelForm }` }>Colaborador:</label>
                         <select 
-                        className={ `form-select py-1 ${ Style.labelForm } `} 
-                        id="trabajadorManoObra" 
-                        onChange={(e) => setNombreTrabajador(e.target.value)} 
-                        name="nombre_trabajador"
-                        value={nombreTrabajador}>
-                        <option value="">Seleccione</option>
-                        { trabajadores.map((el, index) => {
-                            return(
-                                <option value={el.nombre} key={index}> {el.nombre} </option>
-                            )
-                            })}
+                            className={ `form-select py-1 ${ Style.labelForm } `} 
+                            id="trabajadorManoObra" 
+                            onChange={(e) => setNombreTrabajador(e.target.value)} 
+                            name="nombre_trabajador"
+                            value={nombreTrabajador}>
+                            <option value="">Seleccione</option>
+                            {   
+                                trabajadores.map((el, index) => {
+                                return(
+                                    <option value={el.nombre} key={index}> {el.nombre} </option>
+                                    )
+                                })
+                            }
                         </select>
                     </div>
 
@@ -616,6 +618,15 @@ export const FormRegistroManoObra = () => {
 
 
             <div className="table-responsive text-center mt-4 rounded-top" style={{overflowX: "scroll"}}>
+
+                {/* <div className={`form-check  mx-auto w-50 gap-5  d-flex justify-content-center my-4`} >
+                    <div className="input-group ">
+                        <span className="input-group-text bg-success text-white" id="addon-wrapping"><i className="bi bi-search"></i></span>
+                        <input id="buscador" type="text" className="form-control" placeholder="Buscar..." aria-label="Username" aria-describedby="addon-wrapping"/>
+                    </div>
+                </div> */}
+
+
                 <div className={`mx-auto w-50 gap-5  d-flex justify-content-center my-3`}>
                     <button
                         onClick={ prevHandler }
@@ -629,10 +640,23 @@ export const FormRegistroManoObra = () => {
                         Siguiente<i className="bi bi-caret-right-fill"></i>
                     </button>
                 </div>
+
                 
                 <table id="tablaCostosMO" className="table table-sm table-bordered text-center rounded-top" style={{minWidth: "100%"}}> 
                     <thead>
                         <tr className={`${Style.bg_thead} `}  >
+                            <th>
+                                <select
+                                    className="form-select"
+                                    name="anioGastoMO" 
+                                    id="selectAnioGasto"
+                                    data-index="0">
+                                    <option className="text-center"  value="">Año</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                </select>
+                            </th>
+                            <th>Mes</th>
                             <th>Fecha</th>
                             <th>Proyecto</th>
                             <th>Colaborador</th>
@@ -644,7 +668,9 @@ export const FormRegistroManoObra = () => {
                         {items.map((el,index) => {
                             return(
                                 <tr key= {index}  className={`${Style.bg_tbody}`} style={{fontSize: ".85rem"}}>
-                                    <td>{moment(el.fechaRegistro).format('YYYY-MM-DD')}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{moment(el.fechaGasto).format('YYYY-MM-DD')}</td>
                                     <td>{el.proyecto}</td>
                                     <td>{el.nombre_trabajador}</td>
                                     <td>$ { Intl.NumberFormat('de-DE').format(el.valor) }</td>
@@ -653,6 +679,17 @@ export const FormRegistroManoObra = () => {
                         })}
 
                     </tbody>
+
+                    <tfoot>
+                        <tr className={`${Style.bg_thead} fs-6 text-end`}>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>TOTAL:</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
 
                 </table>
                 
