@@ -12,66 +12,74 @@ export default function RegistroDeGastos() {
     const [busqueda, setBusqueda]= useState("");
     const [tablaUsuarios, setTablaUsuarios]= useState([]);
 
+    const [resultados, setResultados] = useState([]);
+    const [filtroTipoGasto, setFiltroTipoGasto] = useState("");
+    const [filtroProyecto, setFiltroProyecto] = useState("");
 
 
-    // Obteniendo  datos de Firebase
+
+    // Obteniendo  todos los gatos de los proyectos desde Firestore
     const [gastos, setGastos] = useState([]);
+
 
     const q = query(collection(db, "proyectos"));
 
     const getData = async () => {
-    onSnapshot(q, (querySnapshot) => {
-            const docs = [];
-    
-            querySnapshot.forEach((doc) => {
-                docs.push({...doc.data(), id:doc.id});
-            });
+        onSnapshot(q, (querySnapshot) => {
+                const docs = [];
+        
+                querySnapshot.forEach((doc) => {
+                    docs.push({...doc.data(), id:doc.id});
+                });
 
-            const precioTotal = docs.map(el => el.gastos);
+                const precioTotal = docs.map(el => el.gastos);
 
-            let lista = [];
+                let lista = [];
 
-            precioTotal.forEach( (array) => {
+                precioTotal.forEach( (array) => {
+                    if(array.length){
+                        array.map(el => lista.push( el))
+                    }
+                })
 
-                if(array.length){
-                    array.map(el => lista.push( el))
-                }
-                
-            })
-
-            setGastos(lista);
-            setTablaUsuarios(lista);
-            
+                setGastos(lista);
+                setTablaUsuarios(lista);
         });
     }
+
+    const gastosReducer = ( state = gastos) => {
+        if(state) return state;
+    }
+
+    console.log(gastosReducer);
+    //Función para filtrar la búqueda
+    // const filtrar=(terminoBusqueda )=>{
+    //     let  resultadosBusqueda = tablaUsuarios.filter((el) => {
+    //         if(
+    //             (el.tipo.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+    //             || 
+    //             el.proyecto.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()))
+    //         ) return el;
+    //         return "";
+    //     });
+    //     setGastos(resultadosBusqueda);
+    // }
+
 
     const handleChange = (e)=>{
         const {value} = e.target;
         setBusqueda(value);
-        filtrar(e.target.value);
+        // filtrar(e.target.value);
     }
 
-    const filtrar=(terminoBusqueda )=>{
-        let  resultadosBusqueda = tablaUsuarios.filter((el) => {
-            if(
-                (el.tipo.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || 
-                el.proyecto.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()))
-            ) return el;
-            return "";
-        });
-        setGastos(resultadosBusqueda);
-    }
-
-    // Obteniendo  datos de Firebase (proyectos)
-    const [proyectos, setProyectos] = useState([]);
 
 
 
     // Mostrando los datos en la interfaz
+    const [proyectos, setProyectos] = useState([]);
+
     useEffect(() => {
         getData();
-        
         getDataCollection("proyectos",setProyectos)
     }, []);
 
