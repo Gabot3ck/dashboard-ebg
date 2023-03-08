@@ -4,6 +4,8 @@ import { ProtectedRoute } from "./routes/ProtectedRoute";
 import { Home } from "./components/pages/home/Home";
 import {AuthProvider} from './context/authContext';
 import './App.css';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 
 function App() {
@@ -16,11 +18,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />}/>
             <Route path="/login" element={<Login />}/>
-            <Route path="/home/*" element={
-              <ProtectedRoute>
-                <Home/>
-              </ProtectedRoute>
-            }/>
+            <Provider store={ store }>
+              <Route path="/home/*" element={
+                <ProtectedRoute>
+                  <Home/>
+                </ProtectedRoute>
+              }/>
+            </Provider>
           </Routes>
         </AuthProvider>
       </BrowserRouter>
