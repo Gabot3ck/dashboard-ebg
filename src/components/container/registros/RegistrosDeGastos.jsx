@@ -20,7 +20,7 @@ export default function RegistroDeGastos() {
 
     // Obteniendo  todos los gatos de los proyectos con Redux
     const dispacth= useDispatch();
-    const { gastos } = useSelector( state => state.gastos )
+    const { gastos= [] } = useSelector( state => state.gastos )
 
     useEffect(() => {
         dispacth( getGastos() );
