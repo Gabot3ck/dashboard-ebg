@@ -21,9 +21,12 @@ export default function RegistroDeGastos() {
 
 
 //todo  Clonando los gastos traídos desde Redux *****
-    const [cloneGastos, setCloneGastos] = useState(gastos);
-    const [tipoGasto, setTipoGasto] = useState("");
-    const [proyecto, setProyecto] = useState("");
+    const [ cloneGastos, setCloneGastos ] = useState(gastos);
+    const [ tipoGasto, setTipoGasto ] = useState("");
+    const [ conceptoGasto, setConceptoGasto ] = useState("");
+    const [ proyecto, setProyecto ] = useState("");
+    const [ proveedor, setProveedor ] = useState("");
+    const [ precioGastoTotal, setPrecioGastoTotal ] = useState(0);
 
     //Capturando los valores de los inputs del form
     const handleChange = (e, setState)=>{
@@ -35,13 +38,22 @@ export default function RegistroDeGastos() {
 
         return (
             (!tipoGasto || el.tipo === tipoGasto) &&
-            (!proyecto || el.proyecto === proyecto)
+            (!proyecto || el.proyecto === proyecto) &&
+            (!conceptoGasto || el.concepto === conceptoGasto) &&
+            (!proveedor || el.proveedor === proveedor)
         );
     });
+
 
     useEffect(() => {
         setCloneGastos(gastos)
     }, [gastos])
+
+
+    useEffect(() => {
+        setPrecioGastoTotal(gastosFiltrados.reduce((acc, el) => acc + parseInt(el.valor), 0 ));
+    }, [gastosFiltrados])
+    
     
 //todo ******** Fin Clonando los gastos traídos desde Redux *****
 
@@ -49,10 +61,16 @@ export default function RegistroDeGastos() {
 
 //todo  Mostrando los datos en la interfaz  *****
     const [proyectos, setProyectos] = useState([]);
+    const [proveedores, setProveedores] = useState([]);
 
     useEffect(() => {
-        getDataCollection("proyectos",setProyectos)
+        getDataCollection("proyectos",setProyectos);
     }, []);
+
+    useEffect(() => {
+        getDataCollection("proveedores",setProveedores);
+    }, []);
+
 //todo FIN   Mostrando los datos en la interfaz  *****
 
 
@@ -93,22 +111,48 @@ export default function RegistroDeGastos() {
                                     className="form-select" 
                                     id="inputTipo" 
                                     name="tipo"
-                                    value={ tipoGasto }
-                                    data-index="2">
+                                    value={ tipoGasto }>
                                     <option className="text-center"  value="">Tipo</option>
                                     <option value="Fijo">Fijo</option>
                                     <option value="Variable">Variable</option>
                                 </select>
                             </th>
-                            <th>Concepto</th>
+                            <th>
+                                <select
+                                    onChange={(e) => handleChange(e, setConceptoGasto)}
+                                    className="form-select" 
+                                    id="inputConceptoProyecto" 
+                                    name="concepto"
+                                    value={ conceptoGasto }
+                                    data-index="5">
+                                    <option value="">Concepto</option>
+                                    <option value="Equipos">Equipos</option>
+                                    <option value="Materiales">Materiales</option>
+                                    <option value="Herramientas">Herramientas</option>
+                                    <option value="Combustible">Combustible</option>
+                                    <option value="Arriendos">Arriendos</option>
+                                    <option value="EPPs">EPPs</option>
+                                    <option value="Mantenimientos">Mantenimientos</option>
+                                    <option value="Fletes">Fletes</option>
+                                    <option value="Retiro de escombro">Retiro de escombro</option>
+                                    <option value="Servicios">Servicios</option>
+                                    <option value="Capacitaciones">Capacitaciones</option>
+                                    <option value="Exámenes médicos">Exámenes médicos</option>
+                                    <option value="Alojamientos">Alojamientos</option>
+                                    <option value="Viáticos">Viáticos</option>
+                                    <option value="Contratistas">Contratistas</option>
+                                    <option value="Servicio Contabilidad">Contabilidad</option>
+                                    <option value="Hosting">Hosting</option>
+                                    <option value="Otros">Otros</option>
+                                </select>
+                            </th>
                             <th>
                                 <select
                                     onChange={(e) => handleChange(e, setProyecto)}
                                     className="form-select" 
                                     id="inputProyecto" 
                                     name="proyecto"
-                                    value={ proyecto }
-                                    data-index="5">
+                                    value={ proyecto }>
                                     <option value="">Proyecto</option>
                                     { proyectos.map((el, index) => {
                                         return(
@@ -117,7 +161,21 @@ export default function RegistroDeGastos() {
                                     })}
                                 </select>
                             </th>
-                            <th>Proveedor</th>
+                            <th>
+                                <select
+                                    onChange={(e) => handleChange(e, setProveedor)}
+                                    className="form-select" 
+                                    id="inputProveedor" 
+                                    name="proveedor"
+                                    value={ proveedor }>
+                                    <option value="">Proveedor</option>
+                                    { proveedores.map((el) => {
+                                        return(
+                                        <option value={el.razonSocial} key={el.razonSocial}> {el.razonSocial} </option>
+                                        )
+                                    })}
+                                    </select>
+                            </th>
                             <th>Factura</th>
                             <th>Forma de pago</th>
                             <th>Registro</th>
@@ -138,11 +196,21 @@ export default function RegistroDeGastos() {
                                     <td>{el.formaPago}</td>
                                     <td >{el.fechaRegistro}</td>
                                 </tr>
-                                
                             )
                         })}
-
                     </tbody>
+
+                    <tr>
+                        <td>Total:</td>
+                        <td>${ new Intl.NumberFormat('de-DE').format(precioGastoTotal) }</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
 
                 </table>
             </div>

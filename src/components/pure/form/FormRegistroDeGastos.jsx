@@ -18,8 +18,6 @@ export default function FormRegistroDeGastos() {
     concepto: "",
     proyecto: "",
     formaPago: "",
-    cuenta: "",
-    descripcion: "",
     fechaRegistro: "",
     mesGasto:"",
     anioGasto:""
