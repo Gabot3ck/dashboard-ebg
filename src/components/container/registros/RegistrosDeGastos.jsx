@@ -10,33 +10,25 @@ import styles from "./Registros.module.css"
 
 export default function RegistroDeGastos() {
 
-    // const [busqueda, setBusqueda]= useState("");
-    const [tablaUsuarios, setTablaUsuarios]= useState([]);
-
-    // const [resultados, setResultados] = useState([]);
-    // const [filtroTipoGasto, setFiltroTipoGasto] = useState("");
-    // const [filtroProyecto, setFiltroProyecto] = useState("");
-
-
-    // Obteniendo  todos los gatos de los proyectos con Redux
+//todo  Obteniendo  todos los gatos de los proyectos con Redux
     const dispacth= useDispatch();
     const { gastos= [] } = useSelector( state => state.gastos )
 
     useEffect(() => {
         dispacth( getGastos() );
     }, [])
+//todo FIN  Obteniendo  todos los gatos de los proyectos con Redux ***
 
 
-    //Clonando los gastos traídos desde Redux
+//todo  Clonando los gastos traídos desde Redux *****
     const [cloneGastos, setCloneGastos] = useState(gastos);
     const [tipoGasto, setTipoGasto] = useState("");
     const [proyecto, setProyecto] = useState("");
 
-
+    //Capturando los valores de los inputs del form
     const handleChange = (e, setState)=>{
         const {value} = e.target;
         setState(value);
-        // filtrar(e.target.value);
     }
 
     const gastosFiltrados = cloneGastos.filter(el => {
@@ -46,20 +38,23 @@ export default function RegistroDeGastos() {
             (!proyecto || el.proyecto === proyecto)
         );
     });
+
     useEffect(() => {
         setCloneGastos(gastos)
     }, [gastos])
     
-    
+//todo ******** Fin Clonando los gastos traídos desde Redux *****
 
-    // Mostrando los datos en la interfaz
+
+
+//todo  Mostrando los datos en la interfaz  *****
     const [proyectos, setProyectos] = useState([]);
 
     useEffect(() => {
         getDataCollection("proyectos",setProyectos)
     }, []);
+//todo FIN   Mostrando los datos en la interfaz  *****
 
-    
 
     return (<>
 
@@ -106,7 +101,6 @@ export default function RegistroDeGastos() {
                                 </select>
                             </th>
                             <th>Concepto</th>
-                            <th>Descripción</th>
                             <th>
                                 <select
                                     onChange={(e) => handleChange(e, setProyecto)}
@@ -126,7 +120,6 @@ export default function RegistroDeGastos() {
                             <th>Proveedor</th>
                             <th>Factura</th>
                             <th>Forma de pago</th>
-                            <th>Cuenta</th>
                             <th>Registro</th>
                         </tr>
                     </thead>
@@ -139,12 +132,10 @@ export default function RegistroDeGastos() {
                                     <td>$ {new Intl.NumberFormat('de-DE').format(el.valor)}</td>
                                     <td>{el.tipo}</td>
                                     <td>{el.concepto}</td>
-                                    <td>{el.descripcion}</td>
                                     <td>{el.proyecto}</td>
                                     <td>{el.proveedor}</td>
                                     <td>{el.factura}</td>
                                     <td>{el.formaPago}</td>
-                                    <td>{el.cuenta}</td>
                                     <td >{el.fechaRegistro}</td>
                                 </tr>
                                 

@@ -237,32 +237,6 @@ export default function FormRegistroDeGastos() {
               <option value="Cuenta por cobrar">Cuenta por cobrar</option>
             </select>
           </div>
-
-          <div className="col-md-4">
-            <label className="form-label">Cuenta:</label>
-            <select 
-            className="form-select" 
-            id="validationCustom10" 
-            onChange={handleInput} 
-            name="cuenta"
-            value={valores.cuenta}>
-              <option value="">Seleccione</option>
-              <option value="Cuenta Corriente">Cuenta Corriente</option>
-              <option value="Cuenta Rut">Cuenta Rut</option>
-            </select>
-          </div>
-
-          <div className="col-md-8">
-            <label className="form-label">Descripción:</label>
-            <textarea 
-            onChange={handleInput}
-            className="form-control" 
-            placeholder="Ingrese una descripción aquí" 
-            id="validationCustom11" 
-            name="descripcion"
-            value={valores.descripcion}
-            />
-          </div>
           
 
           <div className='col-6 mx-auto d-flex  justify-content-evenly '>
