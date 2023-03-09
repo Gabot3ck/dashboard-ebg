@@ -10,7 +10,7 @@ import styles from "./Registros.module.css"
 
 export default function RegistroDeGastos() {
 
-    const [busqueda, setBusqueda]= useState("");
+    // const [busqueda, setBusqueda]= useState("");
     const [tablaUsuarios, setTablaUsuarios]= useState([]);
 
     // const [resultados, setResultados] = useState([]);
@@ -27,29 +27,30 @@ export default function RegistroDeGastos() {
     }, [])
 
 
-    
-    //Función para filtrar la búqueda
-    // const filtrar=(terminoBusqueda )=>{
-    //     let  resultadosBusqueda = tablaUsuarios.filter((el) => {
-    //         if(
-    //             (el.tipo.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-    //             || 
-    //             el.proyecto.toString().toLowerCase().includes(terminoBusqueda.toLowerCase()))
-    //         ) return el;
-    //         return "";
-    //     });
-    //     setGastos(resultadosBusqueda);
-    // }
+    //Clonando los gastos traídos desde Redux
+    const [cloneGastos, setCloneGastos] = useState(gastos);
+    const [tipoGasto, setTipoGasto] = useState("");
+    const [proyecto, setProyecto] = useState("");
 
 
-    const handleChange = (e)=>{
+    const handleChange = (e, setState)=>{
         const {value} = e.target;
-        setBusqueda(value);
+        setState(value);
         // filtrar(e.target.value);
     }
 
+    const gastosFiltrados = cloneGastos.filter(el => {
 
-
+        return (
+            (!tipoGasto || el.tipo === tipoGasto) &&
+            (!proyecto || el.proyecto === proyecto)
+        );
+    });
+    useEffect(() => {
+        setCloneGastos(gastos)
+    }, [gastos])
+    
+    
 
     // Mostrando los datos en la interfaz
     const [proyectos, setProyectos] = useState([]);
@@ -93,11 +94,11 @@ export default function RegistroDeGastos() {
                             <th>Gasto</th>
                             <th>
                                 <select
-                                    onChange={handleChange}
+                                    onChange={ (e) => handleChange(e, setTipoGasto) }
                                     className="form-select" 
                                     id="inputTipo" 
                                     name="tipo"
-                                    value={busqueda}
+                                    value={ tipoGasto }
                                     data-index="2">
                                     <option className="text-center"  value="">Tipo</option>
                                     <option value="Fijo">Fijo</option>
@@ -108,11 +109,11 @@ export default function RegistroDeGastos() {
                             <th>Descripción</th>
                             <th>
                                 <select
-                                    onChange={handleChange}
+                                    onChange={(e) => handleChange(e, setProyecto)}
                                     className="form-select" 
                                     id="inputProyecto" 
                                     name="proyecto"
-                                    value={busqueda}
+                                    value={ proyecto }
                                     data-index="5">
                                     <option value="">Proyecto</option>
                                     { proyectos.map((el, index) => {
@@ -131,7 +132,7 @@ export default function RegistroDeGastos() {
                     </thead>
 
                     <tbody>
-                        {gastos.map((el,index) => {
+                        {gastosFiltrados.map((el,index) => {
                             return(
                                 <tr key= {index}  className="table-warning" style={{fontSize: ".85rem"}}>
                                     <td>{moment(el.fechaGasto).format('DD-MM-YYYY')}</td>
