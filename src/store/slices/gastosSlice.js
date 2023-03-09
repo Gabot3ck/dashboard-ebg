@@ -2,9 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 export const gastosSlice = createSlice({
-    name: 'gastos',
+    name: 'gasto',
     initialState: {
-        page: 0,
         gastos: [],
         isLoading: false,
     },
@@ -13,7 +12,8 @@ export const gastosSlice = createSlice({
             state.isLoading = true;
         },
         setGastos: ( state, action ) => {
-            console.log(action);
+            state.isLoading = false;
+            state.gastos = action.payload.gastos;
         }
     }
 })

@@ -1,10 +1,11 @@
-import FormRegistroDeGastos from "../../pure/form/FormRegistroDeGastos"
-import styles from "./Registros.module.css"
-import {collection, onSnapshot, orderBy, query} from 'firebase/firestore';
 import {useState, useEffect} from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { getGastos } from "../../../store/slices/thunks";
+import FormRegistroDeGastos from "../../pure/form/FormRegistroDeGastos"
 import moment from "moment";
-import db from "../../../backend/DBFiresbase"
 import getDataCollection from '../../../helpers/getDataCollection';
+import styles from "./Registros.module.css"
+
 
 
 export default function RegistroDeGastos() {
@@ -12,46 +13,21 @@ export default function RegistroDeGastos() {
     const [busqueda, setBusqueda]= useState("");
     const [tablaUsuarios, setTablaUsuarios]= useState([]);
 
-    const [resultados, setResultados] = useState([]);
-    const [filtroTipoGasto, setFiltroTipoGasto] = useState("");
-    const [filtroProyecto, setFiltroProyecto] = useState("");
+    // const [resultados, setResultados] = useState([]);
+    // const [filtroTipoGasto, setFiltroTipoGasto] = useState("");
+    // const [filtroProyecto, setFiltroProyecto] = useState("");
 
 
+    // Obteniendo  todos los gatos de los proyectos con Redux
+    const dispacth= useDispatch();
+    const { gastos } = useSelector( state => state.gastos )
 
-    // Obteniendo  todos los gatos de los proyectos desde Firestore
-    const [gastos, setGastos] = useState([]);
+    useEffect(() => {
+        dispacth( getGastos() );
+    }, [])
 
 
-    const q = query(collection(db, "proyectos"));
-
-    const getData = async () => {
-        onSnapshot(q, (querySnapshot) => {
-                const docs = [];
-        
-                querySnapshot.forEach((doc) => {
-                    docs.push({...doc.data(), id:doc.id});
-                });
-
-                const precioTotal = docs.map(el => el.gastos);
-
-                let lista = [];
-
-                precioTotal.forEach( (array) => {
-                    if(array.length){
-                        array.map(el => lista.push( el))
-                    }
-                })
-
-                setGastos(lista);
-                setTablaUsuarios(lista);
-        });
-    }
-
-    const gastosReducer = ( state = gastos) => {
-        if(state) return state;
-    }
-
-    console.log(gastosReducer);
+    
     //Función para filtrar la búqueda
     // const filtrar=(terminoBusqueda )=>{
     //     let  resultadosBusqueda = tablaUsuarios.filter((el) => {
@@ -79,7 +55,6 @@ export default function RegistroDeGastos() {
     const [proyectos, setProyectos] = useState([]);
 
     useEffect(() => {
-        getData();
         getDataCollection("proyectos",setProyectos)
     }, []);
 
