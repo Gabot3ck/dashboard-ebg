@@ -22,6 +22,8 @@ export default function RegistroDeGastos() {
 
 //todo  Clonando los gastos traídos desde Redux *****
     const [ cloneGastos, setCloneGastos ] = useState(gastos);
+    const [anio, setAnio] = useState("");
+    const [mes, setMes] = useState("");
     const [ tipoGasto, setTipoGasto ] = useState("");
     const [ conceptoGasto, setConceptoGasto ] = useState("");
     const [ proyecto, setProyecto ] = useState("");
@@ -40,7 +42,9 @@ export default function RegistroDeGastos() {
             (!tipoGasto || el.tipo === tipoGasto) &&
             (!proyecto || el.proyecto === proyecto) &&
             (!conceptoGasto || el.concepto === conceptoGasto) &&
-            (!proveedor || el.proveedor === proveedor)
+            (!proveedor || el.proveedor === proveedor) &&
+            (!anio || el.anioGasto === anio) &&
+            (!mes || el.mesGasto === mes)
         );
     });
 
@@ -99,7 +103,49 @@ export default function RegistroDeGastos() {
             </div>
 
             {/* Se muestran los gastos registrados */}
-            <div className="table-responsive text-center mt-5" style={{overflowX: "scroll"}}>
+            <form className='w-50 mx-auto d-flex justify-content-between mt-4 align-items-center' action="">
+                <div className=''>
+                    <p className='m-0 '>Total: $ { new Intl.NumberFormat('de-DE').format(precioGastoTotal) }</p>
+                </div>
+                <div className='w-25 d-flex align-items-center gap-1'>
+                    <label htmlFor="inputAnio">Anio:</label>
+                    <select
+                        onChange={ (e) => handleChange(e, setAnio) }
+                        className="form-select" 
+                        id="inputAnio" 
+                        name="anio"
+                        value={ anio }>
+                        <option className="text-center"  value="">Año</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                    </select>
+                </div>
+                <div className=' d-flex align-items-center gap-1'>
+                    <label htmlFor="inputMes">Mes:</label>
+                    <select
+                        onChange={ (e) => handleChange(e, setMes) }
+                        className="form-select" 
+                        id="inputMes" 
+                        name="mes"
+                        value={ mes }>
+                        <option className="text-center"  value="">Seleccione</option>
+                        <option value="January">Enero</option>
+                        <option value="February">Febrero</option>
+                        <option value="March">Marzo</option>
+                        <option value="April">Abril</option>
+                        <option value="May">Mayo</option>
+                        <option value="June">Junio</option>
+                        <option value="July">Julio</option>
+                        <option value="August">Agosto</option>
+                        <option value="September">Septiembre</option>
+                        <option value="October">Octubre</option>
+                        <option value="November">Noviembre</option>
+                        <option value="December">Diciembre</option>
+                    </select>
+                </div>
+            </form>
+            
+            <div className="table-responsive text-center mt-4" style={{overflowX: "scroll"}}>
                 <table id="tablaGastos" className="table table-sm table-bordered text-center" style={{minWidth: "120%", width: "contain" }}> 
                     <thead>
                         <tr className="table-secondary" style={{fontSize: ".9rem"}} >
@@ -184,6 +230,7 @@ export default function RegistroDeGastos() {
 
                     <tbody>
                         {gastosFiltrados.map((el,index) => {
+                            
                             return(
                                 <tr key= {index}  className="table-warning" style={{fontSize: ".85rem"}}>
                                     <td>{moment(el.fechaGasto).format('DD-MM-YYYY')}</td>
@@ -199,19 +246,6 @@ export default function RegistroDeGastos() {
                             )
                         })}
                     </tbody>
-
-                    <tr>
-                        <td>Total:</td>
-                        <td>${ new Intl.NumberFormat('de-DE').format(precioGastoTotal) }</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
                 </table>
             </div>
         </div>
