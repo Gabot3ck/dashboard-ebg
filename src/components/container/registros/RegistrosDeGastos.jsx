@@ -6,7 +6,8 @@ import moment from "moment";
 import getDataCollection from '../../../helpers/getDataCollection';
 import styles from "./Registros.module.css"
 
-
+//Cantidad de items para paginación de gastos de Mnao de Obra
+const ITEMS_NAVEGACION = 10;
 
 export default function RegistroDeGastos() {
 
@@ -36,6 +37,12 @@ export default function RegistroDeGastos() {
         setState(value);
     }
 
+    useEffect(() => {
+        setCloneGastos(gastos)
+    }, [gastos])
+
+
+//todo Generando los gastos filtrados
     const gastosFiltrados = cloneGastos.filter(el => {
 
         return (
@@ -49,16 +56,49 @@ export default function RegistroDeGastos() {
     });
 
 
+//? Mostrando los datos en el formulario
+    const [items, setItems] = useState([]);
+    const [currentPage, setCurrentPage] = useState(0);
+
+//? Separando los datos traídos de Firebase
     useEffect(() => {
-        setCloneGastos(gastos)
-    }, [gastos])
+        setItems([...gastosFiltrados].splice(0, ITEMS_NAVEGACION))
+        setCurrentPage(0);
+    },[tipoGasto, proyecto, conceptoGasto, proveedor, anio, mes, cloneGastos])
+
+
+//todo Funciones de Navegación
+    const nextHandler = () => {
+        const totalElementos = gastosFiltrados.length;
+
+        const nextPage = currentPage + 1;
+        const firstIndex = nextPage * ITEMS_NAVEGACION;
+
+        if(firstIndex >= totalElementos) return;
+
+        setItems([...gastosFiltrados].splice(firstIndex, ITEMS_NAVEGACION));
+        setCurrentPage(nextPage);
+    }
+
+
+
+    const prevHandler = () => {
+        const prevPage = currentPage - 1;
+        
+        if(prevPage < 0) return;
+
+        const firstIndex = prevPage * ITEMS_NAVEGACION;
+
+        setItems([...gastosFiltrados].splice(firstIndex, ITEMS_NAVEGACION));
+        setCurrentPage(prevPage);
+    }
 
 
     useEffect(() => {
         setPrecioGastoTotal(gastosFiltrados.reduce((acc, el) => acc + parseInt(el.valor), 0 ));
     }, [gastosFiltrados])
     
-    
+
 //todo ******** Fin Clonando los gastos traídos desde Redux *****
 
 
@@ -86,6 +126,20 @@ export default function RegistroDeGastos() {
             <button className="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" >
                 Registar Gasto
             </button>
+
+            <div className={`mx-auto w-50 gap-5  d-flex justify-content-center my-3`}>
+                <button
+                    onClick={ prevHandler }
+                    className={`btn btn-success ${styles.btnNav}`}>
+                    <i className="bi bi-caret-left-fill"></i>Atrás
+                </button>
+                <h5>Página { currentPage + 1 }</h5>
+                <button
+                    onClick={ nextHandler } 
+                    className={`btn btn-success ${styles.btnNav}`}>
+                    Siguiente<i className="bi bi-caret-right-fill"></i>
+                </button>
+            </div>
 
             {/* Modal de Formulario de Registro de Gastos */}
             <div className="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -229,7 +283,7 @@ export default function RegistroDeGastos() {
                     </thead>
 
                     <tbody>
-                        {gastosFiltrados.map((el,index) => {
+                        {items.map((el,index) => {
                             
                             return(
                                 <tr key= {index}  className="table-warning" style={{fontSize: ".85rem"}}>
@@ -241,7 +295,7 @@ export default function RegistroDeGastos() {
                                     <td>{el.proveedor}</td>
                                     <td>{el.factura}</td>
                                     <td>{el.formaPago}</td>
-                                    <td >{el.fechaRegistro}</td>
+                                    <td>{el.fechaRegistro}</td>
                                 </tr>
                             )
                         })}

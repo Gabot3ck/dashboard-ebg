@@ -616,16 +616,7 @@ export const FormRegistroManoObra = () => {
         
         <div className={`w-100 pb-4 rounded-bottom px-4 ${ Style.wrapper_formManoObra }`}>
 
-
             <div className="table-responsive text-center mt-4 rounded-top" style={{overflowX: "scroll"}}>
-
-                {/* <div className={`form-check  mx-auto w-50 gap-5  d-flex justify-content-center my-4`} >
-                    <div className="input-group ">
-                        <span className="input-group-text bg-success text-white" id="addon-wrapping"><i className="bi bi-search"></i></span>
-                        <input id="buscador" type="text" className="form-control" placeholder="Buscar..." aria-label="Username" aria-describedby="addon-wrapping"/>
-                    </div>
-                </div> */}
-
 
                 <div className={`mx-auto w-50 gap-5  d-flex justify-content-center my-3`}>
                     <button
